@@ -5,3 +5,5 @@ responses/
 
 # Fictional practice files are allowed
 !practice/*.xlsx
+work/
+__pycache__/

@@ -3,588 +3,303 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Readiness Insights | Kenista Simpson AI Training</title>
+<title>AI Workshop Hub | Your training plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="activities.js"></script>
 <style>
 :root{
-  --side:#0F1E29; --side2:#16303D; --side-ink:#DCE7EA; --side-mute:#8FA7AE;
-  --bg:#F2F5F4; --card:#FFFFFF; --ink:#12212A; --mute:#5B6C73; --line:#E1E7E6; --soft:#EEF3F2;
-  --teal:#0E7C86; --teal2:#12A0A8; --tealsoft:#DDF0F1; --amber:#E39B2D; --ambersoft:#FCEFD9; --red:#C0563F;
-  --l1:#C0563F; --l2:#E8A08C; --l3:#CBD4D3; --l4:#6FB8BE; --l5:#0E7C86;
+  --side:#0F1E29;--side2:#16303D;--side-ink:#DCE7EA;--side-mute:#8FA7AE;
+  --bg:#F2F5F4;--card:#FFFFFF;--ink:#12212A;--mute:#5B6C73;--line:#E1E7E6;--soft:#EEF3F2;
+  --teal:#0E7C86;--teal2:#12A0A8;--tealsoft:#DDF0F1;--amber:#E39B2D;--ambersoft:#FCEFD9;--red:#C0563F;--redsoft:#F6E1DB;
   --shadow:0 1px 2px rgba(15,30,41,.06),0 8px 24px rgba(15,30,41,.06);
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0B151C; --card:#132430; --ink:#E4EDEF; --mute:#94A9B0; --line:#223844; --soft:#182C38;
-  --tealsoft:#123A40; --ambersoft:#3A2C14; --l3:#33484F; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
-}}
-:root[data-theme="dark"]{--bg:#0B151C;--card:#132430;--ink:#E4EDEF;--mute:#94A9B0;--line:#223844;--soft:#182C38;--tealsoft:#123A40;--ambersoft:#3A2C14;--l3:#33484F}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B151C;--card:#132430;--ink:#E4EDEF;--mute:#94A9B0;--line:#223844;--soft:#182C38;--tealsoft:#123A40;--ambersoft:#3A2C14;--redsoft:#3A1F19;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25)}}
+:root[data-theme="dark"]{--bg:#0B151C;--card:#132430;--ink:#E4EDEF;--mute:#94A9B0;--line:#223844;--soft:#182C38;--tealsoft:#123A40;--ambersoft:#3A2C14;--redsoft:#3A1F19}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}
-h1,h2,h3,.num{font-family:"Bricolage Grotesque",Manrope,system-ui,sans-serif;margin:0;line-height:1.15}
-button,input,select{font:inherit;color:inherit}
-button{cursor:pointer}
+h1,h2,h3,h4,.num{font-family:"Bricolage Grotesque",Manrope,system-ui,sans-serif;margin:0;line-height:1.15}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
-/* sidebar */
-aside.side{background:linear-gradient(180deg,var(--side),#0B1720);color:var(--side-ink);padding:26px 18px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
-.brand{display:flex;gap:12px;align-items:center}
-.brand b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;letter-spacing:-.01em}
-.brand small{color:var(--side-mute);font-size:12.5px}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--side2);border-radius:10px;padding:4px;gap:4px}
-.seg button{border:0;background:none;color:var(--side-mute);padding:8px 6px;border-radius:7px;font-weight:600;font-size:13px}
-.seg button[aria-pressed="true"]{background:var(--side-ink);color:var(--side)}
-.side .lbl{font-size:12px;color:var(--side-mute);margin:0 0 8px 4px}
+a{color:var(--teal)}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+aside.side{background:linear-gradient(180deg,var(--side),#0B1720);color:var(--side-ink);padding:26px 18px;display:flex;flex-direction:column;gap:24px;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:12px;align-items:center}.brand b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px}.brand small{color:var(--side-mute);font-size:12.5px}
 nav.nav{display:flex;flex-direction:column;gap:2px}
 nav.nav button{display:flex;gap:12px;align-items:center;border:0;background:none;color:var(--side-ink);padding:10px 12px;border-radius:9px;font-weight:600;text-align:left;opacity:.78}
 nav.nav button svg{width:18px;height:18px;flex:none}
 nav.nav button[aria-current="page"]{background:var(--side2);opacity:1;box-shadow:inset 3px 0 0 var(--amber)}
-nav.nav button:hover{opacity:1}
-.side-foot{margin-top:auto;font-size:12.5px;color:var(--side-mute);border-top:1px solid var(--side2);padding-top:16px}
-/* main */
-main{padding:28px 36px 60px;min-width:0}
-.topbar{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
-.topbar h1{font-size:32px;font-weight:800;letter-spacing:-.02em}
-.topbar p{margin:4px 0 0;color:var(--mute)}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;background:var(--teal);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(14,124,134,.25)}
-.btn svg{width:16px;height:16px}
-.btn.sec{background:var(--card);color:var(--ink);border-color:var(--line);box-shadow:none}
-.btn:disabled{opacity:.55;cursor:default}
-.notice{display:flex;gap:12px;align-items:center;background:var(--ambersoft);border:1px solid #F0D3A2;padding:12px 16px;border-radius:12px;margin-bottom:20px;font-size:14px}
-.notice svg{width:20px;height:20px;flex:none;color:var(--amber)}
-.status{font-size:14px;color:var(--mute);min-height:1.3em;margin:-10px 0 16px}
+.live{margin-top:auto;font-size:12.5px;color:var(--side-mute);border-top:1px solid var(--side2);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#6FD3A0;margin-right:6px;box-shadow:0 0 0 3px rgba(111,211,160,.2)}
+main{padding:30px 36px 60px;min-width:0;max-width:1180px}
+.top h1{font-size:32px;font-weight:800;letter-spacing:-.02em}.top p{margin:6px 0 22px;color:var(--mute);max-width:70ch}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);min-width:0}
-.card h3{font-size:16px;font-weight:700;margin-bottom:4px}
-.card .sub{color:var(--mute);font-size:13px;margin:0 0 16px}
-.grid{display:grid;gap:18px}
-.g-hero{grid-template-columns:minmax(260px,340px) 1fr}
-.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.span2{grid-column:1/-1}
-/* hero */
-.hero{background:radial-gradient(120% 120% at 0% 0%,#16414B 0%,var(--side) 60%);color:#EAF2F3;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
-.hero h3{color:#EAF2F3}
-.ring{position:relative;width:180px;height:180px}
-.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring .v{position:absolute;inset:0;display:grid;place-items:center;align-content:center}
-.ring .v b{font-family:"Bricolage Grotesque",sans-serif;font-size:48px;line-height:1}
-.ring .v small{color:#9FB9BF;font-size:13px}
-.hero p{margin:0;color:#A9C1C6;font-size:13.5px;max-width:30ch}
-.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:700}
-.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.kpi{display:flex;flex-direction:column;gap:10px}
-.kpi .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--tealsoft);color:var(--teal)}
-.kpi .ic.a{background:var(--ambersoft);color:var(--amber)}
-.kpi .ic svg{width:21px;height:21px}
-.kpi .num{font-size:38px;font-weight:800;letter-spacing:-.02em}
-.kpi .num.sm{font-size:21px;line-height:1.25}
-.kpi p{margin:0;color:var(--mute);font-size:13.5px}
-.mini{height:6px;border-radius:6px;background:var(--soft);overflow:hidden}
-.mini i{display:block;height:100%;background:var(--teal);border-radius:6px}
-/* bars */
-.hbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;margin:12px 0}
-.hbar .t{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis}
-.hbar .p{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;text-align:right}
+.card h3{font-size:16px;margin-bottom:4px}.sub{color:var(--mute);font-size:13px;margin:0 0 14px}
+.grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;background:var(--teal);color:#fff;padding:11px 18px;border-radius:10px;font-weight:700;font-size:14.5px}
+.btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.notice{display:flex;gap:12px;align-items:flex-start;background:var(--ambersoft);border:1px solid #F0D3A2;padding:12px 16px;border-radius:12px;margin-bottom:18px;font-size:14px}
+.notice button{border:0;background:none;color:var(--teal);font-weight:700;padding:0;text-decoration:underline}
+.finder{background:radial-gradient(120% 140% at 100% 0%,#1B4A54,var(--side) 65%);color:#EAF2F3;border:0}
+.finder h2{font-size:24px;color:#fff;margin-bottom:6px}.finder p{color:#A9C1C6;margin:0 0 16px}
+.finder form{display:flex;gap:10px;flex-wrap:wrap}
+.finder input{flex:1 1 220px;padding:13px 16px;border-radius:10px;border:0;font-size:16px;background:#fff;color:#12212A}
+.hint{font-size:13px;color:#A9C1C6;margin-top:10px}.hint button{background:rgba(255,255,255,.1);border:0;color:#fff;border-radius:999px;padding:3px 10px;margin:4px 4px 0 0;font-size:12.5px}
+.msg{margin-top:16px}
+.kpi .num{font-size:34px;font-weight:800}.kpi p{margin:4px 0 0;color:var(--mute);font-size:13px}
+.hbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;margin:11px 0}
+.hbar .t{font-size:14px;font-weight:600}.hbar .p{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
 .hbar .tr{grid-column:1/-1;height:10px;background:var(--soft);border-radius:6px;overflow:hidden}
 .hbar .tr i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--teal2))}
 .hbar.top .tr i{background:linear-gradient(90deg,#D48A1C,var(--amber))}
-.lik{margin:14px 0}
-.lik .q{display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600;margin-bottom:6px}
-.lik .q span.s{font-family:"Bricolage Grotesque",sans-serif;color:var(--teal);font-size:16px}
-.stack{display:flex;height:22px;border-radius:7px;overflow:hidden;gap:2px}
-.stack div{display:grid;place-items:center;font-size:11.5px;font-weight:700;color:#fff}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--mute);margin-top:14px}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
-.donut{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.donut .d{width:150px;height:150px;border-radius:50%;position:relative;flex:none}
-.donut .d::after{content:"";position:absolute;inset:26px;border-radius:50%;background:var(--card)}
-.donut .d b{position:absolute;inset:0;display:grid;place-items:center;z-index:1;font-family:"Bricolage Grotesque",sans-serif;font-size:28px}
-.donut ul{list-style:none;padding:0;margin:0;font-size:13.5px;display:grid;gap:8px}
-.donut li{display:flex;gap:8px;align-items:center}
-.donut li i{width:11px;height:11px;border-radius:3px;flex:none}
-.cols{display:flex;align-items:flex-end;gap:14px;height:190px;padding-top:24px}
-.cols .c{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
-.cols .c i{display:block;width:100%;max-width:64px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--teal2),var(--teal));position:relative}
-.cols .c i.hot{background:linear-gradient(180deg,var(--amber),#C9801A)}
-.cols .c em{font-style:normal;font-weight:700;font-size:13px}
-.cols .c span{font-size:12px;color:var(--mute);text-align:center;line-height:1.3}
-/* answers */
-.ans-layout{display:grid;grid-template-columns:320px 1fr;gap:18px}
-.qlist{display:flex;flex-direction:column;gap:6px;max-height:70vh;overflow:auto}
-.qlist button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:11px 13px;text-align:left;font-size:13.5px;font-weight:600;display:flex;justify-content:space-between;gap:10px}
-.qlist button[aria-pressed="true"]{border-color:var(--teal);background:var(--tealsoft)}
-.qlist button em{font-style:normal;color:var(--mute);font-weight:500}
-.search{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:14px}
-.ans{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
-.ans p{margin:0 0 8px;font-size:15px}
-.ans small{color:var(--mute);font-size:12.5px;display:flex;gap:6px;align-items:center}
-.ans small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal)}
-mark{background:var(--ambersoft);color:inherit;border-radius:3px;padding:0 2px}
-/* ai */
-.summary{font-size:18px;line-height:1.55;border-left:4px solid var(--amber);padding:4px 0 4px 18px;margin:0}
-.themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.theme{background:var(--soft);border-radius:12px;padding:16px}
-.theme b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;margin-bottom:6px}
-.theme p{margin:0;font-size:14px}
-.theme q{display:block;margin-top:8px;color:var(--mute);font-size:13px;font-style:italic}
-.matrix{position:relative;aspect-ratio:1.6;background:var(--soft);border-radius:12px;overflow:hidden}
-.matrix .qd{position:absolute;width:50%;height:50%;padding:12px 14px;font-size:12.5px;font-weight:700;color:var(--mute)}
-.matrix .qd.win{background:rgba(14,124,134,.10);color:var(--teal)}
-.matrix .dot{position:absolute;transform:translate(-50%,-50%);background:var(--card);border:2px solid var(--teal);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis;box-shadow:var(--shadow)}
-.matrix .ax{position:absolute;font-size:11.5px;color:var(--mute);font-weight:600}
-table.opp{width:100%;border-collapse:collapse;font-size:14px}
-.tw{overflow-x:auto}
-table.opp th{text-align:left;font-size:12.5px;color:var(--mute);font-weight:700;padding:10px;border-bottom:2px solid var(--line)}
-table.opp td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
-.High{background:var(--teal);color:#fff}.Medium{background:var(--tealsoft);color:var(--teal)}.Low{background:var(--soft);color:var(--mute)}
-.list{margin:0;padding-left:20px}.list li{margin:7px 0}
-.timeline{display:flex;flex-direction:column;gap:0}
-.tl{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
-.tl:first-child{border-top:0}
-.tl .m{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;color:var(--teal)}
-.tl b{display:block}
-.tl span{color:var(--mute);font-size:14px}
-/* setup */
-.flowdiag{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:6px 0 24px}
-.fn{flex:1 1 150px;background:var(--soft);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;position:relative}
-.fn .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--teal);color:#fff}
-.fn .ic svg{width:18px;height:18px}
-.fn b{font-size:14px}.fn span{font-size:12.5px;color:var(--mute)}
-ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
-ol.steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
-ol.steps li::before{content:counter(s);width:36px;height:36px;border-radius:10px;background:var(--side);color:#fff;display:grid;place-items:center;font-weight:800;font-family:"Bricolage Grotesque",sans-serif}
-ol.steps b{display:block;font-size:15.5px;margin-bottom:3px}
-ol.steps p{margin:0;color:var(--mute);font-size:14px}
-code{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:12.5px;color:var(--ink)}
-.empty{text-align:center;padding:60px 20px;color:var(--mute)}
-.empty h2{color:var(--ink);font-size:22px;margin-bottom:8px}
-.hidden{display:none!important}
-/* pathways */
-.pw-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:6px}
-.groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:800;white-space:nowrap}
+.Starter{background:var(--ambersoft);color:#9A5B0B}.Practitioner{background:var(--tealsoft);color:var(--teal)}.Builder{background:var(--teal);color:#fff}
+.groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:14px}
 .grp{background:var(--soft);border-radius:12px;padding:16px;font-size:14px}
-.grp-h{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}.grp-h b{font-family:"Bricolage Grotesque",sans-serif;font-size:16px}.grp-h span{color:var(--mute);font-size:13px;white-space:nowrap}
-.grp-l{margin:10px 0 4px;font-size:12px;font-weight:700;color:var(--mute)}.grp p{margin:0}.grp ol{margin:0;padding-left:18px}
-.mut{color:var(--mute);font-weight:500}
-.qlist button em{display:block;font-style:normal;color:var(--mute);font-weight:500;font-size:12.5px}
-.pc-level{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:800;white-space:nowrap}.pc-level.sm{padding:2px 9px;font-size:11.5px;align-self:center}
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:14px}
-.pc-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;background:var(--side);color:#EAF2F3;padding:20px 22px}
-.pc-head h2{font-size:24px;color:#fff;margin:2px 0}.pc-kicker{margin:0;color:#E39B2D;font-size:12px;font-weight:700}.pc-sub{margin:0;color:#A9C1C6;font-size:13px}
-.pc-body{padding:20px 22px;display:flex;flex-direction:column;gap:14px}
-.pc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
-.pc-box{background:var(--soft);border-radius:10px;padding:12px 14px}.pc-box h4,.pc-safe h4,.pc-act h4{margin:0 0 6px;font-size:14.5px;font-family:"Bricolage Grotesque",sans-serif}
-.pc-box p{margin:0 0 6px}.pc-box ul{margin:0;padding-left:18px}
-.pc-safe{border-left:4px solid;background:var(--soft);border-radius:0 10px 10px 0;padding:12px 14px}.pc-safe p{margin:0}
-.pc-h{font-size:17px;margin:6px 0 0}
-.pc-act{border:1px solid var(--line);border-radius:12px;padding:14px 16px}.pc-act p{margin:0 0 8px}
-.pc-act-h{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}.pc-n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800}
-.pc-meta{color:var(--mute);font-size:12.5px}.pc-meta a{color:var(--teal)}
-.pc-lbl{font-size:12px;font-weight:700;color:var(--mute);margin:8px 0 4px!important}
-.pc-prompt{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border-radius:8px;padding:10px 12px;margin:0 0 8px;color:var(--ink)}
-.pc-check{font-size:13.5px}
-.pc-cap{background:var(--ambersoft);border-radius:12px;padding:14px 16px}.pc-cap p{margin:0 0 6px}.pc-cap ol{margin:0;padding-left:20px}
-.pc-goal{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:700}
-#printArea{display:none}
-@media print{
-  body{background:#fff}
-  body.printing .app{display:none!important}
-  body.printing #printArea{display:block}
-  .pcard{border:0;border-radius:0;break-after:page;page-break-after:always}
-  .pc-head,.pc-n,.pc-level{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .pc-act,.pc-safe,.pc-cap{break-inside:avoid}
-  .pc-h{break-after:avoid;page-break-after:avoid;font-size:14px}
-  .pcard{font-size:11.5px}.pc-head{padding:12px 16px}.pc-head h2{font-size:19px}
-  .pc-body{padding:12px 4px;gap:9px}.pc-box,.pc-safe,.pc-act,.pc-cap{padding:9px 12px}
-  .pc-prompt{font-size:10px;line-height:1.4;padding:7px 9px}.pc-box h4,.pc-safe h4,.pc-act h4{font-size:12.5px}
-  .pc-act p{margin-bottom:5px}.pc-goal{font-size:13px}
-  @page{margin:12mm}
-}
-
-.drop-over main{outline:3px dashed var(--teal);outline-offset:-12px}
-@media (max-width:1000px){.g-hero{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:1fr 1fr 1fr}}
+.grp-h{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.grp-h b{font-family:"Bricolage Grotesque",sans-serif;font-size:16px}
+.codes{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.codes span{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:2px 8px;font:12.5px ui-monospace,Menlo,monospace}
+.lbl{font-size:12px;font-weight:700;color:var(--mute);margin:8px 0 4px}
+.grp ol{margin:0;padding-left:18px}
+/* plan card */
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:18px;box-shadow:var(--shadow)}
+.pc-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;background:var(--side);color:#EAF2F3;padding:22px 24px}
+.pc-head h2{font-size:26px;color:#fff;margin:2px 0;font-family:ui-monospace,Menlo,monospace;font-weight:700}
+.pc-kicker{margin:0;color:#E39B2D;font-size:12px;font-weight:700}.pc-sub{margin:0;color:#A9C1C6;font-size:13px}
+.pc-body{padding:22px 24px;display:flex;flex-direction:column;gap:16px}
+.pc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+.box{background:var(--soft);border-radius:12px;padding:14px 16px}.box h4{font-size:15px;margin-bottom:6px}.box p{margin:0 0 6px}.box ul{margin:0;padding-left:18px}
+.safe{border-left:4px solid;border-radius:0 12px 12px 0}
+.pc-h{font-size:18px;margin-top:4px}
+.act{border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.act-h{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}.n{flex:none;width:30px;height:30px;border-radius:9px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800}
+.act h4{font-size:16px}.meta{color:var(--mute);font-size:12.5px;margin:2px 0 0}
+.act p{margin:0 0 8px}
+.ai{background:var(--tealsoft);border-radius:10px;padding:10px 12px;margin:8px 0;font-size:14px}
+.ai b{display:block;font-size:12px;color:var(--teal);margin-bottom:2px}
+.prompt{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border-radius:8px;padding:10px 12px;margin:4px 0 8px;position:relative}
+.copy{position:absolute;top:6px;right:6px;border:1px solid var(--line);background:var(--card);border-radius:7px;font-size:12px;padding:2px 8px}
+.cap{background:var(--ambersoft);border-radius:14px;padding:16px 18px}.cap .goal{font-family:"Bricolage Grotesque",sans-serif;font-size:17px;font-weight:700;margin:0 0 8px}.cap ol{margin:0;padding-left:20px}
+/* library */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filters button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:14px}
+.lib details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.lib summary{cursor:pointer;font-weight:700;list-style:none}.lib summary::-webkit-details-marker{display:none}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tags span{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--mute)}
+/* how */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px;margin-bottom:8px}
+.fn{background:var(--soft);border-radius:12px;padding:16px;position:relative}
+.fn .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--teal);color:#fff;margin-bottom:10px}.fn .ic svg{width:19px;height:19px}
+.fn.ai-step .ic{background:var(--amber)}
+.fn b{display:block;margin-bottom:4px}.fn span{font-size:13px;color:var(--mute)}
+.yes li::marker{color:var(--teal)}.no li::marker{color:var(--red)}
+.empty{text-align:center;padding:50px 20px;color:var(--mute)}.empty h2{color:var(--ink);font-size:21px;margin-bottom:8px}
+.hidden{display:none!important}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:860px){
   .app{grid-template-columns:minmax(0,1fr)}
-  aside.side{position:static;height:auto;padding:18px;gap:16px}
-  nav.nav{flex-direction:row;overflow-x:auto}
-  nav.nav button{white-space:nowrap}
-  .side-foot,.side .lbl{display:none}
-  main{padding:20px 16px 50px}
-  .g-2,.kpis,.ans-layout{grid-template-columns:minmax(0,1fr)}
-  .qlist{max-height:none}
+  aside.side{position:static;height:auto;padding:16px;gap:14px}
+  nav.nav{flex-direction:row;overflow-x:auto}nav.nav button{white-space:nowrap}
+  .live{margin-top:0;border-top:0;padding-top:0}
+  main{padding:20px 16px 50px}.g2{grid-template-columns:minmax(0,1fr)}
+  .pc-head,.pc-body{padding:16px}
 }
-@media (prefers-reduced-motion:no-preference){.hbar .tr i,.mini i,.stack div,.cols .c i{transition:all .6s cubic-bezier(.2,.7,.2,1)}}
+@media print{aside.side,.finder,.notice,.copy,nav{display:none!important}.app{display:block}main{padding:0}.pcard{box-shadow:none;border:0}.act,.cap{break-inside:avoid}}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
- <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
- <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
- <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></symbol>
- <symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 6H15a3 3 0 0 1 3 3v6.5M5 8.5V15a3 3 0 0 0 3 3h8.5"/></symbol>
- <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
- <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+ <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+ <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
- <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
- <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
- <symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></symbol>
+ <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-5a2 2 0 0 0-2 2"/><path d="M20 4v14h-6"/></symbol>
+ <symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 6H15a3 3 0 0 1 3 3v6.5M5 8.5V15a3 3 0 0 0 3 3h8.5"/></symbol>
  <symbol id="i-form" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
- <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
- <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></symbol>
- <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+ <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+ <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+ <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+ <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+ <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
 </svg>
-<div class="app" id="app">
+<div class="app">
  <aside class="side">
   <div class="brand">
    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#E39B2D"/><circle cx="13" cy="14" r="3.2" fill="#0F1E29"/><circle cx="27" cy="13" r="3.2" fill="#0F1E29"/><circle cx="20" cy="27" r="3.6" fill="#0F1E29"/><path d="M13 14L20 27L27 13M13 14L27 13" stroke="#0F1E29" stroke-width="2"/></svg>
-   <div><b>AI Readiness Insights</b><small>Kenista Simpson AI Training</small></div>
+   <div><b>AI Workshop Hub</b><small>Training plans written by AI</small></div>
   </div>
-  <div><p class="lbl">Department</p>
-   <div class="seg" role="group" aria-label="Department"><button type="button" data-dept="All" aria-pressed="true">All</button><button type="button" data-dept="HR" aria-pressed="false">HR</button><button type="button" data-dept="Customer Experience" aria-pressed="false" title="Customer Experience">CX</button></div></div>
-  <div><p class="lbl">Views</p>
-  <nav class="nav">
-   <button data-tab="overview" aria-current="page"><svg><use href="#i-grid"/></svg>Overview</button>
-   <button data-tab="answers"><svg><use href="#i-chat"/></svg>Staff voices</button>
-   <button data-tab="pathways"><svg><use href="#i-target"/></svg>Training pathways</button>
-   <button data-tab="setup"><svg><use href="#i-flow"/></svg>Automation setup</button>
-  </nav></div>
-  <div class="side-foot">Responses are read in your browser only and are never uploaded.</div>
+  <nav class="nav" aria-label="Views">
+   <button data-view="plan" aria-current="page"><svg><use href="#i-user"/></svg>My training plan</button>
+   <button data-view="insights"><svg><use href="#i-chart"/></svg>Group insights</button>
+   <button data-view="groups"><svg><use href="#i-users"/></svg>Workshop groups</button>
+   <button data-view="library"><svg><use href="#i-book"/></svg>Activity library</button>
+   <button data-view="how"><svg><use href="#i-flow"/></svg>How it works</button>
+  </nav>
+  <div class="live" id="live"><span><span class="dot"></span>Loading plans…</span></div>
  </aside>
  <main>
-  <div class="topbar">
-   <div><h1 id="title">HR overview</h1><p id="subtitle">Discovery survey results ahead of the AI workshop</p></div>
-   <div class="actions">
-    <label class="btn" tabindex="0" id="upl"><svg><use href="#i-up"/></svg>Upload Forms export<input type="file" id="file" accept=".xlsx,.xls,.csv" class="hidden"></label>
-    <button class="btn sec" id="demo" type="button">Reset to sample data</button>
-   </div>
-  </div>
-  <div class="notice hidden" id="demoNote"><svg><use href="#i-info"/></svg><span>You're viewing <b>sample data</b> so you can see how the dashboard works. Upload the Microsoft Forms export (Responses, then Open in Excel) to replace it with real answers.</span></div>
-  <div class="status" id="status" role="status"></div>
-
-  <section id="tab-overview"></section>
-  <section id="tab-answers" class="hidden"></section>
-  <section id="tab-pathways" class="hidden"></section>
-  <section id="tab-setup" class="hidden"></section>
+  <div class="notice hidden" id="sampleNote"><span><b>Sample data.</b> No live plans yet, so you're seeing plans made from fictional answers. Real plans appear here automatically as people respond. <button type="button" id="leaveSample">Show live data</button></span></div>
+  <section id="v-plan"></section>
+  <section id="v-insights" class="hidden"></section>
+  <section id="v-groups" class="hidden"></section>
+  <section id="v-library" class="hidden"></section>
+  <section id="v-how" class="hidden"></section>
  </main>
 </div>
-<div id="printArea" aria-hidden="true"></div>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ico=id=>`<svg><use href="#${id}"/></svg>`;
-const META=/^(id|start time|completion time|email|name|last modified time|total points|quiz feedback|points -|feedback -)/i;
-const PII=/^(your name|name)$/i;
-let state={dept:"All",all:[],rows:[],cols:[],demo:false,tab:"overview",q:0,pid:0,people:[]};
-
-function save(){try{localStorage.setItem("jps1",JSON.stringify({rows:state.all,demo:state.demo}))}catch(e){}}
-function load(){try{const v=JSON.parse(localStorage.getItem("jps1")||"null");if(v&&Array.isArray(v.rows)&&v.rows.length){state.all=v.rows;state.demo=!!v.demo;return true}}catch(e){}return false}
-
-function classify(rows){
-  if(!rows.length)return[];
-  const keys=Object.keys(rows[0]).filter(k=>!META.test(k.trim())&&!PII.test(k.trim()));
-  return keys.map(k=>{
-    const vals=rows.map(r=>String(r[k]??"").trim()).filter(Boolean);
-    const multi=vals.some(v=>/;\s*$/.test(v));
-    const parts=multi?vals.flatMap(v=>v.split(";").map(x=>x.trim()).filter(Boolean)):vals;
-    const uniq=new Set(parts);const avg=parts.reduce((a,v)=>a+v.length,0)/(parts.length||1);
-    let type="text";
-    if(parts.length&&parts.every(v=>/^[1-5]\s*-\s*/.test(v)))type="likert";
-    else if(multi||(uniq.size<=10&&avg<40&&vals.length>=Math.min(3,rows.length)))type="choice";
-    if(/your job title|your role/i.test(k))type="role";
-    return{key:k,type,multi};
-  });
-}
-function tally(k,multi){const m=new Map();state.rows.forEach(r=>{const v=String(r[k]??"").trim();if(!v)return;(multi?v.split(";").map(x=>x.trim()).filter(Boolean):[v]).forEach(x=>m.set(x,(m.get(x)||0)+1))});return[...m.entries()].sort((a,b)=>b[1]-a[1])}
-const short=q=>q.replace(/\s*\(select all that apply\)/i,"").replace(/^\d+\.\s*/,"");
-const find=re=>state.cols.find(c=>re.test(c.key));
-const pct=(a,b)=>b?Math.round(a/b*100):0;
-
-/* ---------- overview ---------- */
-function hbars(t,total,limit){const max=t[0]?t[0][1]:1;return t.slice(0,limit||99).map(([k,v],i)=>`<div class="hbar${i===0?" top":""}"><span class="t" title="${esc(k)}">${esc(k)}</span><span class="p">${v} <span style="opacity:.7">(${pct(v,total)}%)</span></span><div class="tr"><i style="width:${v/max*100}%"></i></div></div>`).join("")}
-function renderOverview(){
-  const el=$("#tab-overview");const n=state.rows.length;
-  if(!n){el.innerHTML=`<div class="empty card"><h2>No responses yet</h2><p>Upload the Forms export to begin.</p></div>`;return}
-  const lik=state.cols.filter(c=>c.type==="likert");
-  const vals=lik.flatMap(c=>state.rows.map(r=>parseInt(String(r[c.key]??""))).filter(x=>x>=1&&x<=5));
-  const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;
-  const score=Math.round((avg-1)/4*100);
-  const band=score>=70?["Ready to scale","#6FD3A0"]:score>=45?["Ready to start","#F2C46D"]:["Needs foundations","#F09A83"];
-  const taskCol=find(/tasks would you like ai help/i);
-  const tasks=taskCol?tally(taskCol.key,true).filter(([k])=>k!=="Other"):[];
-  const retype=find(/copying or re-typing/i);let heavy=null;
-  if(retype){const t=tally(retype.key,false);const tot=t.reduce((a,[,v])=>a+v,0);heavy=pct(t.filter(([k])=>/2 to 5|more than 5/i.test(k)).reduce((a,[,v])=>a+v,0),tot)}
-  const C=2*Math.PI*78;
-  let h=`<div class="grid g-hero">
-   <div class="card hero"><h3>AI readiness index</h3>
-    <div class="ring"><svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="78" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="14"/><circle cx="90" cy="90" r="78" fill="none" stroke="url(#rg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-score/100)}"/><defs><linearGradient id="rg"><stop offset="0" stop-color="#12A0A8"/><stop offset="1" stop-color="#E39B2D"/></linearGradient></defs></svg>
-     <div class="v"><b>${vals.length?score:"–"}</b><small>out of 100</small></div></div>
-    <span class="tag" style="background:${band[1]};color:#0F1E29">${band[0]}</span>
-    <p>Combined score from ${lik.length} comfort statements across ${n} staff.</p></div>
-   <div class="grid" style="align-content:start">
-    <div class="kpis">
-     <div class="card kpi"><div class="ic">${ico("i-users")}</div><div class="num">${n}</div><p>staff responded${state.demo?" (sample)":""}</p></div>
-     <div class="card kpi"><div class="ic a">${ico("i-clock")}</div><div class="num">${heavy!=null?heavy+"%":"–"}</div><p>lose 2+ hours a week re-typing data</p><div class="mini"><i style="width:${heavy||0}%"></i></div></div>
-     <div class="card kpi"><div class="ic">${ico("i-target")}</div><div class="num sm">${tasks[0]?esc(tasks[0][0]):"–"}</div><p>most requested AI task${tasks[0]?`, chosen by ${pct(tasks[0][1],n)}%`:""}</p></div>
-    </div>
-    ${lik.length?`<div class="card"><h3>Confidence with AI</h3><p class="sub">Share of staff at each level of agreement. Average score on the right.</p>${lik.map(c=>{
-      const cnt=[0,0,0,0,0];state.rows.forEach(r=>{const x=parseInt(String(r[c.key]??""));if(x>=1&&x<=5)cnt[x-1]++});
-      const tot=cnt.reduce((a,b)=>a+b,0)||1;const m=cnt.reduce((a,v,i)=>a+v*(i+1),0)/tot;
-      return `<div class="lik"><div class="q"><span>${esc(short(c.key))}</span><span class="s">${m.toFixed(1)}</span></div><div class="stack" role="img" aria-label="${esc(short(c.key))}">${cnt.map((v,i)=>v?`<div style="flex:${v};background:var(--l${i+1})">${pct(v,tot)>=12?pct(v,tot)+"%":""}</div>`:"").join("")}</div></div>`}).join("")}
-      <div class="legend">${["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"].map((l,i)=>`<span><i style="background:var(--l${i+1})"></i>${l}</span>`).join("")}</div></div>`:""}
-   </div></div>
-  <div class="grid g-2" style="margin-top:18px">`;
-  if(taskCol)h+=`<div class="card"><h3>Where staff want AI help</h3><p class="sub">Tasks selected, with share of respondents</p>${hbars(tasks,n,8)}</div>`;
-  const cop=find(/copilot/i);
-  if(cop){const t=tally(cop.key,false);const tot=t.reduce((a,[,v])=>a+v,0);const cols=["#0E7C86","#12A0A8","#E39B2D","#C0563F","#9AA9AE"];let acc=0;
-    const grad=t.map(([,v],i)=>{const s=acc;acc+=v/tot*360;return`${cols[i%5]} ${s}deg ${acc}deg`}).join(",");
-    const no=t.filter(([k])=>/^no$|not sure|free ai/i.test(k)).reduce((a,[,v])=>a+v,0);
-    h+=`<div class="card"><h3>Access to AI tools today</h3><p class="sub">Company-provided licences versus none</p><div class="donut"><div class="d" style="background:conic-gradient(${grad})"><b>${pct(no,tot)}%</b></div><ul>${t.map(([k,v],i)=>`<li><i style="background:${cols[i%5]}"></i>${esc(k)} <span style="color:var(--mute)">${v}</span></li>`).join("")}</ul></div><p class="sub" style="margin:14px 0 0">${pct(no,tot)}% have no company-provided AI tool, so the workshop should cover approved tools and safe setup.</p></div>`}
-  if(retype){const order=["Almost none","Up to 2 hours","2 to 5 hours","More than 5 hours"];const t=new Map(tally(retype.key,false));const max=Math.max(...order.map(o=>t.get(o)||0),1);
-    h+=`<div class="card"><h3>Weekly time lost to re-typing</h3><p class="sub">Hours spent copying information between systems</p><div class="cols">${order.map(o=>{const v=t.get(o)||0;return`<div class="c"><em>${v}</em><i class="${/2 to 5|More/.test(o)?"hot":""}" style="height:${Math.max(4,v/max*120)}px"></i><span>${o}</span></div>`}).join("")}</div></div>`}
-  state.cols.filter(c=>c.type==="choice"&&c!==taskCol&&c!==cop&&c!==retype).forEach(c=>{h+=`<div class="card"><h3>${esc(short(c.key))}</h3><p class="sub">${c.multi?"Multiple answers allowed":"Single answer"}</p>${hbars(tally(c.key,c.multi),n,7)}</div>`});
-  h+=`</div>`;el.innerHTML=h;
-}
-
-/* ---------- answers ---------- */
-function renderAnswers(){
-  const el=$("#tab-answers");const texts=state.cols.filter(c=>c.type==="text");
-  if(!state.rows.length||!texts.length){el.innerHTML=`<div class="empty card"><h2>No written answers yet</h2><p>Upload a Forms export to read what staff wrote.</p></div>`;return}
-  if(state.q>=texts.length)state.q=0;
-  const role=find(/job title|role/i);
-  const cnt=c=>state.rows.filter(r=>String(r[c.key]??"").trim()).length;
-  el.innerHTML=`<div class="ans-layout"><div class="qlist" role="group" aria-label="Questions">${texts.map((c,i)=>`<button data-i="${i}" aria-pressed="${i===state.q}"><span>${esc(short(c.key))}</span><em>${cnt(c)}</em></button>`).join("")}</div><div><input class="search" id="qFind" type="search" placeholder="Search answers, e.g. Excel, WhatsApp, approval" aria-label="Search answers"><div id="qList"></div></div></div>`;
-  const draw=()=>{const c=texts[state.q];const f=$("#qFind").value.trim().toLowerCase();
-    const list=state.rows.map(r=>({a:String(r[c.key]??"").trim(),r:role?String(r[role.key]??""):""})).filter(x=>x.a&&(!f||x.a.toLowerCase().includes(f)));
-    const hl=s=>{let e=esc(s);if(f){const re=new RegExp(f.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");e=e.replace(re,m=>`<mark>${m}</mark>`)}return e};
-    $("#qList").innerHTML=`<h3 style="font-size:20px;margin-bottom:14px">${esc(short(c.key))}</h3>`+(list.length?list.map(x=>`<div class="ans"><p>${hl(x.a)}</p>${x.r?`<small>${esc(x.r)}</small>`:""}</div>`).join(""):`<p class="empty">No answers match that search.</p>`)};
-  el.querySelectorAll(".qlist button").forEach(b=>b.onclick=()=>{state.q=+b.dataset.i;el.querySelectorAll(".qlist button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()});
-  $("#qFind").oninput=draw;draw();
-}
-
-/* ---------- setup ---------- */
-$("#tab-setup").innerHTML=`<div class="card"><h3>Automatic collection with Power Automate</h3><p class="sub">Each submission is saved, summarised by AI and announced in Teams while the survey is open.</p>
-<div class="flowdiag">${[["i-form","Form submitted","Microsoft Forms"],["i-bolt","Flow runs","Power Automate"],["i-spark","AI summary","AI Builder prompt"],["i-table","Row saved","Excel on SharePoint"],["i-bell","Team notified","Microsoft Teams"]].map(([i,b,s])=>`<div class="fn"><div class="ic">${ico(i)}</div><b>${b}</b><span>${s}</span></div>`).join("")}</div>
-<ol class="steps">
-<li><div><b>Create the forms</b><p>Use Quick Import in Microsoft Forms with the JPS needs assessment file, apply the branded theme image, turn on Multiple answers for the "Select all that apply" questions, and set the descriptive questions to Long answer.</p></div></li>
-<li><div><b>Prepare the Excel table</b><p>In SharePoint or OneDrive, create <code>AI_Discovery_Responses.xlsx</code> with a table named <code>Responses</code>: Department, Submitted, Role, Top tasks, Comfort score, Retyping hours, AI summary, Automation ideas.</p></div></li>
-<li><div><b>Add the trigger</b><p>New Automated cloud flow with <code>When a new response is submitted</code> (Microsoft Forms), pointed at the needs assessment form.</p></div></li>
-<li><div><b>Read the answers</b><p><code>Get response details</code> using the Response Id from the trigger.</p></div></li>
-<li><div><b>Summarise with AI</b><p>AI Builder <code>Run a prompt</code>: "Summarise this staff survey response in 3 bullet points, then list up to 3 tasks that could be automated. Do not include names." Requires AI Builder credits or a Copilot Studio licence.</p></div></li>
-<li><div><b>Save to Excel</b><p><code>Add a row into a table</code> (Excel Online Business), mapping answers and the AI output.</p></div></li>
-<li><div><b>Notify the team</b><p><code>Post message in a chat or channel</code> (Teams) with the role and AI summary.</p></div></li>
-<li><div><b>Review the results here</b><p>When the survey closes, upload the Forms export to this dashboard to see the charts and read every written answer.</p></div></li>
-</ol></div>`;
-
-/* ---------- training pathways ---------- */
-const TAGS={"Drafting emails and letters":"email","Summarising long documents":"summarise","Analysing Excel data":"excel","Preparing reports":"reports","Creating presentations":"presentations","Turning meeting notes into minutes and actions":"minutes","Responding to customer enquiries":"customer","Processing requests or forms":"forms","Research":"research","Scheduling":"scheduling",
- "Reports":"reports","Emails or letters":"email","Presentations":"presentations","Summaries or briefs":"summarise","Dashboards":"excel","Schedules":"scheduling","Meeting minutes":"minutes","Customer responses":"customer","Management updates":"reports",
- "Spreadsheets":"excel","PDFs or scanned documents":"summarise","Forms or applications":"forms","Customer requests or complaints":"customer","Meeting notes":"minutes","Survey results":"excel","Emails":"email","Reports from other teams":"summarise"};
-const KW=[[/excel|spreadsheet|figures|numbers|data/i,"excel"],[/e-?mail|letter|memo/i,"email"],[/report|update|brief/i,"reports"],[/minute|meeting/i,"minutes"],[/complain|customer|enquir|inquir|caller|calls?\b/i,"customer"],[/form|application|request|approval/i,"forms"],[/presentation|slide|powerpoint/i,"presentations"],[/schedul|calendar|interview|roster|booking/i,"scheduling"],[/summar|pdf|policy|document/i,"summarise"],[/research|look up|find information/i,"research"]];
+const LIB=window.ACTIVITIES||[];const BYID=Object.fromEntries(LIB.map(a=>[a.id,a]));
 const LEVELS=["Starter","Practitioner","Builder"];
-const LEVEL_INFO={
- Starter:{desc:"New to AI, or not yet confident with it. Guided practice with a chat assistant, one step at a time, checking every answer.",bg:"var(--ambersoft)",fg:"#9A5B0B"},
- Practitioner:{desc:"Has tried AI tools. Writes stronger prompts, builds reusable templates and works with real documents and spreadsheets.",bg:"var(--tealsoft)",fg:"var(--teal)"},
- Builder:{desc:"Confident with AI. Connects it to everyday work with templates and Power Automate flows.",bg:"var(--teal)",fg:"#fff"}};
-const SAFETY={
- red:{label:"High care",color:"var(--red)",text:"Your work involves customer, billing, employee or health information. Never paste it into an AI tool. Before you start, replace names, account numbers, addresses and amounts with placeholders such as [Customer] and [Account]. Use only JPS-approved tools, and a person always reviews the result before anything is sent."},
- amber:{label:"Take care",color:"var(--amber)",text:"Some of your work is internal-only or needs approval. Remove anything confidential before prompting, use JPS-approved tools only, and follow the usual approval step before sharing AI-assisted work."},
- green:{label:"Standard care",color:"var(--teal)",text:"Your examples are lower risk, but the basics still apply: no names, ID numbers or passwords in prompts, and check every output before you use it."}};
-const CAPSTONE={
- Starter:["Write the task in one sentence.","List what the AI would need to know, with anything confidential removed.","Use the five-part prompt (Role, Task, Context, Format, Check) to get a first draft.","Check the draft and note what you had to change."],
- Practitioner:["Write down the steps of the process as you do it today.","Pick the step where AI saves the most time and write a prompt for it.","Turn that prompt into a template with [placeholders] for the parts that change, and test it on two examples.","Add it to the team prompt library with a short note on when to use it."],
- Builder:["Map the process: what starts it, each step, and the final output.","Mark the step AI handles and the step a person must approve.","Sketch the Power Automate flow: trigger, AI step, where the result is saved, who is notified.","Build a test version using fictional data only."]};
-const FOCUS=[[/understand/i,"Seeing clearly what AI can and can't do, with plenty of examples."],[/comfortable/i,"Low-pressure practice on simple tasks to build confidence."],[/safe to share/i,"The data-safety rules: practise removing personal details before every prompt."]];
-const F={dept:/which department/i,role:/job title/i,main:/main tasks/i,three:/three work activities/i,process:/repetitive process/i,hours:/copying or re-typing/i,tools:/which ai tools have you used/i,access:/copilot/i,sens:/types of information/i,want:/tasks would you like ai help/i,goal:/ai-assisted workflow/i,inputs:/inputs to your work/i,outputs:/outputs do you regularly/i};
-const lst=v=>String(v??"").split(";").map(x=>x.trim()).filter(Boolean);
-function fieldsOf(rows){const ks=rows.length?Object.keys(rows[0]):[];const o={};for(const k in F)o[k]=ks.find(x=>F[k].test(x));o.lik=ks.filter(x=>rows.some(r=>/^[1-5]\s*-/.test(String(r[x]??""))));return o}
-const deptOf=v=>/human/i.test(v)?"HR":/customer/i.test(v)?"CX":"Other";
-const DEPT_NAME={HR:"Human Resources",CX:"Customer Experience",Other:"Other department",Mixed:"HR and CX"};
-function personOf(r,i,f){
-  const g=k=>f[k]?String(r[f[k]]??"").trim():"";
-  const nm=String(r["Name"]??r["Your name"]??"").trim();
-  const name=nm&&!/^anonymous$/i.test(nm)?nm:`Participant ${String(i+1).padStart(2,"0")}`;
-  const dept=deptOf(g("dept"));
-  const lik=f.lik.map(k=>[k,parseInt(String(r[k]??""))]).filter(x=>x[1]>=1&&x[1]<=5);
-  const comfort=lik.length?lik.reduce((a,x)=>a+x[1],0)/lik.length:null;
-  const low=[...lik].sort((a,b)=>a[1]-b[1])[0];
-  const tools=lst(g("tools")).filter(t=>!/none/i.test(t));
-  let level="Practitioner";
-  if((comfort!=null&&comfort<3)||!tools.length)level="Starter";
-  else if((comfort==null||comfort>=4)&&(tools.some(t=>/power automate/i.test(t))||tools.length>=3))level="Builder";
-  const sens=lst(g("sens")).filter(s=>!/none of these/i.test(s));
-  const tier=sens.some(s=>/customer account|employee|payment|billing|health|medical/i.test(s))?"red":sens.length?"amber":"green";
-  const w={};const add=(t,n)=>{if(t)w[t]=(w[t]||0)+n};
-  lst(g("want")).forEach(x=>add(TAGS[x],3));lst(g("outputs")).forEach(x=>add(TAGS[x],1));lst(g("inputs")).forEach(x=>add(TAGS[x],1));
-  const free=[g("main"),g("three"),g("process"),g("goal")].join(" ");KW.forEach(([re,t])=>{if(re.test(free))add(t,1)});
-  const lib=window.ACTIVITIES||[];
-  const pool=lib.filter(a=>a.levels.includes(level)&&(a.dept==="All"||a.dept===dept||dept==="Other"));
-  const scored=pool.map(a=>({a,s:a.tags.reduce((s,t,j)=>s+(w[t]||0)*(j===0?1.5:1),0)+(a.dept===dept||(dept==="Other"&&a.dept==="All")?1.5:0)})).sort((x,y)=>y.s-x.s);
-  const picks=[],used=new Set();
-  for(const {a} of scored){if(picks.length>=3)break;if(used.has(a.tags[0]))continue;picks.push(a);used.add(a.tags[0])}
-  for(const {a} of scored){if(picks.length>=3)break;if(!picks.includes(a))picks.push(a)}
-  const focus=low&&low[1]<=3?(FOCUS.find(([re])=>re.test(low[0]))||[])[1]:null;
-  return{id:i,name,role:g("role"),dept,level,comfort,tools,access:g("access"),hours:g("hours"),tier,sens,picks,goal:g("goal"),process:g("process"),three:g("three"),focus};
+const LEVEL_DESC={Starter:"New to AI, or not yet confident with it. Guided practice with a chat assistant, one step at a time, checking every answer.",Practitioner:"Has tried AI tools. Writes stronger prompts, builds reusable templates and works with real documents and spreadsheets.",Builder:"Confident with AI. Connects it to everyday work with templates and automated flows."};
+const SAFETY={red:["High care","var(--red)","Your work involves customer, billing, employee or health information. Never paste it into an AI tool. Replace names, account numbers, addresses and amounts with placeholders such as [Customer] before you start. Use only company-approved tools, and a person always reviews the result before anything is sent."],
+ amber:["Take care","var(--amber)","Some of your work is internal-only or needs approval. Remove anything confidential before prompting, use company-approved tools only, and follow the usual approval step before sharing AI-assisted work."],
+ green:["Standard care","var(--teal)","Your examples are lower risk, but the basics still apply: no names, ID numbers or passwords in prompts, and check every output before you use it."]};
+const DEPT={HR:"Human Resources",CX:"Customer Experience",Other:"Other teams"};
+const TAGNAME={email:"Writing",summarise:"Summarising",excel:"Data",reports:"Reports",presentations:"Presentations",minutes:"Minutes",customer:"Customer",forms:"Forms and flows",research:"Research",scheduling:"Scheduling"};
+let live={plans:[],facts:[],updated:null},sample=null,useSample=false,view="plan",lastCode="";
+const data=()=>useSample&&sample?sample:live;
+
+async function fetchJSON(u){const r=await fetch(u+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);return r.json()}
+async function refresh(first){
+  try{live=await fetchJSON("data/plans.json")}catch(e){}
+  if(first){try{sample=await fetchJSON("data/sample.json")}catch(e){};useSample=!live.plans.length&&!!sample}
+  if(live.plans.length&&useSample)useSample=false;
+  renderAll();
 }
+function ago(iso){if(!iso)return"not yet";const m=Math.round((Date.now()-new Date(iso))/60000);return m<1?"just now":m<60?`${m} min ago`:m<1440?`${Math.round(m/60)} h ago`:`${Math.round(m/1440)} d ago`}
+function renderLive(){const d=data();$("#live").innerHTML=`<span><span class="dot"></span>${useSample?"Sample data":"Live"}: ${d.plans.length} plan${d.plans.length===1?"":"s"}</span><span>Last update ${ago(d.updated)}</span><span>New responses are processed automatically.</span>`;
+  $("#sampleNote").classList.toggle("hidden",!useSample)}
+
+/* ---------- my plan ---------- */
+function findPlans(code){const c=code.trim().toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");if(!c)return[];return data().plans.filter(p=>p.code===c||p.code.startsWith(c+"-")&&/^\d+$/.test(p.code.slice(c.length+1)))}
+function renderPlan(){
+  const el=$("#v-plan");const d=data();
+  const tries=useSample?d.plans.filter(p=>!p.code.startsWith("anon-")).slice(0,4).map(p=>`<button type="button" data-try="${esc(p.code)}">${esc(p.code)}</button>`).join(""):"";
+  el.innerHTML=`<div class="top"><h1>Your AI training plan</h1><p>When you completed the needs assessment, AI read your answers and wrote a training plan for you: your level, three practice activities chosen for your kind of work, your data-safety rules and a capstone challenge. Enter the code you created to see it.</p></div>
+  <div class="card finder"><h2>Find my plan</h2><p>Use the participant code you made up on the form, for example <b>mango-482</b>.</p>
+   <form id="findForm" autocomplete="off"><input id="code" aria-label="Participant code" placeholder="Your participant code" value="${esc(lastCode)}"><button class="btn" type="submit">Show my plan</button></form>
+   ${tries?`<div class="hint">Try a sample code: ${tries}</div>`:""}</div>
+  <div id="planOut"></div>`;
+  $("#findForm").onsubmit=e=>{e.preventDefault();lastCode=$("#code").value;showPlan()};
+  el.querySelectorAll("[data-try]").forEach(b=>b.onclick=()=>{lastCode=b.dataset.try;$("#code").value=lastCode;showPlan()});
+  if(lastCode)showPlan();
+}
+function showPlan(){
+  const out=$("#planOut");const ps=findPlans(lastCode);
+  if(!lastCode.trim()){out.innerHTML="";return}
+  if(!ps.length){out.innerHTML=`<div class="card msg"><h3>No plan found for “${esc(lastCode)}” yet</h3><p class="sub" style="margin:6px 0 0">Plans are written automatically and usually appear within about an hour of submitting the form. Check the code is typed exactly as you entered it. This page refreshes on its own.</p></div>`;return}
+  out.innerHTML=(ps.length>1?`<div class="notice" style="margin-top:16px">More than one person chose this code. Pick yours by the date you submitted.</div>`:"")+ps.map(cardHtml).join("");
+  out.querySelectorAll(".copy").forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.parentElement.dataset.p);b.textContent="Copied"}catch(e){b.textContent="Select and copy"}setTimeout(()=>b.textContent="Copy",1600)});
+}
+function cardHtml(p){
+  const S=SAFETY[p.safety]||SAFETY.green;
+  return `<article class="pcard"><header class="pc-head"><div><p class="pc-kicker">Personal training plan, written by AI</p><h2>${esc(p.code)}</h2><p class="pc-sub">${esc(DEPT[p.dept]||"")}  |  Created ${esc(p.date)}</p></div><span class="pill ${p.level}">${p.level}</span></header>
+  <div class="pc-body">
+   <div class="pc-row"><div class="box"><h4>Your level: ${p.level}</h4><p>${LEVEL_DESC[p.level]}</p><p><b>Your focus:</b> ${esc(p.focus)}</p></div>
+    <div class="box"><h4>Your starting point</h4><ul>${p.starting_point.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>
+   <div class="box safe" style="border-color:${S[1]}"><h4 style="color:${S[1]}">Data safety: ${S[0]}</h4><p>${S[2]}</p></div>
+   <h3 class="pc-h">Your three practice activities</h3>
+   ${p.activities.map((x,i)=>{const a=BYID[x.id];if(!a)return"";return `<section class="act"><div class="act-h"><span class="n">${i+1}</span><div><h4>${esc(a.title)}</h4><p class="meta">About ${a.minutes} minutes${a.file?`  |  Practice file: <a href="${esc(a.file)}">${esc(a.file.replace("practice/",""))}</a>`:""}</p></div></div>
+     <div class="ai"><b>Why this one for you</b>${esc(x.why)}</div>
+     <p>${esc(a.scenario)}</p><p class="lbl">Try this prompt</p><div class="prompt" data-p="${esc(a.prompt)}"><button class="copy" type="button">Copy</button>${esc(a.prompt)}</div>
+     <div class="ai"><b>Make it yours</b>${esc(x.tailoring)}</div>
+     <p style="font-size:14px"><b>What good looks like:</b> ${esc(a.check)}</p></section>`}).join("")}
+   <h3 class="pc-h">Your capstone challenge</h3>
+   <section class="cap"><p class="goal">${esc(p.capstone.goal)}</p><p style="margin:0 0 6px">Build a first version by the end of the workshop:</p><ol>${p.capstone.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></section>
+  </div></article>`;
+}
+
+/* ---------- insights ---------- */
+const MIN=3;
+function tally(list){const m=new Map();list.forEach(x=>m.set(x,(m.get(x)||0)+1));return[...m.entries()].sort((a,b)=>b[1]-a[1])}
+function bars(t,total,limit,ordered){const max=Math.max(1,...t.map(x=>x[1]));return t.slice(0,limit||99).map(([k,v],i)=>`<div class="hbar${i===0&&!ordered?" top":""}"><span class="t">${esc(k)}</span><span class="p">${v} (${Math.round(v/total*100)}%)</span><div class="tr"><i style="width:${v/max*100}%"></i></div></div>`).join("")}
+function renderInsights(){
+  const el=$("#v-insights");const d=data();const n=d.plans.length,f=d.facts;
+  const head=`<div class="top"><h1>Group insights</h1><p>What the whole group told us, combined. Nothing here can be traced to one person: only totals are shown, and any group smaller than ${MIN} people is hidden.</p></div>`;
+  if(n<MIN){el.innerHTML=head+`<div class="card empty"><h2>Not enough responses yet</h2><p>Insights appear once at least ${MIN} people have responded. So far: ${n}.</p></div>`;return}
+  const comf=f.flatMap(x=>x.comfort||[]);const avg=comf.length?comf.reduce((a,b)=>a+b,0)/comf.length:0;
+  const heavy=f.filter(x=>/2 to 5|more than 5/i.test(x.hours||"")).length;
+  const noTool=f.filter(x=>!x.tools||!x.tools.length).length;
+  const want=tally(f.flatMap(x=>x.want||[]).filter(x=>x!=="Other"));
+  const lv=LEVELS.map(l=>[l,d.plans.filter(p=>p.level===l).length]).filter(x=>x[1]);
+  const dep=tally(d.plans.map(p=>DEPT[p.dept]||"Other teams")).map(([k,v])=>v<MIN?["Other teams (combined)",v]:[k,v]);
+  const depM=new Map();dep.forEach(([k,v])=>depM.set(k,(depM.get(k)||0)+v));
+  const hoursOrder=["Almost none","Up to 2 hours","2 to 5 hours","More than 5 hours"];
+  const hrs=hoursOrder.map(h=>[h,f.filter(x=>x.hours===h).length]);
+  const stmts=["I understand what AI tools can do","I feel comfortable trying AI tools at work","I know what information is safe to share with AI"];
+  const sAvg=stmts.map((s,i)=>{const v=f.map(x=>(x.comfort||[])[i]).filter(Boolean);return[s,v.length?v.reduce((a,b)=>a+b,0)/v.length:0]});
+  el.innerHTML=head+`<div class="grid g4">
+   <div class="card kpi"><div class="num">${n}</div><p>people have a plan</p></div>
+   <div class="card kpi"><div class="num">${avg.toFixed(1)}<span style="font-size:17px;color:var(--mute)"> / 5</span></div><p>average comfort with AI</p></div>
+   <div class="card kpi"><div class="num">${Math.round(heavy/f.length*100)}%</div><p>lose 2+ hours a week re-typing information</p></div>
+   <div class="card kpi"><div class="num">${Math.round(noTool/f.length*100)}%</div><p>have not used an AI tool yet</p></div></div>
+  <div class="grid g2" style="margin-top:18px">
+   <div class="card"><h3>Training levels</h3><p class="sub">Set by the same rules for everyone</p>${bars(lv.map(([k,v])=>[k+"s",v]),n,0,true)}</div>
+   <div class="card"><h3>Teams taking part</h3><p class="sub">Teams with fewer than ${MIN} people are combined</p>${bars([...depM.entries()].sort((a,b)=>b[1]-a[1]),n)}</div>
+   <div class="card"><h3>Where people want AI help</h3><p class="sub">Share of people choosing each task</p>${bars(want,f.length,8)}</div>
+   <div class="card"><h3>Weekly time lost to re-typing</h3><p class="sub">Copying information between systems or documents</p>${bars(hrs,f.length,0,true)}</div>
+   <div class="card"><h3>Confidence with AI</h3><p class="sub">Average agreement, from 1 (strongly disagree) to 5 (strongly agree)</p>${sAvg.map(([s,v])=>`<div class="hbar"><span class="t">${esc(s)}</span><span class="p">${v.toFixed(1)}</span><div class="tr"><i style="width:${v/5*100}%"></i></div></div>`).join("")}</div>
+   <div class="card"><h3>AI tools already used</h3><p class="sub">Share of people who have used each</p>${bars(tally(f.flatMap(x=>x.tools||[])),f.length,7)||"<p class='sub'>No tools reported yet.</p>"}</div>
+  </div>`;
+}
+
+/* ---------- groups ---------- */
 function groupsOf(ps){
   const m=new Map();ps.forEach(p=>{const k=p.level+"|"+p.dept;if(!m.has(k))m.set(k,[]);m.get(k).push(p)});
   const out=[],small={};
-  for(const [k,arr] of m){const lv=k.split("|")[0];if(arr.length<3&&ps.length>=6)(small[lv]=small[lv]||[]).push(...arr);else out.push({level:lv,people:arr})}
-  for(const lv in small){const ex=out.filter(g=>g.level===lv).sort((a,b)=>a.people.length-b.people.length)[0];if(ex&&small[lv].length<3)ex.people.push(...small[lv]);else out.push({level:lv,people:small[lv]})}
-  out.forEach(g=>{const ds=[...new Set(g.people.map(p=>p.dept))];g.dept=ds.length===1?ds[0]:"Mixed"});
-  out.sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level)||a.dept.localeCompare(b.dept));
-  out.forEach((g,i)=>{const ds=[...new Set(g.people.map(p=>p.dept))].sort();g.name=`Group ${i+1}: ${ds.join(" + ")} ${g.level}s`;g.people.forEach(p=>p.group=g.name);
-    const c=new Map();g.people.forEach(p=>p.picks.forEach(a=>c.set(a,(c.get(a)||0)+1)));g.shared=[...c.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3)});
+  for(const [k,arr] of m){const lv=k.split("|")[0];if(arr.length<MIN&&ps.length>=6)(small[lv]=small[lv]||[]).push(...arr);else out.push({level:lv,people:arr})}
+  for(const lv in small){const ex=out.filter(g=>g.level===lv).sort((a,b)=>a.people.length-b.people.length)[0];if(ex&&small[lv].length<MIN)ex.people.push(...small[lv]);else out.push({level:lv,people:small[lv]})}
+  out.sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level));
+  out.forEach((g,i)=>{const ds=[...new Set(g.people.map(p=>p.dept))];g.name=`Group ${i+1}: ${ds.length===1?(DEPT[ds[0]]):"Mixed teams"}`;
+    const c=new Map();g.people.forEach(p=>p.activities.forEach(a=>c.set(a.id,(c.get(a.id)||0)+1)));g.shared=[...c.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3)});
   return out;
 }
-function cardHtml(p){
-  const L=LEVEL_INFO[p.level],S=SAFETY[p.tier];
-  const facts=[p.hours?`Time lost to re-typing: <b>${esc(p.hours.toLowerCase())}</b> a week`:"",
-    `AI tools used: <b>${p.tools.length?esc(p.tools.join(", ")):"none yet"}</b>`,
-    p.access?`Company AI access: <b>${esc(p.access)}</b>`:""].filter(Boolean);
-  const goal=p.goal||p.three||p.process;
-  return `<article class="pcard">
-  <header class="pc-head"><div><p class="pc-kicker">Personal training card  |  JPS AI Productivity Workshop</p><h2>${esc(p.name)}</h2><p class="pc-sub">${esc(p.role||"Role not given")}  |  ${esc(DEPT_NAME[p.dept])}${p.group?`  |  ${esc(p.group)}`:""}</p></div>
-   <span class="pc-level" style="background:${L.bg};color:${L.fg}">${p.level}</span></header>
-  <div class="pc-body">
-   <section class="pc-row"><div class="pc-box"><h4>Your level: ${p.level}</h4><p>${L.desc}</p>${p.focus?`<p><b>Your focus:</b> ${p.focus}</p>`:""}</div>
-    <div class="pc-box"><h4>Your starting point</h4><ul>${facts.map(x=>`<li>${x}</li>`).join("")}</ul></div></section>
-   <section class="pc-safe" style="border-color:${S.color}"><h4 style="color:${S.color}">Data safety: ${S.label}</h4><p>${S.text}</p></section>
-   <h3 class="pc-h">Your three practice activities</h3>
-   ${p.picks.map((a,i)=>`<section class="pc-act"><div class="pc-act-h"><span class="pc-n">${i+1}</span><div><h4>${esc(a.title)}</h4><p class="pc-meta">About ${a.minutes} minutes${a.file?`  |  Practice file: <a href="${esc(a.file)}">${esc(a.file.replace("practice/",""))}</a>`:""}</p></div></div>
-     <p>${esc(a.scenario)}</p><p class="pc-lbl">Try this prompt</p><pre class="pc-prompt">${esc(a.prompt)}</pre><p class="pc-check"><b>What good looks like:</b> ${esc(a.check)}</p></section>`).join("")}
-   <h3 class="pc-h">Your capstone challenge</h3>
-   <section class="pc-cap">${goal?`<p class="pc-goal">${esc(goal)}</p><p>Build a first version of this by the end of the workshop:</p>`:`<p>Choose one task you do every week and build a first AI-assisted version of it by the end of the workshop:</p>`}
-    <ol>${CAPSTONE[p.level].map(x=>`<li>${x}</li>`).join("")}</ol></section>
-  </div></article>`;
-}
-function renderPathways(){
-  const el=$("#tab-pathways");
-  if(!window.ACTIVITIES){el.innerHTML=`<div class="empty card"><h2>Activity library didn't load</h2><p>Make sure activities.js sits next to this page.</p></div>`;return}
-  if(!state.rows.length){el.innerHTML=`<div class="empty card"><h2>No responses yet</h2><p>Upload the Forms export to generate training pathways.</p></div>`;return}
-  const f=fieldsOf(state.rows);const ps=state.rows.map((r,i)=>personOf(r,i,f));const gs=groupsOf(ps);state.people=ps;
-  const cnt=LEVELS.map(l=>ps.filter(p=>p.level===l).length);
-  if(state.pid==null||!ps[state.pid])state.pid=0;
-  el.innerHTML=`<div class="kpis">
-    ${LEVELS.map((l,i)=>`<div class="card kpi"><span class="pc-level" style="align-self:flex-start;background:${LEVEL_INFO[l].bg};color:${LEVEL_INFO[l].fg}">${l}s</span><div class="num">${cnt[i]}</div><p>${LEVEL_INFO[l].desc}</p></div>`).join("")}
-  </div>
-  <div class="card" style="margin-top:18px"><div class="pw-head"><div><h3>Workshop groups</h3><p class="sub">People with the same level and department work together in the lab. Small groups are merged.</p></div>
-   <div class="actions"><button class="btn sec" id="dlGroups" type="button">${ico("i-dl")}Download group list</button></div></div>
-   <div class="groups">${gs.map(g=>`<div class="grp"><div class="grp-h"><b>${esc(g.name)}</b><span>${g.people.length} ${g.people.length===1?"person":"people"}</span></div>
-     <p class="grp-l">Members</p><p>${g.people.map(p=>esc(p.name)+(p.role?` <span class="mut">(${esc(p.role)})</span>`:"")).join(", ")}</p>
-     <p class="grp-l">Shared activities to run together</p><ol>${g.shared.map(([a,n])=>`<li>${esc(a.title)} <span class="mut">(${n})</span></li>`).join("")}</ol></div>`).join("")}</div></div>
-  <div class="card" style="margin-top:18px"><div class="pw-head"><div><h3>Personal training cards</h3><p class="sub">Each card is built from that person's answers: their level, three matched activities, data-safety rules and a capstone from their own goal.</p></div>
-   <div class="actions"><button class="btn sec" id="printOne" type="button">Print this card</button><button class="btn" id="printAll" type="button">Print all ${ps.length} cards</button></div></div>
-   <div class="ans-layout"><div><input class="search" id="pFind" type="search" placeholder="Find a person or role" aria-label="Find a person"><div class="qlist" id="pList"></div></div><div id="pCard"></div></div></div>`;
-  const drawList=()=>{const q=$("#pFind").value.trim().toLowerCase();
-    $("#pList").innerHTML=ps.filter(p=>!q||(p.name+" "+p.role+" "+p.level).toLowerCase().includes(q)).map(p=>`<button data-i="${p.id}" aria-pressed="${p.id===state.pid}"><span>${esc(p.name)}<br><em>${esc(p.role||DEPT_NAME[p.dept])}</em></span><span class="pc-level sm" style="background:${LEVEL_INFO[p.level].bg};color:${LEVEL_INFO[p.level].fg}">${p.level}</span></button>`).join("")||`<p class="mut">No match.</p>`;
-    $("#pList").querySelectorAll("button").forEach(b=>b.onclick=()=>{state.pid=+b.dataset.i;drawList();drawCard()})};
-  const drawCard=()=>{$("#pCard").innerHTML=cardHtml(ps[state.pid])};
-  $("#pFind").oninput=drawList;drawList();drawCard();
-  $("#printOne").onclick=()=>printCards([ps[state.pid]]);
-  $("#printAll").onclick=()=>printCards(ps);
-  $("#dlGroups").onclick=()=>{
-    const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;
-    const rows=[["Name","Role","Department","Level","Group","Activity 1","Activity 2","Activity 3","Data safety"]].concat(ps.map(p=>[p.name,p.role,DEPT_NAME[p.dept],p.level,p.group,...p.picks.map(a=>a.title),SAFETY[p.tier].label]));
-    const blob=new Blob(["﻿"+rows.map(r=>r.map(q).join(",")).join("\r\n")],{type:"text/csv"});
-    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="JPS_Workshop_Groups.csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
-}
-function printCards(list){const pa=$("#printArea");pa.innerHTML=list.map(cardHtml).join("");document.body.classList.add("printing");
-  const done=()=>{document.body.classList.remove("printing");pa.innerHTML="";window.removeEventListener("afterprint",done)};window.addEventListener("afterprint",done);
-  setTimeout(()=>{window.print();setTimeout(()=>{if(document.body.classList.contains("printing"))done()},1500)},50)}
-
-/* ---------- sample data (JPS needs assessment format) ---------- */
-const QT={dept:"Which department are you in?",role:"What is your job title or role?",
- main:"What are the main tasks you perform on a daily or weekly basis, and which ones take up the most time?",
- three:"Which three work activities would you most like to complete faster or more efficiently?",
- process:"Describe one repetitive process you complete from beginning to end. List the main steps, for example: request received, details entered, information checked, report prepared, report emailed.",
- systems:"Which applications and systems do you use in your work? (Select all that apply)",
- inputs:"What information do you regularly receive as inputs to your work? (Select all that apply)",
- outputs:"What outputs do you regularly produce? (Select all that apply)",
- bottle:"Where do delays, duplication, errors or bottlenecks most often occur in your work? Describe any point where information is copied between systems, entered more than once, checked by hand, reformatted, or followed up repeatedly.",
- hours:"How much of your week is spent copying or re-typing information between systems or documents?",
- tools:"Which AI tools have you used, for work or personally? (Select all that apply)",
- access:"Do you currently have access to Microsoft 365 Copilot or another company-provided AI tool at work?",
- l1:"I understand what AI tools can do",l2:"I feel comfortable trying AI tools at work",l3:"I know what information is safe to share with AI",
- sens:"Does your work involve any of these types of information? (Select all that apply)",
- want:"Which of these tasks would you like AI help with? (Select all that apply)",
- goal:"At the end of the workshop, what AI-assisted workflow would you most like to build or use in your job? Describe the outcome as practically as possible, for example: analysing an Excel file and producing a management brief, or turning meeting notes into minutes and action items."};
-function demo(){
-  let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646};
-  const pick=a=>a[Math.floor(rnd()*a.length)];const some=(a,k)=>[...a].sort(()=>rnd()-.5).slice(0,k).join(";")+";";
-  const lk=b=>["1 - Strongly disagree","2 - Disagree","3 - Neutral","4 - Agree","5 - Strongly agree"][Math.max(1,Math.min(5,Math.round(b+rnd()*1.4-0.7)))-1];
-  const D={
-   HR:{roles:["HR Officer","HR Assistant","Recruitment Coordinator","Payroll Administrator","HR Business Partner","Training Officer"],
-    main:["Answering staff questions about leave and payroll by email, and updating the leave tracker in Excel. The email takes most of the time.","Screening applications and arranging interviews. Each vacancy gets dozens of CVs and I read every one.","Preparing offer letters and contracts from old Word templates and correcting names and dates by hand.","Compiling training records and attendance into monthly reports for management.","Chasing managers for performance review forms and summarising them into one report."],
-    three:["Writing letters, summarising CVs, preparing the monthly report","Answering the same policy questions, updating trackers, scheduling interviews","Monthly absence report, onboarding emails, meeting minutes","Training reports, quiz and handout preparation, booking rooms"],
-    process:["Leave request email arrives, I check the balance in Excel, reply to the employee, copy the update into the tracker, then tell payroll.","New hire confirmed, I prepare the offer letter, send six onboarding emails, create the checklist and chase IT for access.","Absence data exported from the HR system, cleaned in Excel, turned into a pivot table, pasted into a Word report and emailed to managers."],
-    bottle:["Approvals sit with managers for days and I have to keep following up.","The same employee details are typed into three different spreadsheets.","Reports have to be reformatted every month because each manager wants a different layout."],
-    goal:["Analyse the monthly absence spreadsheet and produce a management brief automatically.","Answer common leave and policy questions from the handbook so I only handle the unusual ones.","Turn interview notes into a consistent candidate summary for the panel.","A leave request form that updates the tracker and notifies the manager without me retyping anything."],
-    sens:["Employee records","Information that needs approval before it is shared","Internal-only reports or plans","Health or medical information"]},
-   CX:{roles:["Customer Care Agent","Customer Care Supervisor","Complaints Officer","Social Media Support Officer","CX Reporting Analyst","Call Centre Team Lead"],
-    main:["Handling billing queries and complaints by phone and WhatsApp, then logging each one in the case system.","Replying to customers on social media and WhatsApp, especially during outages.","Writing escalation summaries for supervisors and following up on cases that are overdue.","Building the weekly complaints report from three different sources.","Answering the same questions about estimated bills and reconnections all day."],
-    three:["Complaint replies, case notes, weekly report","Outage messages, WhatsApp replies, escalation summaries","Call notes, follow-up messages, finding past answers","Weekly figures, feedback analysis, management updates"],
-    process:["Complaint arrives on WhatsApp, I copy it into the case log, choose a category, check the billing system, reply to the customer and update the log.","Every Monday I export complaints, count them by category in Excel, copy the numbers into a Word template and email it to managers.","After each call I type up notes, write a case note, then send the customer a follow-up message."],
-    bottle:["Customer details are copied from WhatsApp into the case system by hand.","Answers differ between agents because the FAQ is out of date.","Escalations wait in inboxes because nobody can see who owns them."],
-    goal:["Draft replies to common billing complaints that I just check and send.","Turn the weekly complaints export into a management update automatically.","Turn my call notes into a case note and follow-up message in one step.","Group customer feedback into themes so we can see what is getting worse."],
-    sens:["Customer account details","Payment or billing information","Internal-only reports or plans"]}};
-  const wantL=["Drafting emails and letters","Summarising long documents","Analysing Excel data","Preparing reports","Creating presentations","Turning meeting notes into minutes and actions","Responding to customer enquiries","Processing requests or forms","Research","Scheduling"];
-  const toolL=["ChatGPT","Microsoft Copilot","Gemini","Claude","Canva AI","Power Automate","AI features built into other apps"];
-  const rows=[];
-  for(let i=0;i<24;i++){
-    const dk=i<11?"HR":i<22?"CX":pick(["HR","CX"]);const d=D[dk];const other=i>=22;
-    const b=pick([1.8,2.4,3.1,3.4,3.8,4.4,4.6]);
-    const tools=b<2.4?"None yet;":b>=4.2?some(toolL,3+Math.floor(rnd()*2)):some(toolL.slice(0,5),1+Math.floor(rnd()*2));
-    const r={"ID":i+1,"Start time":"","Completion time":"","Email":"anonymous","Name":""};
-    r[QT.dept]=other?"Other":dk==="HR"?"Human Resources":"Customer Experience";
-    r[QT.role]=other?pick(["Administrative Assistant","Executive Assistant"]):pick(d.roles);
-    r[QT.main]=pick(d.main);r[QT.three]=pick(d.three);r[QT.process]=pick(d.process);
-    r[QT.systems]=some(["Microsoft Word","Microsoft Excel","Outlook","Microsoft Teams","SharePoint or OneDrive",dk==="HR"?"HR or payroll system":"Customer billing or account system",dk==="HR"?"WhatsApp":"Call centre or ticketing system","WhatsApp"],4);
-    r[QT.inputs]=some(dk==="HR"?["Emails","Spreadsheets","Forms or applications","PDFs or scanned documents","Meeting notes","Reports from other teams"]:["Emails","Customer requests or complaints","Spreadsheets","Records from a company system","Survey results","Meeting notes"],3);
-    r[QT.outputs]=some(dk==="HR"?["Reports","Emails or letters","Presentations","Schedules","Meeting minutes","Management updates"]:["Customer responses","Emails or letters","Reports","Summaries or briefs","Dashboards","Management updates"],3);
-    r[QT.bottle]=pick(d.bottle);
-    r[QT.hours]=pick(["Almost none","Up to 2 hours","2 to 5 hours","2 to 5 hours","More than 5 hours"]);
-    r[QT.tools]=tools;
-    r[QT.access]=pick(["No","No","Not sure","I use free AI tools on my own","Yes, Microsoft 365 Copilot"]);
-    r[QT.l1]=lk(b);r[QT.l2]=lk(b+0.3);r[QT.l3]=lk(b-0.6);
-    r[QT.sens]=rnd()<0.12?"None of these;":some(d.sens,1+Math.floor(rnd()*2));
-    r[QT.want]=some(dk==="HR"?wantL.filter(x=>x!=="Responding to customer enquiries"):wantL.filter(x=>x!=="Scheduling"),3+Math.floor(rnd()*2));
-    r[QT.goal]=pick(d.goal);
-    rows.push(r);
-  }
-  return rows;
+function renderGroups(){
+  const el=$("#v-groups");const ps=data().plans;
+  const head=`<div class="top"><h1>Workshop groups</h1><p>For the hands-on lab, people at the same level from the same team work together. Find your code to see your group and the activities you'll run together.</p></div>`;
+  if(!ps.length){el.innerHTML=head+`<div class="card empty"><h2>No plans yet</h2><p>Groups appear as plans are created.</p></div>`;return}
+  el.innerHTML=head+`<div class="groups">${groupsOf(ps).map(g=>`<div class="grp"><div class="grp-h"><b>${esc(g.name)}</b><span class="pill ${g.level}">${g.level}s</span></div>
+   <p class="lbl">${g.people.length} ${g.people.length===1?"person":"people"}</p><div class="codes">${g.people.map(p=>`<span>${esc(p.code)}</span>`).join("")}</div>
+   <p class="lbl">Activities to run together</p><ol>${g.shared.map(([id,c])=>`<li>${esc((BYID[id]||{}).title||id)} <span style="color:var(--mute)">(${c})</span></li>`).join("")}</ol></div>`).join("")}</div>`;
 }
 
-/* ---------- wiring ---------- */
-function deptRows(){const all=state.all;if(state.dept==="All")return all;const f=fieldsOf(all);if(!f.dept)return all;
-  const re=state.dept==="HR"?/human/i:/customer/i;return all.filter(r=>re.test(String(r[f.dept]??"")))}
-function refresh(){state.rows=deptRows();state.cols=classify(state.rows).filter(c=>state.dept==="All"||!/which department/i.test(c.key));state.pid=0;renderAll()}
-function setRows(rows,isDemo,msg){state.all=rows.filter(r=>Object.values(r).some(v=>String(v??"").trim()));state.demo=isDemo;save();refresh();$("#status").textContent=msg||""}
-function readFile(f){
-  if(!window.XLSX){$("#status").textContent="The spreadsheet reader didn't load. Check the connection and reload.";return}
-  const rd=new FileReader();rd.onload=e=>{try{const wb=XLSX.read(new Uint8Array(e.target.result),{type:"array"});const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:"",raw:false});
-    if(!rows.length){$("#status").textContent="That file has no responses. Export again from Forms and retry.";return}
-    setRows(rows,false,`Loaded ${rows.length} responses from ${f.name}.`)}catch(err){$("#status").textContent="That file couldn't be read. Use the .xlsx from Forms' Open in Excel, or a .csv."}};rd.readAsArrayBuffer(f)}
-$("#file").onchange=e=>{if(e.target.files[0])readFile(e.target.files[0]);e.target.value=""};
-$("#upl").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("#file").click()}};
-const app=$("#app");
-["dragenter","dragover"].forEach(t=>app.addEventListener(t,e=>{e.preventDefault();app.classList.add("drop-over")}));
-["dragleave","drop"].forEach(t=>app.addEventListener(t,e=>{e.preventDefault();if(t==="drop"||e.target===app)app.classList.remove("drop-over")}));
-app.addEventListener("drop",e=>{app.classList.remove("drop-over");const f=e.dataTransfer.files[0];if(f)readFile(f)});
-$("#demo").onclick=()=>setRows(demo(),true,"");
-const TABS=["overview","answers","pathways","setup"];
-const titles={overview:"overview",answers:"staff voices",pathways:"training pathways",setup:"automation setup"};
-const DL={All:"All staff",HR:"HR","Customer Experience":"Customer Experience"};
-function header(){const t=titles[state.tab];$("#title").textContent=DL[state.dept]+" "+t;$("#subtitle").textContent=state.tab==="pathways"?"A personal learning path for every participant, built from their answers":"Needs assessment results ahead of the AI workshop";$("#demoNote").classList.toggle("hidden",!state.demo);$("#demo").classList.toggle("hidden",state.demo)}
-document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));state.dept=b.dataset.dept;state.q=0;$("#status").textContent="";refresh()});
-document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav.nav button").forEach(x=>x.removeAttribute("aria-current"));b.setAttribute("aria-current","page");state.tab=b.dataset.tab;TABS.forEach(t=>$("#tab-"+t).classList.toggle("hidden",t!==state.tab));header()});
-function renderAll(){header();renderOverview();renderAnswers();renderPathways()}
-if(!load()){state.all=demo();state.demo=true}
-refresh();
+/* ---------- library ---------- */
+let libDept="All",libLevel="All";
+function renderLibrary(){
+  const el=$("#v-library");
+  const list=LIB.filter(a=>(libDept==="All"||a.dept===libDept)&&(libLevel==="All"||a.levels.includes(libLevel)));
+  const fb=(name,val,cur)=>`<button type="button" data-f="${name}" data-v="${val}" aria-pressed="${val===cur}">${val==="All"?"All":val==="CX"?"Customer Experience":val==="HR"?"Human Resources":val==="Allst"?"All staff":val}</button>`;
+  el.innerHTML=`<div class="top"><h1>Activity library</h1><p>Every practice activity the AI can choose from. Each one uses fictional data and comes with a ready-made prompt and a quality check.</p></div>
+  <div class="filters">${["All","HR","CX"].map(v=>fb("dept",v,libDept)).join("")}<span style="width:12px"></span>${["All",...LEVELS].map(v=>fb("level",v,libLevel)).join("")}</div>
+  <div class="lib">${list.map(a=>`<details><summary>${esc(a.title)}<div class="tags"><span>${a.dept==="All"?"All staff":DEPT[a.dept]}</span>${a.levels.map(l=>`<span>${l}</span>`).join("")}<span>${a.minutes} min</span></div></summary>
+   <p>${esc(a.scenario)}</p><div class="prompt">${esc(a.prompt)}</div><p style="font-size:14px"><b>What good looks like:</b> ${esc(a.check)}</p>${a.file?`<p class="meta">Practice file: <a href="${esc(a.file)}">${esc(a.file.replace("practice/",""))}</a></p>`:""}</details>`).join("")}</div>`;
+  el.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{if(b.dataset.f==="dept")libDept=b.dataset.v;else libLevel=b.dataset.v;renderLibrary()});
+}
+
+/* ---------- how it works ---------- */
+function renderHow(){
+  const steps=[["i-form","You answer","An anonymous form. No name, email or job title, just a code you make up.",""],["i-lock","Kept private","Answers go to a private spreadsheet that only the facilitator can open.",""],["i-clock","Checked automatically","A scheduled AI task looks for new responses throughout the day.",""],["i-spark","AI writes your plan","It reads your answers, picks and adapts three activities, and writes your capstone.","ai-step"],["i-shield","Privacy check","A separate check blocks anything that could identify you before it's published.",""],["i-globe","Published here","Only the de-identified plan appears on this site, under your code.",""]];
+  $("#v-how").innerHTML=`<div class="top"><h1>How your plan was made</h1><p>This hub is itself an AI-integrated workflow, the same kind of thing you'll learn to build in the workshop. Nobody typed your plan by hand.</p></div>
+  <div class="card"><h3>From form to plan, automatically</h3><p class="sub">Every step after you press Submit runs without anyone touching it</p>
+   <div class="flow">${steps.map(([i,b,s,c],k)=>`<div class="fn ${c}"><div class="ic">${ico(i)}</div><b>${k+1}. ${b}</b><span>${s}</span></div>`).join("")}</div></div>
+  <div class="grid g2" style="margin-top:18px">
+   <div class="card"><h3>What the AI decides, and what rules decide</h3><p class="sub">So that everyone is treated fairly</p><ul>
+    <li><b>Rules decide</b> your level (from your comfort ratings and the AI tools you've used) and your data-safety level (from the types of information you handle). The same answers always give the same result.</li>
+    <li><b>AI decides</b> which three activities fit your work best, how to adapt them, and how to turn your goal into a capstone challenge.</li>
+    <li><b>People decide</b> everything else. The activities are written and reviewed by the facilitator, and the AI can only choose from them.</li></ul></div>
+   <div class="card"><h3>What is and isn't published</h3><p class="sub">This site is public, so it only shows de-identified information</p>
+    <p class="lbl">Published</p><ul class="yes"><li>Your code, team, level and plan</li><li>Group totals, with groups under ${MIN} people hidden</li></ul>
+    <p class="lbl">Never published</p><ul class="no"><li>Your written answers, in any form</li><li>Names, job titles, colleagues, the organisation, its systems or places</li><li>Specific numbers you mentioned</li></ul></div>
+  </div>`;
+}
+
+function renderAll(){renderLive();renderPlan();renderInsights();renderGroups();renderLibrary()}
+document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav.nav button").forEach(x=>x.removeAttribute("aria-current"));b.setAttribute("aria-current","page");view=b.dataset.view;["plan","insights","groups","library","how"].forEach(v=>$("#v-"+v).classList.toggle("hidden",v!==view));window.scrollTo(0,0)});
+$("#leaveSample").onclick=()=>{useSample=false;lastCode="";renderAll()};
+renderHow();refresh(true);setInterval(()=>refresh(false),120000);
 })();
 </script>
 </body>

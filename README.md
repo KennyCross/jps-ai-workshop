@@ -1,54 +1,38 @@
-# JPS AI Tools & AI-Integrated Workflows Workshop
+# AI Workshop Hub
 
-Materials for the AI productivity workshop for JPS HR and Customer Experience staff, facilitated by Kenista Simpson.
+A public hub for an AI productivity workshop. Participants complete an anonymous needs
+assessment, an AI writes each person a personal training plan, and the plan appears on this
+site under a code the participant made up. No names, job titles or organisation details are
+ever published.
 
-## AI Readiness Insights dashboard
+## How it works
 
-Live site: https://kennycross.github.io/jps-ai-workshop/
-
-Upload the Microsoft Forms export (Responses → Open in Excel). Files are read in your browser only and never leave your computer.
-
-- **Overview**: readiness index and charts, filterable by All, HR or CX.
-- **Staff voices**: every written answer, searchable by question.
-- **Training pathways**: a personal training card for each participant, plus workshop groups.
-- **Automation setup**: the Power Automate collection flow.
-
-### How training pathways work
-
-Each person is matched by fixed rules (no AI), so results are consistent and explainable:
-
-| Card section | Based on |
-|---|---|
-| Level: Starter, Practitioner or Builder | Comfort ratings and AI tools already used |
-| Three practice activities | Tasks they want help with, their inputs and outputs, and words in their written answers, matched to `activities.js` |
-| Data safety level | The types of sensitive information they handle |
-| Capstone challenge | The workflow they said they want to build |
-| Workshop group | Level and department; groups smaller than three are merged |
-
-Use **Print all cards** to print or save every card as a PDF, and **Download group list** for a spreadsheet of who is in which group.
-
-To change or add activities, edit `activities.js`. Each activity has a title, department, levels, tags, scenario, prompt and quality check; instructions are at the top of the file.
-
-Names appear on cards only if the form records them (Forms settings → Record name). Otherwise participants are numbered.
+1. **Anonymous form.** Participants answer the needs assessment and create a participant code.
+2. **Private responses.** Answers go to a private spreadsheet that only the facilitator can open.
+3. **Scheduled AI run.** A scheduled Claude task follows [`PROCESSING.md`](PROCESSING.md):
+   - `scripts/prepare.py` finds new responses and applies the fixed rules (level, data-safety
+     level, statistics) and ranks candidate activities from `activities.js`;
+   - Claude chooses and adapts three activities and writes a capstone for each person, in
+     general terms only;
+   - `scripts/publish.py` blocks anything identifying (emails, phone numbers, web addresses,
+     organisation and place names, or six or more words copied from a person's answers) and
+     publishes the rest to `data/plans.json`.
+4. **Public site.** `index.html` reads `data/plans.json`: participants find their plan by code;
+   group insights only show totals, with groups under three people hidden.
 
 ## Files
 
 | File | Use |
 |---|---|
-| `forms/JPS_AI_Needs_Assessment_MSForms_Import.docx` | Microsoft Forms Quick Import file for the needs assessment |
-| `forms/AI_Discovery_Form_HR.docx` | Printable HR discovery form |
-| `forms/AI_Discovery_Form_Customer_Experience.docx` | Printable Customer Experience discovery form |
-| `practice/` | Fictional spreadsheets and a sample policy used by the activities |
-| `activities.js` | The activity library behind the training pathways |
-| `images/Forms_Theme_*.jpg` | Background images for the Forms theme (Style → Customize theme) |
-
-## Importing the form
-
-1. In Microsoft Forms, choose **Quick Import** and upload the JPS import file, as a Form (not a Quiz).
-2. Turn on **Multiple answers** for every "Select all that apply" question.
-3. Switch questions 3, 4, 5, 9 and 18 to **Long answer**, and mark key questions as **Required**.
-4. Under **Style**, upload a theme image and set the colour to `#0E7C86`.
+| `index.html` | The public hub |
+| `activities.js` | The activity library the AI chooses from (edit to add or change activities) |
+| `PROCESSING.md` | Instructions the scheduled AI run follows |
+| `scripts/prepare.py`, `scripts/publish.py` | Rule-based steps and the privacy check |
+| `data/plans.json` | Published, de-identified plans (written by the scheduled run) |
+| `data/sample.json` | Plans made from fictional answers, shown until live plans exist |
+| `practice/` | Fictional files used by the activities |
 
 ## Privacy
 
-Do not commit survey responses to this repository. Spreadsheet and CSV files are ignored by `.gitignore` for that reason, except the fictional files in `practice/`.
+Raw responses are never committed. `work/` (where a run keeps answers while processing),
+spreadsheets and CSV files are ignored by `.gitignore`, except the fictional files in `practice/`.

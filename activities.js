@@ -1,5 +1,5 @@
 /*
-  JPS AI Workshop: activity library
+  AI Workshop: activity library
   ---------------------------------
   Each activity is one practice exercise. The dashboard's "Training pathways" view picks
   three activities for each person based on their survey answers.
@@ -27,7 +27,7 @@ window.ACTIVITIES = [
   id: "hr-leave-reply", title: "Answer a leave question from the handbook",
   dept: "HR", levels: ["Starter", "Practitioner"], tags: ["email", "customer"], minutes: 15,
   scenario: "A staff member emails asking whether unused vacation days roll over to next year. The answer is in the leave policy, but writing a clear, friendly reply takes time.",
-  prompt: "You are an HR officer at a Jamaican utility company. Using only the policy extract below, draft a reply to the staff member's question.\n\nPolicy extract: Employees may carry over up to 5 unused vacation days into the next calendar year. Carried-over days must be used by 31 March. Days above 5 are forfeited unless a manager approves an exception in writing.\n\nQuestion: \"Hi, I still have 8 vacation days left. Will I lose them in January?\"\n\nKeep it under 120 words, warm and clear, and end with the next step they should take. Then list anything in the question the policy does not answer.",
+  prompt: "You are an HR officer at a utility company. Using only the policy extract below, draft a reply to the staff member's question.\n\nPolicy extract: Employees may carry over up to 5 unused vacation days into the next calendar year. Carried-over days must be used by 31 March. Days above 5 are forfeited unless a manager approves an exception in writing.\n\nQuestion: \"Hi, I still have 8 vacation days left. Will I lose them in January?\"\n\nKeep it under 120 words, warm and clear, and end with the next step they should take. Then list anything in the question the policy does not answer.",
   check: "The reply gives the right numbers (5 carried over, 3 at risk), mentions the 31 March deadline and the manager exception, and invents nothing that is not in the policy."
 },
 {
@@ -102,7 +102,7 @@ window.ACTIVITIES = [
   id: "cx-billing-reply", title: "Reply calmly to a billing complaint",
   dept: "CX", levels: ["Starter", "Practitioner"], tags: ["customer", "email"], minutes: 15,
   scenario: "A customer is upset about a bill that is much higher than usual. You need a reply that is calm, accurate and offers a clear next step.",
-  prompt: "You are a customer care lead at a Jamaican electricity utility. Draft a reply to this anonymised complaint.\n\nComplaint: \"My bill this month is nearly double last month and nobody has read my meter in months. This is ridiculous, I want it fixed now.\"\n\nWhat we know: the last two bills were estimated; an actual meter reading is scheduled within 5 working days; any overcharge will be credited on the next bill.\n\nApologise once, explain estimated billing in one plain sentence, give the next steps, and keep it under 130 words. Do not promise anything not listed above.",
+  prompt: "You are a customer care lead at an electricity utility. Draft a reply to this anonymised complaint.\n\nComplaint: \"My bill this month is nearly double last month and nobody has read my meter in months. This is ridiculous, I want it fixed now.\"\n\nWhat we know: the last two bills were estimated; an actual meter reading is scheduled within 5 working days; any overcharge will be credited on the next bill.\n\nApologise once, explain estimated billing in one plain sentence, give the next steps, and keep it under 130 words. Do not promise anything not listed above.",
   check: "The reply acknowledges the frustration without over-apologising, explains estimated billing simply, and promises only what is listed."
 },
 {
@@ -116,7 +116,7 @@ window.ACTIVITIES = [
   id: "cx-call-notes", title: "Turn rough call notes into a case note and follow-up",
   dept: "CX", levels: ["Starter", "Practitioner"], tags: ["minutes", "customer", "summarise"], minutes: 15,
   scenario: "After a long call, you have scribbled notes and must write a proper case note and a follow-up message.",
-  prompt: "You are a customer care agent. Turn these rough notes into (1) a case note with Issue, Actions taken, Outcome and Next step, and (2) a short follow-up text to the customer.\n\nNotes: \"cust called re power out since yesterday 3pm, Spanish Town area. checked - not on planned outage list. logged fault ref [REF]. told crew dispatch within 24hrs. cust has medical equipment at home - flagged priority. will call back by 10am tmrw\"\n\nUse [Customer] and [REF] as placeholders. Keep the follow-up text under 50 words.",
+  prompt: "You are a customer care agent. Turn these rough notes into (1) a case note with Issue, Actions taken, Outcome and Next step, and (2) a short follow-up text to the customer.\n\nNotes: \"cust called re power out since yesterday 3pm, [Area]. checked - not on planned outage list. logged fault ref [REF]. told crew dispatch within 24hrs. cust has medical equipment at home - flagged priority. will call back by 10am tmrw\"\n\nUse [Customer] and [REF] as placeholders. Keep the follow-up text under 50 words.",
   check: "Nothing is lost from the notes (including the priority flag and the callback time), no new facts appear, and the text message is short and clear."
 },
 {

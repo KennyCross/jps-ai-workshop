@@ -1,0 +1,375 @@
+{
+ "updated": "2026-10-08T16:50:11Z",
+ "plans": [
+  {
+   "key": "ec0991774ddd",
+   "code": "anon-ec099",
+   "date": "2026-10-08",
+   "dept": "HR",
+   "level": "Starter",
+   "safety": "red",
+   "focus": "Learning which details must stay out of AI tools, so you can use them safely on recruitment work.",
+   "starting_point": [
+    "Spends a little time each week re-typing information",
+    "Has tried one AI chat tool",
+    "No company AI tool at the moment"
+   ],
+   "activities": [
+    {
+     "id": "hr-interviews",
+     "why": "Planning around busy calendars is one of your biggest time drains.",
+     "tailoring": "Use made-up names and times, and check that the timetable adds up before you trust it."
+    },
+    {
+     "id": "hr-onboarding",
+     "why": "Letters and emails that follow a pattern are a safe first step with AI.",
+     "tailoring": "Draft with placeholders only and compare the result with your current template."
+    },
+    {
+     "id": "all-inbox",
+     "why": "Sorting a busy inbox helps you decide where to start each day.",
+     "tailoring": "Use fictional subject lines similar to the requests you receive and decide the final order yourself."
+    }
+   ],
+   "capstone": {
+    "goal": "A consistent summary of each candidate's interview, prepared for the panel, with every decision still made by people.",
+    "steps": [
+     "Write the task in one sentence.",
+     "List what the AI would need, with no candidate details.",
+     "Use the five-part prompt on a made-up set of notes.",
+     "Check the summary and note what you changed."
+    ]
+   }
+  },
+  {
+   "key": "d63447e641f9",
+   "code": "bluefish-77",
+   "date": "2026-10-08",
+   "dept": "CX",
+   "level": "Practitioner",
+   "safety": "red",
+   "focus": "Building a clear picture of where AI is reliable and where it needs checking, so you can trust it on customer replies.",
+   "starting_point": [
+    "Spends a large part of the week re-entering customer details between channels",
+    "Has tried a couple of AI chat tools",
+    "Unsure whether a company AI tool is available"
+   ],
+   "activities": [
+    {
+     "id": "cx-billing-reply",
+     "why": "Calm, accurate replies to billing concerns are central to your day.",
+     "tailoring": "Start from a fictional complaint that resembles the ones you see most, and compare two prompt versions to see which keeps the facts straight."
+    },
+    {
+     "id": "cx-call-notes",
+     "why": "Turning rough notes into a tidy record is something you repeat after almost every contact.",
+     "tailoring": "Write your own made-up notes in the style you normally use, and check that nothing is lost or invented."
+    },
+    {
+     "id": "cx-escalation",
+     "why": "Clear handovers to a supervisor save time on both sides.",
+     "tailoring": "Practise on a fictional case history and keep the summary to five points a supervisor can read in seconds."
+    }
+   ],
+   "capstone": {
+    "goal": "Ready-to-check reply drafts for the most common billing concerns, so each response starts from a strong, consistent draft.",
+    "steps": [
+     "Write down the steps you follow for a typical billing concern.",
+     "Pick the step where AI saves the most time and write a prompt for it.",
+     "Turn it into a template with placeholders and test it on two made-up cases.",
+     "Share it with your team with a short note on when to use it."
+    ]
+   }
+  },
+  {
+   "key": "735d27f7aa2f",
+   "code": "mango-482",
+   "date": "2026-10-08",
+   "dept": "HR",
+   "level": "Starter",
+   "safety": "red",
+   "focus": "Learning exactly what is safe to share with an AI tool, so you can use it with confidence on everyday HR questions.",
+   "starting_point": [
+    "Spends a few hours each week moving information between email and spreadsheets",
+    "Has not used AI tools yet",
+    "No company AI tool at the moment"
+   ],
+   "activities": [
+    {
+     "id": "hr-leave-reply",
+     "why": "Much of your week goes on answering policy questions by email, and this is the quickest place to save time.",
+     "tailoring": "Use a policy extract you already rely on and a made-up staff question, and practise removing every personal detail before you prompt."
+    },
+    {
+     "id": "all-inbox",
+     "why": "A busy inbox is the starting point for most of your work.",
+     "tailoring": "Use fictional subject lines that mirror the kinds of requests you receive, and let AI suggest an order before you decide."
+    },
+    {
+     "id": "hr-onboarding",
+     "why": "Regular emails that follow the same pattern are ideal for reusable AI drafts.",
+     "tailoring": "Build the draft with placeholders only, then compare it with how you write these emails today."
+    }
+   ],
+   "capstone": {
+    "goal": "An assistant that answers routine policy questions from the handbook, so you only handle the unusual cases yourself.",
+    "steps": [
+     "Write the task in one sentence.",
+     "List the handbook sections the AI would need, with no staff details.",
+     "Use the five-part prompt to answer three made-up questions.",
+     "Check each answer against the handbook and note what you corrected."
+    ]
+   }
+  },
+  {
+   "key": "5672fe7c5cfe",
+   "code": "palm-tree",
+   "date": "2026-10-08",
+   "dept": "Other",
+   "level": "Practitioner",
+   "safety": "green",
+   "focus": "Building confidence through quick wins on tasks you repeat every week.",
+   "starting_point": [
+    "Spends a little time each week re-typing information",
+    "Uses a couple of free AI tools",
+    "No company AI tool yet"
+   ],
+   "activities": [
+    {
+     "id": "all-minutes",
+     "why": "Turning notes into minutes and actions is a regular part of your week.",
+     "tailoring": "Use your own style of rough notes with made-up names, and check every action has an owner and a date."
+    },
+    {
+     "id": "all-inbox",
+     "why": "Prioritising correspondence is where your day usually starts.",
+     "tailoring": "Use fictional examples of the kinds of requests you handle and draft short replies for the top two."
+    },
+    {
+     "id": "all-doc-summary",
+     "why": "Short briefs before meetings save reading time for you and others.",
+     "tailoring": "Practise on the sample policy, then try the same prompt on a public document you know well."
+    }
+   ],
+   "capstone": {
+    "goal": "Meeting notes turned into minutes and an action list automatically, ready to check and circulate.",
+    "steps": [
+     "Write down how you produce minutes today, step by step.",
+     "Write a prompt that turns notes into minutes and actions.",
+     "Turn it into a template and test it on two sets of made-up notes.",
+     "Save it to the team prompt library with a note on when to use it."
+    ]
+   }
+  },
+  {
+   "key": "e389ca950e55",
+   "code": "star-2020",
+   "date": "2026-10-08",
+   "dept": "CX",
+   "level": "Builder",
+   "safety": "amber",
+   "focus": "Moving from good prompts to a repeatable workflow that runs with very little manual effort.",
+   "starting_point": [
+    "Regularly rebuilds the same report by hand",
+    "Already uses several AI tools, including automation",
+    "Has a company AI tool available"
+   ],
+   "activities": [
+    {
+     "id": "cx-weekly-report",
+     "why": "A recurring report built from exported data is exactly the kind of task AI can take over.",
+     "tailoring": "Use the practice spreadsheet as a stand-in for your own export, and check every figure the AI gives you."
+    },
+    {
+     "id": "cx-feedback-themes",
+     "why": "Spotting patterns in customer comments adds insight to the numbers you already report.",
+     "tailoring": "Ask the AI to explain how it grouped the comments, and adjust the themes to match how your managers think."
+    },
+    {
+     "id": "all-form-flow",
+     "why": "You are ready to connect the pieces so the work starts on its own.",
+     "tailoring": "Design a small test flow with fictional data first, then note where a person must still approve the output."
+    }
+   ],
+   "capstone": {
+    "goal": "A workflow that turns the regular data export into a short management update with very little manual work.",
+    "steps": [
+     "Map the process: what starts it, each step, and the final update.",
+     "Mark the step the AI handles and the step a person approves.",
+     "Sketch the automated flow: trigger, AI step, where the result is saved, who is told.",
+     "Build a test version with fictional data and time how long it takes."
+    ]
+   }
+  }
+ ],
+ "facts": [
+  {
+   "hours": "More than 5 hours",
+   "tools": [
+    "ChatGPT",
+    "Microsoft Copilot"
+   ],
+   "access": "Not sure",
+   "comfort": [
+    3,
+    4,
+    3
+   ],
+   "want": [
+    "Responding to customer enquiries",
+    "Turning meeting notes into minutes and actions",
+    "Drafting emails and letters"
+   ],
+   "outputs": [
+    "Customer responses",
+    "Summaries or briefs"
+   ],
+   "inputs": [
+    "Emails",
+    "Customer requests or complaints",
+    "Records from a company system"
+   ],
+   "systems": [
+    "Microsoft Excel",
+    "Outlook",
+    "Customer billing or account system",
+    "Call centre or ticketing system",
+    "WhatsApp"
+   ],
+   "key": "bacb41be4dc9"
+  },
+  {
+   "hours": "2 to 5 hours",
+   "tools": [
+    "ChatGPT",
+    "Claude",
+    "Power Automate",
+    "AI features built into other apps"
+   ],
+   "access": "Yes, Microsoft 365 Copilot",
+   "comfort": [
+    5,
+    4,
+    4
+   ],
+   "want": [
+    "Analysing Excel data",
+    "Preparing reports",
+    "Processing requests or forms"
+   ],
+   "outputs": [
+    "Reports",
+    "Dashboards",
+    "Management updates"
+   ],
+   "inputs": [
+    "Spreadsheets",
+    "Survey results",
+    "Reports from other teams"
+   ],
+   "systems": [
+    "Microsoft Excel",
+    "Microsoft Word",
+    "Outlook",
+    "SharePoint or OneDrive"
+   ],
+   "key": "cc81f2a60eb5"
+  },
+  {
+   "hours": "2 to 5 hours",
+   "tools": [],
+   "access": "No",
+   "comfort": [
+    2,
+    2,
+    1
+   ],
+   "want": [
+    "Drafting emails and letters",
+    "Analysing Excel data",
+    "Preparing reports"
+   ],
+   "outputs": [
+    "Emails or letters",
+    "Reports",
+    "Management updates"
+   ],
+   "inputs": [
+    "Emails",
+    "Spreadsheets",
+    "Forms or applications"
+   ],
+   "systems": [
+    "Microsoft Word",
+    "Microsoft Excel",
+    "Outlook",
+    "HR or payroll system"
+   ],
+   "key": "cce4c174c2f3"
+  },
+  {
+   "hours": "Up to 2 hours",
+   "tools": [
+    "ChatGPT",
+    "Gemini"
+   ],
+   "access": "I use free AI tools on my own",
+   "comfort": [
+    4,
+    3,
+    3
+   ],
+   "want": [
+    "Turning meeting notes into minutes and actions",
+    "Scheduling",
+    "Summarising long documents"
+   ],
+   "outputs": [
+    "Meeting minutes",
+    "Emails or letters"
+   ],
+   "inputs": [
+    "Meeting notes",
+    "Emails"
+   ],
+   "systems": [
+    "Microsoft Word",
+    "Outlook",
+    "Microsoft Teams"
+   ],
+   "key": "df809bd664e1"
+  },
+  {
+   "hours": "Up to 2 hours",
+   "tools": [
+    "ChatGPT"
+   ],
+   "access": "No",
+   "comfort": [
+    3,
+    3,
+    2
+   ],
+   "want": [
+    "Summarising long documents",
+    "Scheduling",
+    "Drafting emails and letters"
+   ],
+   "outputs": [
+    "Emails or letters",
+    "Schedules"
+   ],
+   "inputs": [
+    "Emails",
+    "PDFs or scanned documents",
+    "Forms or applications"
+   ],
+   "systems": [
+    "Microsoft Word",
+    "Outlook",
+    "Microsoft Teams"
+   ],
+   "key": "dfcc138bb379"
+  }
+ ]
+}
