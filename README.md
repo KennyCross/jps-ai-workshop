@@ -6,7 +6,7 @@ Materials for the AI productivity workshop for JPS HR and Customer Experience st
 
 Live site: https://kennycross.github.io/jps-ai-workshop/
 
-Upload the Microsoft Forms export (Responses → Open in Excel) to see charts, staff answers and the automation setup guide. Files are read in your browser only and are never uploaded to this site. The "AI workshop plan" button works only in the Claude-hosted version of the dashboard.
+Upload the Microsoft Forms export (Responses → Open in Excel) to see charts, staff answers and the automation setup guide. Files are read in your browser only and are never uploaded to this site.
 
 ## Files
 
