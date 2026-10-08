@@ -2,3 +2,6 @@
 *.xlsx
 *.csv
 responses/
+
+# Fictional practice files are allowed
+!practice/*.xlsx

@@ -6,6 +6,7 @@
 <title>AI Readiness Insights | Kenista Simpson AI Training</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="activities.js"></script>
 <style>
 :root{
   --side:#0F1E29; --side2:#16303D; --side-ink:#DCE7EA; --side-mute:#8FA7AE;
@@ -33,7 +34,7 @@ aside.side{background:linear-gradient(180deg,var(--side),#0B1720);color:var(--si
 .brand{display:flex;gap:12px;align-items:center}
 .brand b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;letter-spacing:-.01em}
 .brand small{color:var(--side-mute);font-size:12.5px}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--side2);border-radius:10px;padding:4px;gap:4px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--side2);border-radius:10px;padding:4px;gap:4px}
 .seg button{border:0;background:none;color:var(--side-mute);padding:8px 6px;border-radius:7px;font-weight:600;font-size:13px}
 .seg button[aria-pressed="true"]{background:var(--side-ink);color:var(--side)}
 .side .lbl{font-size:12px;color:var(--side-mute);margin:0 0 8px 4px}
@@ -162,6 +163,48 @@ code{background:var(--soft);border:1px solid var(--line);border-radius:6px;paddi
 .empty{text-align:center;padding:60px 20px;color:var(--mute)}
 .empty h2{color:var(--ink);font-size:22px;margin-bottom:8px}
 .hidden{display:none!important}
+/* pathways */
+.pw-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:6px}
+.groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.grp{background:var(--soft);border-radius:12px;padding:16px;font-size:14px}
+.grp-h{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}.grp-h b{font-family:"Bricolage Grotesque",sans-serif;font-size:16px}.grp-h span{color:var(--mute);font-size:13px;white-space:nowrap}
+.grp-l{margin:10px 0 4px;font-size:12px;font-weight:700;color:var(--mute)}.grp p{margin:0}.grp ol{margin:0;padding-left:18px}
+.mut{color:var(--mute);font-weight:500}
+.qlist button em{display:block;font-style:normal;color:var(--mute);font-weight:500;font-size:12.5px}
+.pc-level{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:800;white-space:nowrap}.pc-level.sm{padding:2px 9px;font-size:11.5px;align-self:center}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:14px}
+.pc-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;background:var(--side);color:#EAF2F3;padding:20px 22px}
+.pc-head h2{font-size:24px;color:#fff;margin:2px 0}.pc-kicker{margin:0;color:#E39B2D;font-size:12px;font-weight:700}.pc-sub{margin:0;color:#A9C1C6;font-size:13px}
+.pc-body{padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.pc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.pc-box{background:var(--soft);border-radius:10px;padding:12px 14px}.pc-box h4,.pc-safe h4,.pc-act h4{margin:0 0 6px;font-size:14.5px;font-family:"Bricolage Grotesque",sans-serif}
+.pc-box p{margin:0 0 6px}.pc-box ul{margin:0;padding-left:18px}
+.pc-safe{border-left:4px solid;background:var(--soft);border-radius:0 10px 10px 0;padding:12px 14px}.pc-safe p{margin:0}
+.pc-h{font-size:17px;margin:6px 0 0}
+.pc-act{border:1px solid var(--line);border-radius:12px;padding:14px 16px}.pc-act p{margin:0 0 8px}
+.pc-act-h{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}.pc-n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800}
+.pc-meta{color:var(--mute);font-size:12.5px}.pc-meta a{color:var(--teal)}
+.pc-lbl{font-size:12px;font-weight:700;color:var(--mute);margin:8px 0 4px!important}
+.pc-prompt{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border-radius:8px;padding:10px 12px;margin:0 0 8px;color:var(--ink)}
+.pc-check{font-size:13.5px}
+.pc-cap{background:var(--ambersoft);border-radius:12px;padding:14px 16px}.pc-cap p{margin:0 0 6px}.pc-cap ol{margin:0;padding-left:20px}
+.pc-goal{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:700}
+#printArea{display:none}
+@media print{
+  body{background:#fff}
+  body.printing .app{display:none!important}
+  body.printing #printArea{display:block}
+  .pcard{border:0;border-radius:0;break-after:page;page-break-after:always}
+  .pc-head,.pc-n,.pc-level{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pc-act,.pc-safe,.pc-cap{break-inside:avoid}
+  .pc-h{break-after:avoid;page-break-after:avoid;font-size:14px}
+  .pcard{font-size:11.5px}.pc-head{padding:12px 16px}.pc-head h2{font-size:19px}
+  .pc-body{padding:12px 4px;gap:9px}.pc-box,.pc-safe,.pc-act,.pc-cap{padding:9px 12px}
+  .pc-prompt{font-size:10px;line-height:1.4;padding:7px 9px}.pc-box h4,.pc-safe h4,.pc-act h4{font-size:12.5px}
+  .pc-act p{margin-bottom:5px}.pc-goal{font-size:13px}
+  @page{margin:12mm}
+}
+
 .drop-over main{outline:3px dashed var(--teal);outline-offset:-12px}
 @media (max-width:1000px){.g-hero{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:1fr 1fr 1fr}}
 @media (max-width:860px){
@@ -201,11 +244,12 @@ code{background:var(--soft);border:1px solid var(--line);border-radius:6px;paddi
    <div><b>AI Readiness Insights</b><small>Kenista Simpson AI Training</small></div>
   </div>
   <div><p class="lbl">Department</p>
-   <div class="seg" role="group" aria-label="Department"><button type="button" data-dept="HR" aria-pressed="true">HR</button><button type="button" data-dept="Customer Experience" aria-pressed="false">Customer Exp.</button></div></div>
+   <div class="seg" role="group" aria-label="Department"><button type="button" data-dept="All" aria-pressed="true">All</button><button type="button" data-dept="HR" aria-pressed="false">HR</button><button type="button" data-dept="Customer Experience" aria-pressed="false" title="Customer Experience">CX</button></div></div>
   <div><p class="lbl">Views</p>
   <nav class="nav">
    <button data-tab="overview" aria-current="page"><svg><use href="#i-grid"/></svg>Overview</button>
    <button data-tab="answers"><svg><use href="#i-chat"/></svg>Staff voices</button>
+   <button data-tab="pathways"><svg><use href="#i-target"/></svg>Training pathways</button>
    <button data-tab="setup"><svg><use href="#i-flow"/></svg>Automation setup</button>
   </nav></div>
   <div class="side-foot">Responses are read in your browser only and are never uploaded.</div>
@@ -223,9 +267,11 @@ code{background:var(--soft);border:1px solid var(--line);border-radius:6px;paddi
 
   <section id="tab-overview"></section>
   <section id="tab-answers" class="hidden"></section>
+  <section id="tab-pathways" class="hidden"></section>
   <section id="tab-setup" class="hidden"></section>
  </main>
 </div>
+<div id="printArea" aria-hidden="true"></div>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -233,10 +279,10 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const ico=id=>`<svg><use href="#${id}"/></svg>`;
 const META=/^(id|start time|completion time|email|name|last modified time|total points|quiz feedback|points -|feedback -)/i;
 const PII=/^(your name|name)$/i;
-let state={dept:"HR",rows:[],cols:[],demo:false,tab:"overview",q:0};
+let state={dept:"All",all:[],rows:[],cols:[],demo:false,tab:"overview",q:0,pid:0,people:[]};
 
-function save(){try{localStorage.setItem("air2:"+state.dept,JSON.stringify({rows:state.rows,demo:state.demo}))}catch(e){}}
-function load(){try{const v=JSON.parse(localStorage.getItem("air2:"+state.dept)||"null");if(v&&Array.isArray(v.rows)&&v.rows.length){state.rows=v.rows;state.demo=!!v.demo;return true}}catch(e){}return false}
+function save(){try{localStorage.setItem("jps1",JSON.stringify({rows:state.all,demo:state.demo}))}catch(e){}}
+function load(){try{const v=JSON.parse(localStorage.getItem("jps1")||"null");if(v&&Array.isArray(v.rows)&&v.rows.length){state.all=v.rows;state.demo=!!v.demo;return true}}catch(e){}return false}
 
 function classify(rows){
   if(!rows.length)return[];
@@ -324,44 +370,200 @@ function renderAnswers(){
 $("#tab-setup").innerHTML=`<div class="card"><h3>Automatic collection with Power Automate</h3><p class="sub">Each submission is saved, summarised by AI and announced in Teams while the survey is open.</p>
 <div class="flowdiag">${[["i-form","Form submitted","Microsoft Forms"],["i-bolt","Flow runs","Power Automate"],["i-spark","AI summary","AI Builder prompt"],["i-table","Row saved","Excel on SharePoint"],["i-bell","Team notified","Microsoft Teams"]].map(([i,b,s])=>`<div class="fn"><div class="ic">${ico(i)}</div><b>${b}</b><span>${s}</span></div>`).join("")}</div>
 <ol class="steps">
-<li><div><b>Create the forms</b><p>Use Quick Import in Microsoft Forms with the HR and Customer Experience v2 files, apply the branded theme image, and turn on Multiple answers for the "Select all that apply" questions.</p></div></li>
+<li><div><b>Create the forms</b><p>Use Quick Import in Microsoft Forms with the JPS needs assessment file, apply the branded theme image, turn on Multiple answers for the "Select all that apply" questions, and set the descriptive questions to Long answer.</p></div></li>
 <li><div><b>Prepare the Excel table</b><p>In SharePoint or OneDrive, create <code>AI_Discovery_Responses.xlsx</code> with a table named <code>Responses</code>: Department, Submitted, Role, Top tasks, Comfort score, Retyping hours, AI summary, Automation ideas.</p></div></li>
-<li><div><b>Add the trigger</b><p>New Automated cloud flow with <code>When a new response is submitted</code> (Microsoft Forms), pointed at the HR form.</p></div></li>
+<li><div><b>Add the trigger</b><p>New Automated cloud flow with <code>When a new response is submitted</code> (Microsoft Forms), pointed at the needs assessment form.</p></div></li>
 <li><div><b>Read the answers</b><p><code>Get response details</code> using the Response Id from the trigger.</p></div></li>
 <li><div><b>Summarise with AI</b><p>AI Builder <code>Run a prompt</code>: "Summarise this staff survey response in 3 bullet points, then list up to 3 tasks that could be automated. Do not include names." Requires AI Builder credits or a Copilot Studio licence.</p></div></li>
 <li><div><b>Save to Excel</b><p><code>Add a row into a table</code> (Excel Online Business), mapping answers and the AI output.</p></div></li>
 <li><div><b>Notify the team</b><p><code>Post message in a chat or channel</code> (Teams) with the role and AI summary.</p></div></li>
-<li><div><b>Repeat for Customer Experience</b><p>Save As, switch the trigger and details steps to the CX form, set Department accordingly.</p></div></li>
 <li><div><b>Review the results here</b><p>When the survey closes, upload the Forms export to this dashboard to see the charts and read every written answer.</p></div></li>
 </ol></div>`;
 
-/* ---------- sample data ---------- */
-function demo(dept){
-  let seed=dept==="HR"?7:13;const rnd=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646};
+/* ---------- training pathways ---------- */
+const TAGS={"Drafting emails and letters":"email","Summarising long documents":"summarise","Analysing Excel data":"excel","Preparing reports":"reports","Creating presentations":"presentations","Turning meeting notes into minutes and actions":"minutes","Responding to customer enquiries":"customer","Processing requests or forms":"forms","Research":"research","Scheduling":"scheduling",
+ "Reports":"reports","Emails or letters":"email","Presentations":"presentations","Summaries or briefs":"summarise","Dashboards":"excel","Schedules":"scheduling","Meeting minutes":"minutes","Customer responses":"customer","Management updates":"reports",
+ "Spreadsheets":"excel","PDFs or scanned documents":"summarise","Forms or applications":"forms","Customer requests or complaints":"customer","Meeting notes":"minutes","Survey results":"excel","Emails":"email","Reports from other teams":"summarise"};
+const KW=[[/excel|spreadsheet|figures|numbers|data/i,"excel"],[/e-?mail|letter|memo/i,"email"],[/report|update|brief/i,"reports"],[/minute|meeting/i,"minutes"],[/complain|customer|enquir|inquir|caller|calls?\b/i,"customer"],[/form|application|request|approval/i,"forms"],[/presentation|slide|powerpoint/i,"presentations"],[/schedul|calendar|interview|roster|booking/i,"scheduling"],[/summar|pdf|policy|document/i,"summarise"],[/research|look up|find information/i,"research"]];
+const LEVELS=["Starter","Practitioner","Builder"];
+const LEVEL_INFO={
+ Starter:{desc:"New to AI, or not yet confident with it. Guided practice with a chat assistant, one step at a time, checking every answer.",bg:"var(--ambersoft)",fg:"#9A5B0B"},
+ Practitioner:{desc:"Has tried AI tools. Writes stronger prompts, builds reusable templates and works with real documents and spreadsheets.",bg:"var(--tealsoft)",fg:"var(--teal)"},
+ Builder:{desc:"Confident with AI. Connects it to everyday work with templates and Power Automate flows.",bg:"var(--teal)",fg:"#fff"}};
+const SAFETY={
+ red:{label:"High care",color:"var(--red)",text:"Your work involves customer, billing, employee or health information. Never paste it into an AI tool. Before you start, replace names, account numbers, addresses and amounts with placeholders such as [Customer] and [Account]. Use only JPS-approved tools, and a person always reviews the result before anything is sent."},
+ amber:{label:"Take care",color:"var(--amber)",text:"Some of your work is internal-only or needs approval. Remove anything confidential before prompting, use JPS-approved tools only, and follow the usual approval step before sharing AI-assisted work."},
+ green:{label:"Standard care",color:"var(--teal)",text:"Your examples are lower risk, but the basics still apply: no names, ID numbers or passwords in prompts, and check every output before you use it."}};
+const CAPSTONE={
+ Starter:["Write the task in one sentence.","List what the AI would need to know, with anything confidential removed.","Use the five-part prompt (Role, Task, Context, Format, Check) to get a first draft.","Check the draft and note what you had to change."],
+ Practitioner:["Write down the steps of the process as you do it today.","Pick the step where AI saves the most time and write a prompt for it.","Turn that prompt into a template with [placeholders] for the parts that change, and test it on two examples.","Add it to the team prompt library with a short note on when to use it."],
+ Builder:["Map the process: what starts it, each step, and the final output.","Mark the step AI handles and the step a person must approve.","Sketch the Power Automate flow: trigger, AI step, where the result is saved, who is notified.","Build a test version using fictional data only."]};
+const FOCUS=[[/understand/i,"Seeing clearly what AI can and can't do, with plenty of examples."],[/comfortable/i,"Low-pressure practice on simple tasks to build confidence."],[/safe to share/i,"The data-safety rules: practise removing personal details before every prompt."]];
+const F={dept:/which department/i,role:/job title/i,main:/main tasks/i,three:/three work activities/i,process:/repetitive process/i,hours:/copying or re-typing/i,tools:/which ai tools have you used/i,access:/copilot/i,sens:/types of information/i,want:/tasks would you like ai help/i,goal:/ai-assisted workflow/i,inputs:/inputs to your work/i,outputs:/outputs do you regularly/i};
+const lst=v=>String(v??"").split(";").map(x=>x.trim()).filter(Boolean);
+function fieldsOf(rows){const ks=rows.length?Object.keys(rows[0]):[];const o={};for(const k in F)o[k]=ks.find(x=>F[k].test(x));o.lik=ks.filter(x=>rows.some(r=>/^[1-5]\s*-/.test(String(r[x]??""))));return o}
+const deptOf=v=>/human/i.test(v)?"HR":/customer/i.test(v)?"CX":"Other";
+const DEPT_NAME={HR:"Human Resources",CX:"Customer Experience",Other:"Other department",Mixed:"HR and CX"};
+function personOf(r,i,f){
+  const g=k=>f[k]?String(r[f[k]]??"").trim():"";
+  const nm=String(r["Name"]??r["Your name"]??"").trim();
+  const name=nm&&!/^anonymous$/i.test(nm)?nm:`Participant ${String(i+1).padStart(2,"0")}`;
+  const dept=deptOf(g("dept"));
+  const lik=f.lik.map(k=>[k,parseInt(String(r[k]??""))]).filter(x=>x[1]>=1&&x[1]<=5);
+  const comfort=lik.length?lik.reduce((a,x)=>a+x[1],0)/lik.length:null;
+  const low=[...lik].sort((a,b)=>a[1]-b[1])[0];
+  const tools=lst(g("tools")).filter(t=>!/none/i.test(t));
+  let level="Practitioner";
+  if((comfort!=null&&comfort<3)||!tools.length)level="Starter";
+  else if((comfort==null||comfort>=4)&&(tools.some(t=>/power automate/i.test(t))||tools.length>=3))level="Builder";
+  const sens=lst(g("sens")).filter(s=>!/none of these/i.test(s));
+  const tier=sens.some(s=>/customer account|employee|payment|billing|health|medical/i.test(s))?"red":sens.length?"amber":"green";
+  const w={};const add=(t,n)=>{if(t)w[t]=(w[t]||0)+n};
+  lst(g("want")).forEach(x=>add(TAGS[x],3));lst(g("outputs")).forEach(x=>add(TAGS[x],1));lst(g("inputs")).forEach(x=>add(TAGS[x],1));
+  const free=[g("main"),g("three"),g("process"),g("goal")].join(" ");KW.forEach(([re,t])=>{if(re.test(free))add(t,1)});
+  const lib=window.ACTIVITIES||[];
+  const pool=lib.filter(a=>a.levels.includes(level)&&(a.dept==="All"||a.dept===dept||dept==="Other"));
+  const scored=pool.map(a=>({a,s:a.tags.reduce((s,t,j)=>s+(w[t]||0)*(j===0?1.5:1),0)+(a.dept===dept||(dept==="Other"&&a.dept==="All")?1.5:0)})).sort((x,y)=>y.s-x.s);
+  const picks=[],used=new Set();
+  for(const {a} of scored){if(picks.length>=3)break;if(used.has(a.tags[0]))continue;picks.push(a);used.add(a.tags[0])}
+  for(const {a} of scored){if(picks.length>=3)break;if(!picks.includes(a))picks.push(a)}
+  const focus=low&&low[1]<=3?(FOCUS.find(([re])=>re.test(low[0]))||[])[1]:null;
+  return{id:i,name,role:g("role"),dept,level,comfort,tools,access:g("access"),hours:g("hours"),tier,sens,picks,goal:g("goal"),process:g("process"),three:g("three"),focus};
+}
+function groupsOf(ps){
+  const m=new Map();ps.forEach(p=>{const k=p.level+"|"+p.dept;if(!m.has(k))m.set(k,[]);m.get(k).push(p)});
+  const out=[],small={};
+  for(const [k,arr] of m){const lv=k.split("|")[0];if(arr.length<3&&ps.length>=6)(small[lv]=small[lv]||[]).push(...arr);else out.push({level:lv,people:arr})}
+  for(const lv in small){const ex=out.filter(g=>g.level===lv).sort((a,b)=>a.people.length-b.people.length)[0];if(ex&&small[lv].length<3)ex.people.push(...small[lv]);else out.push({level:lv,people:small[lv]})}
+  out.forEach(g=>{const ds=[...new Set(g.people.map(p=>p.dept))];g.dept=ds.length===1?ds[0]:"Mixed"});
+  out.sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level)||a.dept.localeCompare(b.dept));
+  out.forEach((g,i)=>{const ds=[...new Set(g.people.map(p=>p.dept))].sort();g.name=`Group ${i+1}: ${ds.join(" + ")} ${g.level}s`;g.people.forEach(p=>p.group=g.name);
+    const c=new Map();g.people.forEach(p=>p.picks.forEach(a=>c.set(a,(c.get(a)||0)+1)));g.shared=[...c.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3)});
+  return out;
+}
+function cardHtml(p){
+  const L=LEVEL_INFO[p.level],S=SAFETY[p.tier];
+  const facts=[p.hours?`Time lost to re-typing: <b>${esc(p.hours.toLowerCase())}</b> a week`:"",
+    `AI tools used: <b>${p.tools.length?esc(p.tools.join(", ")):"none yet"}</b>`,
+    p.access?`Company AI access: <b>${esc(p.access)}</b>`:""].filter(Boolean);
+  const goal=p.goal||p.three||p.process;
+  return `<article class="pcard">
+  <header class="pc-head"><div><p class="pc-kicker">Personal training card  |  JPS AI Productivity Workshop</p><h2>${esc(p.name)}</h2><p class="pc-sub">${esc(p.role||"Role not given")}  |  ${esc(DEPT_NAME[p.dept])}${p.group?`  |  ${esc(p.group)}`:""}</p></div>
+   <span class="pc-level" style="background:${L.bg};color:${L.fg}">${p.level}</span></header>
+  <div class="pc-body">
+   <section class="pc-row"><div class="pc-box"><h4>Your level: ${p.level}</h4><p>${L.desc}</p>${p.focus?`<p><b>Your focus:</b> ${p.focus}</p>`:""}</div>
+    <div class="pc-box"><h4>Your starting point</h4><ul>${facts.map(x=>`<li>${x}</li>`).join("")}</ul></div></section>
+   <section class="pc-safe" style="border-color:${S.color}"><h4 style="color:${S.color}">Data safety: ${S.label}</h4><p>${S.text}</p></section>
+   <h3 class="pc-h">Your three practice activities</h3>
+   ${p.picks.map((a,i)=>`<section class="pc-act"><div class="pc-act-h"><span class="pc-n">${i+1}</span><div><h4>${esc(a.title)}</h4><p class="pc-meta">About ${a.minutes} minutes${a.file?`  |  Practice file: <a href="${esc(a.file)}">${esc(a.file.replace("practice/",""))}</a>`:""}</p></div></div>
+     <p>${esc(a.scenario)}</p><p class="pc-lbl">Try this prompt</p><pre class="pc-prompt">${esc(a.prompt)}</pre><p class="pc-check"><b>What good looks like:</b> ${esc(a.check)}</p></section>`).join("")}
+   <h3 class="pc-h">Your capstone challenge</h3>
+   <section class="pc-cap">${goal?`<p class="pc-goal">${esc(goal)}</p><p>Build a first version of this by the end of the workshop:</p>`:`<p>Choose one task you do every week and build a first AI-assisted version of it by the end of the workshop:</p>`}
+    <ol>${CAPSTONE[p.level].map(x=>`<li>${x}</li>`).join("")}</ol></section>
+  </div></article>`;
+}
+function renderPathways(){
+  const el=$("#tab-pathways");
+  if(!window.ACTIVITIES){el.innerHTML=`<div class="empty card"><h2>Activity library didn't load</h2><p>Make sure activities.js sits next to this page.</p></div>`;return}
+  if(!state.rows.length){el.innerHTML=`<div class="empty card"><h2>No responses yet</h2><p>Upload the Forms export to generate training pathways.</p></div>`;return}
+  const f=fieldsOf(state.rows);const ps=state.rows.map((r,i)=>personOf(r,i,f));const gs=groupsOf(ps);state.people=ps;
+  const cnt=LEVELS.map(l=>ps.filter(p=>p.level===l).length);
+  if(state.pid==null||!ps[state.pid])state.pid=0;
+  el.innerHTML=`<div class="kpis">
+    ${LEVELS.map((l,i)=>`<div class="card kpi"><span class="pc-level" style="align-self:flex-start;background:${LEVEL_INFO[l].bg};color:${LEVEL_INFO[l].fg}">${l}s</span><div class="num">${cnt[i]}</div><p>${LEVEL_INFO[l].desc}</p></div>`).join("")}
+  </div>
+  <div class="card" style="margin-top:18px"><div class="pw-head"><div><h3>Workshop groups</h3><p class="sub">People with the same level and department work together in the lab. Small groups are merged.</p></div>
+   <div class="actions"><button class="btn sec" id="dlGroups" type="button">${ico("i-dl")}Download group list</button></div></div>
+   <div class="groups">${gs.map(g=>`<div class="grp"><div class="grp-h"><b>${esc(g.name)}</b><span>${g.people.length} ${g.people.length===1?"person":"people"}</span></div>
+     <p class="grp-l">Members</p><p>${g.people.map(p=>esc(p.name)+(p.role?` <span class="mut">(${esc(p.role)})</span>`:"")).join(", ")}</p>
+     <p class="grp-l">Shared activities to run together</p><ol>${g.shared.map(([a,n])=>`<li>${esc(a.title)} <span class="mut">(${n})</span></li>`).join("")}</ol></div>`).join("")}</div></div>
+  <div class="card" style="margin-top:18px"><div class="pw-head"><div><h3>Personal training cards</h3><p class="sub">Each card is built from that person's answers: their level, three matched activities, data-safety rules and a capstone from their own goal.</p></div>
+   <div class="actions"><button class="btn sec" id="printOne" type="button">Print this card</button><button class="btn" id="printAll" type="button">Print all ${ps.length} cards</button></div></div>
+   <div class="ans-layout"><div><input class="search" id="pFind" type="search" placeholder="Find a person or role" aria-label="Find a person"><div class="qlist" id="pList"></div></div><div id="pCard"></div></div></div>`;
+  const drawList=()=>{const q=$("#pFind").value.trim().toLowerCase();
+    $("#pList").innerHTML=ps.filter(p=>!q||(p.name+" "+p.role+" "+p.level).toLowerCase().includes(q)).map(p=>`<button data-i="${p.id}" aria-pressed="${p.id===state.pid}"><span>${esc(p.name)}<br><em>${esc(p.role||DEPT_NAME[p.dept])}</em></span><span class="pc-level sm" style="background:${LEVEL_INFO[p.level].bg};color:${LEVEL_INFO[p.level].fg}">${p.level}</span></button>`).join("")||`<p class="mut">No match.</p>`;
+    $("#pList").querySelectorAll("button").forEach(b=>b.onclick=()=>{state.pid=+b.dataset.i;drawList();drawCard()})};
+  const drawCard=()=>{$("#pCard").innerHTML=cardHtml(ps[state.pid])};
+  $("#pFind").oninput=drawList;drawList();drawCard();
+  $("#printOne").onclick=()=>printCards([ps[state.pid]]);
+  $("#printAll").onclick=()=>printCards(ps);
+  $("#dlGroups").onclick=()=>{
+    const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+    const rows=[["Name","Role","Department","Level","Group","Activity 1","Activity 2","Activity 3","Data safety"]].concat(ps.map(p=>[p.name,p.role,DEPT_NAME[p.dept],p.level,p.group,...p.picks.map(a=>a.title),SAFETY[p.tier].label]));
+    const blob=new Blob(["﻿"+rows.map(r=>r.map(q).join(",")).join("\r\n")],{type:"text/csv"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="JPS_Workshop_Groups.csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+}
+function printCards(list){const pa=$("#printArea");pa.innerHTML=list.map(cardHtml).join("");document.body.classList.add("printing");
+  const done=()=>{document.body.classList.remove("printing");pa.innerHTML="";window.removeEventListener("afterprint",done)};window.addEventListener("afterprint",done);
+  setTimeout(()=>{window.print();setTimeout(()=>{if(document.body.classList.contains("printing"))done()},1500)},50)}
+
+/* ---------- sample data (JPS needs assessment format) ---------- */
+const QT={dept:"Which department are you in?",role:"What is your job title or role?",
+ main:"What are the main tasks you perform on a daily or weekly basis, and which ones take up the most time?",
+ three:"Which three work activities would you most like to complete faster or more efficiently?",
+ process:"Describe one repetitive process you complete from beginning to end. List the main steps, for example: request received, details entered, information checked, report prepared, report emailed.",
+ systems:"Which applications and systems do you use in your work? (Select all that apply)",
+ inputs:"What information do you regularly receive as inputs to your work? (Select all that apply)",
+ outputs:"What outputs do you regularly produce? (Select all that apply)",
+ bottle:"Where do delays, duplication, errors or bottlenecks most often occur in your work? Describe any point where information is copied between systems, entered more than once, checked by hand, reformatted, or followed up repeatedly.",
+ hours:"How much of your week is spent copying or re-typing information between systems or documents?",
+ tools:"Which AI tools have you used, for work or personally? (Select all that apply)",
+ access:"Do you currently have access to Microsoft 365 Copilot or another company-provided AI tool at work?",
+ l1:"I understand what AI tools can do",l2:"I feel comfortable trying AI tools at work",l3:"I know what information is safe to share with AI",
+ sens:"Does your work involve any of these types of information? (Select all that apply)",
+ want:"Which of these tasks would you like AI help with? (Select all that apply)",
+ goal:"At the end of the workshop, what AI-assisted workflow would you most like to build or use in your job? Describe the outcome as practically as possible, for example: analysing an Excel file and producing a management brief, or turning meeting notes into minutes and action items."};
+function demo(){
+  let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646};
   const pick=a=>a[Math.floor(rnd()*a.length)];const some=(a,k)=>[...a].sort(()=>rnd()-.5).slice(0,k).join(";")+";";
-  const lk=b=>["1 - Strongly disagree","2 - Disagree","3 - Neutral","4 - Agree","5 - Strongly agree"][Math.max(1,Math.min(5,Math.round(b+rnd()*2-1)))-1];
-  const hr=dept==="HR";
-  const roles=hr?["HR Officer","HR Assistant","Recruitment Coordinator","Payroll Administrator","HR Manager","Training Officer"]:["Customer Service Rep","CX Team Lead","Call Centre Agent","Social Media Support","Complaints Officer","CX Supervisor"];
-  const tasks=hr?["Writing job descriptions","Screening / summarising CVs","Drafting interview questions","Offer & onboarding letters","Answering staff FAQs","Drafting HR policies","Performance review write-ups","Training materials","Meeting notes & minutes","HR reports & summaries"]:["Drafting email replies","Social media / WhatsApp replies","Handling complaints (tone)","Building FAQ answers","Summarising call notes","Analysing feedback & reviews","Weekly / monthly reports","Updating scripts & templates","Escalation summaries","Follow-up messages"];
-  const day=hr?["Mostly answering leave and payroll questions by email, then updating the leave tracker in Excel.","Screening CVs that come in by email. Each role gets 60+ applications and I read every one.","Preparing letters and contracts from old Word templates and fixing names and dates by hand.","Chasing managers for performance review forms and compiling them into one report.","Booking interviews across three managers' calendars, which takes far longer than the interviews.","Updating the staff database after every change of address, title or bank details.","Writing the same onboarding emails and checklists for every new hire.","Answering policy questions on Teams that are already covered in the handbook."]:["Replying to WhatsApp and email complaints, then logging each one in a spreadsheet.","Answering the same delivery and billing questions on calls all day.","Checking the billing system, then writing up the case for my supervisor.","Pulling the weekly complaints numbers from three different places into one report.","Handling angry customers on the phone, then writing up what happened for the file.","Rewriting replies so they sound professional, especially for complaints.","Searching old emails to find what we told a customer last time.","Translating technical answers from the operations team into plain language."];
-  const stuck=hr?["Approvals wait on managers who don't reply to email.","Information sits in different spreadsheets that don't match.","New hire paperwork gets lost between HR and IT.","Nobody owns the job description templates, so every one starts from scratch.","Training records are in paper files, so reports take days.","Payroll changes arrive late because the forms are emailed around."]:["Escalations sit in someone's inbox with no owner.","There's no single place to see a customer's history.","The FAQ document is out of date, so answers differ between agents.","Social media messages get missed over the weekend.","Refund approvals take days because they go through two managers by email.","We can't easily see which complaint types are increasing."];
-  const trig=hr?["When a leave request email arrives I check the balance, reply, and update the tracker.","When someone is hired I send the same six onboarding emails.","At month end I compile overtime from timesheets into payroll.","When a probation period ends I remind the manager and prepare the review form.","When a resignation arrives I start the same exit checklist every time."]:["When a complaint arrives on WhatsApp I copy it into the log and assign a category.","When a case is closed I send the same follow-up message.","Every Monday I build the weekly complaints report.","When a refund is approved I send the customer the same three messages.","When a bad review appears online I draft a response for the supervisor."];
-  return Array.from({length:14},(_,i)=>({"ID":i+1,"Your name":"","Your job title / role":pick(roles),
-   "How long have you been in your current role?":pick(["Less than 1 year","1 to 3 years","1 to 3 years","4 to 6 years","More than 6 years"]),
-   "Walk us through a typical day. Which tasks take up the most time?":pick(day),
-   "Where do things get stuck, delayed, or fall through the cracks?":pick(stuck),
-   "Which systems do you use in your daily work? (Select all that apply)":some(["Microsoft 365 (Outlook, Teams, Excel, Word)","WhatsApp or WhatsApp Business","SharePoint or OneDrive",hr?"A dedicated department system (HRIS, CRM or helpdesk)":"Paper forms and physical files","Accounting or ERP system"],2+Math.floor(rnd()*2)),
-   "Where is most of the information you work with stored?":pick(["Excel spreadsheets","Excel spreadsheets","Email inboxes","Spread across several places","SharePoint, OneDrive or shared drives"]),
-   "How much of your week is spent copying or re-typing information between systems?":pick(["Up to 2 hours","2 to 5 hours","2 to 5 hours","More than 5 hours","Almost none"]),
-   "Do you currently have access to Microsoft 365 Copilot or any other licensed AI tool at work?":pick(["No","No","I use free AI tools on my own","Not sure","I use free AI tools on my own","Yes, Microsoft 365 Copilot"]),
-   "Which of your tasks start with a trigger (e.g. an email arrives, a form is submitted, a date is reached) and then always follow the same steps?":pick(trig),
-   "Where would you prefer to use AI day to day?":pick(["Inside tools we already use (Outlook, Teams, Word, Excel)","Inside tools we already use (Outlook, Teams, Word, Excel)","On my phone","A separate AI chat tool"]),
-   "Which of these tasks would you like AI help with? (Select all that apply)":some(tasks,3+Math.floor(rnd()*3)),
-   "I understand what AI tools can do":lk(2.8),"I feel comfortable trying AI tools at work":lk(3.4),"I know what information is safe to share with AI":lk(2.2),"I believe AI could save me time each week":lk(4.1),"I would like hands-on training, not just a demo":lk(4.5)}));
+  const lk=b=>["1 - Strongly disagree","2 - Disagree","3 - Neutral","4 - Agree","5 - Strongly agree"][Math.max(1,Math.min(5,Math.round(b+rnd()*1.4-0.7)))-1];
+  const D={
+   HR:{roles:["HR Officer","HR Assistant","Recruitment Coordinator","Payroll Administrator","HR Business Partner","Training Officer"],
+    main:["Answering staff questions about leave and payroll by email, and updating the leave tracker in Excel. The email takes most of the time.","Screening applications and arranging interviews. Each vacancy gets dozens of CVs and I read every one.","Preparing offer letters and contracts from old Word templates and correcting names and dates by hand.","Compiling training records and attendance into monthly reports for management.","Chasing managers for performance review forms and summarising them into one report."],
+    three:["Writing letters, summarising CVs, preparing the monthly report","Answering the same policy questions, updating trackers, scheduling interviews","Monthly absence report, onboarding emails, meeting minutes","Training reports, quiz and handout preparation, booking rooms"],
+    process:["Leave request email arrives, I check the balance in Excel, reply to the employee, copy the update into the tracker, then tell payroll.","New hire confirmed, I prepare the offer letter, send six onboarding emails, create the checklist and chase IT for access.","Absence data exported from the HR system, cleaned in Excel, turned into a pivot table, pasted into a Word report and emailed to managers."],
+    bottle:["Approvals sit with managers for days and I have to keep following up.","The same employee details are typed into three different spreadsheets.","Reports have to be reformatted every month because each manager wants a different layout."],
+    goal:["Analyse the monthly absence spreadsheet and produce a management brief automatically.","Answer common leave and policy questions from the handbook so I only handle the unusual ones.","Turn interview notes into a consistent candidate summary for the panel.","A leave request form that updates the tracker and notifies the manager without me retyping anything."],
+    sens:["Employee records","Information that needs approval before it is shared","Internal-only reports or plans","Health or medical information"]},
+   CX:{roles:["Customer Care Agent","Customer Care Supervisor","Complaints Officer","Social Media Support Officer","CX Reporting Analyst","Call Centre Team Lead"],
+    main:["Handling billing queries and complaints by phone and WhatsApp, then logging each one in the case system.","Replying to customers on social media and WhatsApp, especially during outages.","Writing escalation summaries for supervisors and following up on cases that are overdue.","Building the weekly complaints report from three different sources.","Answering the same questions about estimated bills and reconnections all day."],
+    three:["Complaint replies, case notes, weekly report","Outage messages, WhatsApp replies, escalation summaries","Call notes, follow-up messages, finding past answers","Weekly figures, feedback analysis, management updates"],
+    process:["Complaint arrives on WhatsApp, I copy it into the case log, choose a category, check the billing system, reply to the customer and update the log.","Every Monday I export complaints, count them by category in Excel, copy the numbers into a Word template and email it to managers.","After each call I type up notes, write a case note, then send the customer a follow-up message."],
+    bottle:["Customer details are copied from WhatsApp into the case system by hand.","Answers differ between agents because the FAQ is out of date.","Escalations wait in inboxes because nobody can see who owns them."],
+    goal:["Draft replies to common billing complaints that I just check and send.","Turn the weekly complaints export into a management update automatically.","Turn my call notes into a case note and follow-up message in one step.","Group customer feedback into themes so we can see what is getting worse."],
+    sens:["Customer account details","Payment or billing information","Internal-only reports or plans"]}};
+  const wantL=["Drafting emails and letters","Summarising long documents","Analysing Excel data","Preparing reports","Creating presentations","Turning meeting notes into minutes and actions","Responding to customer enquiries","Processing requests or forms","Research","Scheduling"];
+  const toolL=["ChatGPT","Microsoft Copilot","Gemini","Claude","Canva AI","Power Automate","AI features built into other apps"];
+  const rows=[];
+  for(let i=0;i<24;i++){
+    const dk=i<11?"HR":i<22?"CX":pick(["HR","CX"]);const d=D[dk];const other=i>=22;
+    const b=pick([1.8,2.4,3.1,3.4,3.8,4.4,4.6]);
+    const tools=b<2.4?"None yet;":b>=4.2?some(toolL,3+Math.floor(rnd()*2)):some(toolL.slice(0,5),1+Math.floor(rnd()*2));
+    const r={"ID":i+1,"Start time":"","Completion time":"","Email":"anonymous","Name":""};
+    r[QT.dept]=other?"Other":dk==="HR"?"Human Resources":"Customer Experience";
+    r[QT.role]=other?pick(["Administrative Assistant","Executive Assistant"]):pick(d.roles);
+    r[QT.main]=pick(d.main);r[QT.three]=pick(d.three);r[QT.process]=pick(d.process);
+    r[QT.systems]=some(["Microsoft Word","Microsoft Excel","Outlook","Microsoft Teams","SharePoint or OneDrive",dk==="HR"?"HR or payroll system":"Customer billing or account system",dk==="HR"?"WhatsApp":"Call centre or ticketing system","WhatsApp"],4);
+    r[QT.inputs]=some(dk==="HR"?["Emails","Spreadsheets","Forms or applications","PDFs or scanned documents","Meeting notes","Reports from other teams"]:["Emails","Customer requests or complaints","Spreadsheets","Records from a company system","Survey results","Meeting notes"],3);
+    r[QT.outputs]=some(dk==="HR"?["Reports","Emails or letters","Presentations","Schedules","Meeting minutes","Management updates"]:["Customer responses","Emails or letters","Reports","Summaries or briefs","Dashboards","Management updates"],3);
+    r[QT.bottle]=pick(d.bottle);
+    r[QT.hours]=pick(["Almost none","Up to 2 hours","2 to 5 hours","2 to 5 hours","More than 5 hours"]);
+    r[QT.tools]=tools;
+    r[QT.access]=pick(["No","No","Not sure","I use free AI tools on my own","Yes, Microsoft 365 Copilot"]);
+    r[QT.l1]=lk(b);r[QT.l2]=lk(b+0.3);r[QT.l3]=lk(b-0.6);
+    r[QT.sens]=rnd()<0.12?"None of these;":some(d.sens,1+Math.floor(rnd()*2));
+    r[QT.want]=some(dk==="HR"?wantL.filter(x=>x!=="Responding to customer enquiries"):wantL.filter(x=>x!=="Scheduling"),3+Math.floor(rnd()*2));
+    r[QT.goal]=pick(d.goal);
+    rows.push(r);
+  }
+  return rows;
 }
 
 /* ---------- wiring ---------- */
-function setRows(rows,isDemo,msg){state.rows=rows.filter(r=>Object.values(r).some(v=>String(v??"").trim()));state.demo=isDemo;state.cols=classify(state.rows);save();renderAll();$("#status").textContent=msg||""}
+function deptRows(){const all=state.all;if(state.dept==="All")return all;const f=fieldsOf(all);if(!f.dept)return all;
+  const re=state.dept==="HR"?/human/i:/customer/i;return all.filter(r=>re.test(String(r[f.dept]??"")))}
+function refresh(){state.rows=deptRows();state.cols=classify(state.rows).filter(c=>state.dept==="All"||!/which department/i.test(c.key));state.pid=0;renderAll()}
+function setRows(rows,isDemo,msg){state.all=rows.filter(r=>Object.values(r).some(v=>String(v??"").trim()));state.demo=isDemo;save();refresh();$("#status").textContent=msg||""}
 function readFile(f){
   if(!window.XLSX){$("#status").textContent="The spreadsheet reader didn't load. Check the connection and reload.";return}
   const rd=new FileReader();rd.onload=e=>{try{const wb=XLSX.read(new Uint8Array(e.target.result),{type:"array"});const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:"",raw:false});
@@ -373,14 +575,16 @@ const app=$("#app");
 ["dragenter","dragover"].forEach(t=>app.addEventListener(t,e=>{e.preventDefault();app.classList.add("drop-over")}));
 ["dragleave","drop"].forEach(t=>app.addEventListener(t,e=>{e.preventDefault();if(t==="drop"||e.target===app)app.classList.remove("drop-over")}));
 app.addEventListener("drop",e=>{app.classList.remove("drop-over");const f=e.dataTransfer.files[0];if(f)readFile(f)});
-$("#demo").onclick=()=>setRows(demo(state.dept),true,"");
-const titles={overview:"overview",answers:"staff voices",setup:"automation setup"};
-function header(){$("#title").textContent=(state.dept==="HR"?"HR ":"Customer Experience ")+titles[state.tab];$("#demoNote").classList.toggle("hidden",!state.demo);$("#demo").classList.toggle("hidden",state.demo)}
-document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));state.dept=b.dataset.dept;state.q=0;$("#status").textContent="";if(!load()){state.rows=demo(state.dept);state.demo=true}state.cols=classify(state.rows);renderAll()});
-document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav.nav button").forEach(x=>x.toggleAttribute("aria-current",x===b));document.querySelectorAll("nav.nav button[aria-current]").forEach(x=>x.setAttribute("aria-current","page"));state.tab=b.dataset.tab;["overview","answers","setup"].forEach(t=>$("#tab-"+t).classList.toggle("hidden",t!==state.tab));header()});
-function renderAll(){header();renderOverview();renderAnswers()}
-if(!load()){state.rows=demo(state.dept);state.demo=true}
-state.cols=classify(state.rows);renderAll();
+$("#demo").onclick=()=>setRows(demo(),true,"");
+const TABS=["overview","answers","pathways","setup"];
+const titles={overview:"overview",answers:"staff voices",pathways:"training pathways",setup:"automation setup"};
+const DL={All:"All staff",HR:"HR","Customer Experience":"Customer Experience"};
+function header(){const t=titles[state.tab];$("#title").textContent=DL[state.dept]+" "+t;$("#subtitle").textContent=state.tab==="pathways"?"A personal learning path for every participant, built from their answers":"Needs assessment results ahead of the AI workshop";$("#demoNote").classList.toggle("hidden",!state.demo);$("#demo").classList.toggle("hidden",state.demo)}
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));state.dept=b.dataset.dept;state.q=0;$("#status").textContent="";refresh()});
+document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav.nav button").forEach(x=>x.removeAttribute("aria-current"));b.setAttribute("aria-current","page");state.tab=b.dataset.tab;TABS.forEach(t=>$("#tab-"+t).classList.toggle("hidden",t!==state.tab));header()});
+function renderAll(){header();renderOverview();renderAnswers();renderPathways()}
+if(!load()){state.all=demo();state.demo=true}
+refresh();
 })();
 </script>
 </body>
