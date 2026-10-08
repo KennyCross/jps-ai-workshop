@@ -10,8 +10,9 @@ A plan is rejected (and nothing about it is published) if any text in it:
     (organisation, place and system names listed privately in work/blocklist.txt), or
   - repeats six or more consecutive words from that person's private written answers.
 
-Usage: python3 scripts/publish.py            # validate and merge
-       python3 scripts/publish.py --check    # validate only, change nothing
+Usage: python3 scripts/publish.py --source-modified T   # validate and merge
+       python3 scripts/publish.py --check                 # validate only, change nothing
+       python3 scripts/publish.py --mark-only T           # only record that the sheet was seen at time T
 """
 import datetime, json, os, re, sys
 
@@ -97,7 +98,15 @@ def check(plan, pend, library_ids):
     return errs
 
 
-def main(only_check):
+def mark(t):
+    data = json.load(open(DATA)) if os.path.exists(DATA) else {"plans": [], "facts": []}
+    data["source_modified"] = t
+    json.dump(data, open(DATA, "w"), indent=1)
+    print("Recorded the sheet's last-modified time.")
+    return 0
+
+
+def main(only_check, source_modified=None):
     if not BLOCKED:
         print("Stopping: work/blocklist.txt is missing or empty. Write the blocked words from the task prompt first.")
         return 2
@@ -143,6 +152,8 @@ def main(only_check):
         data["facts"].append(dict(pend["facts"], key=pend["fact_key"]))
     data["plans"].sort(key=lambda p: (p["date"], p["code"]))
     data["facts"].sort(key=lambda f: f["key"])  # hash order, so facts can't be lined up with plans
+    if source_modified and not bad:
+        data["source_modified"] = source_modified
     data["updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     os.makedirs(os.path.dirname(DATA), exist_ok=True)
     json.dump(data, open(DATA, "w"), indent=1)
@@ -150,5 +161,11 @@ def main(only_check):
     return 1 if bad else 0
 
 
+def arg(name):
+    return sys.argv[sys.argv.index(name) + 1] if name in sys.argv and sys.argv.index(name) + 1 < len(sys.argv) else None
+
+
 if __name__ == "__main__":
-    sys.exit(main("--check" in sys.argv))
+    if "--mark-only" in sys.argv:
+        sys.exit(mark(arg("--mark-only")))
+    sys.exit(main("--check" in sys.argv, arg("--source-modified")))

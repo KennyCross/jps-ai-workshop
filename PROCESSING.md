@@ -22,11 +22,18 @@ publishes a de-identified version to the public site. Follow the steps in order.
 2. **Write the block list.** Save the blocked words given in the task prompt to
    `work/blocklist.txt`, one per line. The privacy check refuses to run without it.
 
-3. **Get the responses.** Use the Google Drive connector to export the response sheet named
-   in the task prompt as CSV, and save it to `work/responses.csv`.
+3. **Quick check: has the sheet changed?** Use the Google Drive connector to get the response
+   sheet's metadata (the sheet ID is in the task prompt) and note its `modifiedTime`. Compare it
+   with `source_modified` in `data/plans.json`. If they are the same, stop here and reply
+   "No new responses." This keeps runs short when nothing has happened.
 
-4. **Find what's new.** Run `python3 scripts/prepare.py work/responses.csv`.
-   If it prints "Nothing new to process", stop here and reply "No new responses."
+4. **Get the responses and find what's new.** Use the Google Drive connector to download the
+   sheet with export type `text/csv`. The content comes back base64-encoded: save it exactly to
+   `work/responses.b64`, then run `base64 -d work/responses.b64 > work/responses.csv` and
+   `python3 scripts/prepare.py work/responses.csv`.
+   If it prints "Nothing new to process", run
+   `python3 scripts/publish.py --mark-only <modifiedTime>`, commit `data/plans.json` with the
+   message `Checked responses`, push, and stop.
 
 5. **Write the plans.** Read `work/pending.json`. For every entry, write one plan object, and
    save them all as a JSON list in `work/new_plans.json`:
@@ -83,7 +90,8 @@ publishes a de-identified version to the public site. Follow the steps in order.
    parts named in the error and check again. If a plan still fails after two rewrites, leave
    it out of `work/new_plans.json`; it will be retried on the next run.
 
-7. **Publish.** Run `python3 scripts/publish.py`. This updates `data/plans.json`.
+7. **Publish.** Run `python3 scripts/publish.py --source-modified <modifiedTime>`. This updates
+   `data/plans.json`. If any plan was held back, the time is not recorded, so the next run retries it.
 
 8. **Commit and push.** `git add data/plans.json`, commit with the message
    `Add N training plan(s)` (N = number published), then `git pull --rebase` and `git push`.
