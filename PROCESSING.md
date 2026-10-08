@@ -19,13 +19,16 @@ publishes a de-identified version to the public site. Follow the steps in order.
 1. **Get the code.** Work in `/home/claude/ai-workshop` (clone the repository named in the task
    prompt there with `git clone --depth 1` if it is missing; otherwise `git pull`).
 
-2. **Get the responses.** Use the Google Drive connector to export the response sheet named
+2. **Write the block list.** Save the blocked words given in the task prompt to
+   `work/blocklist.txt`, one per line. The privacy check refuses to run without it.
+
+3. **Get the responses.** Use the Google Drive connector to export the response sheet named
    in the task prompt as CSV, and save it to `work/responses.csv`.
 
-3. **Find what's new.** Run `python3 scripts/prepare.py work/responses.csv`.
+4. **Find what's new.** Run `python3 scripts/prepare.py work/responses.csv`.
    If it prints "Nothing new to process", stop here and reply "No new responses."
 
-4. **Write the plans.** Read `work/pending.json`. For every entry, write one plan object, and
+5. **Write the plans.** Read `work/pending.json`. For every entry, write one plan object, and
    save them all as a JSON list in `work/new_plans.json`:
 
    ```json
@@ -76,14 +79,14 @@ publishes a de-identified version to the public site. Follow the steps in order.
      people, disciplinary matters), even in general terms.
    - Write warmly and directly to the person ("you"), in plain English.
 
-5. **Check.** Run `python3 scripts/publish.py --check`. For each rejected plan, rewrite only the
+6. **Check.** Run `python3 scripts/publish.py --check`. For each rejected plan, rewrite only the
    parts named in the error and check again. If a plan still fails after two rewrites, leave
    it out of `work/new_plans.json`; it will be retried on the next run.
 
-6. **Publish.** Run `python3 scripts/publish.py`. This updates `data/plans.json`.
+7. **Publish.** Run `python3 scripts/publish.py`. This updates `data/plans.json`.
 
-7. **Commit and push.** `git add data/plans.json`, commit with the message
+8. **Commit and push.** `git add data/plans.json`, commit with the message
    `Add N training plan(s)` (N = number published), then `git pull --rebase` and `git push`.
 
-8. **Report.** Reply in one or two lines: how many new responses, how many plans published,
+9. **Report.** Reply in one or two lines: how many new responses, how many plans published,
    how many held back for retry. No codes, no answers, no names.

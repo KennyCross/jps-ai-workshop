@@ -7,7 +7,7 @@ rules, and merges the ones that pass into data/plans.json, the only file the pub
 
 A plan is rejected (and nothing about it is published) if any text in it:
   - contains an email address, phone-like number, web address or a blocked word
-    (company names, place names, see BLOCKED below), or
+    (organisation, place and system names listed privately in work/blocklist.txt), or
   - repeats six or more consecutive words from that person's private written answers.
 
 Usage: python3 scripts/publish.py            # validate and merge
@@ -20,12 +20,12 @@ DATA = os.path.join(ROOT, "data", "plans.json")
 PENDING = os.path.join(ROOT, "work", "pending.json")
 NEW = os.path.join(ROOT, "work", "new_plans.json")
 
-BLOCKED = [
-    r"\bjps\b", r"jamaica public service", r"jamaica", r"jamaican",
-    r"kingston", r"montego bay", r"spanish town", r"portmore", r"mandeville", r"ocho rios", r"may pen",
-    r"negril", r"savanna-la-mar", r"st\.? (andrew|catherine|james|ann|elizabeth|thomas|mary)", r"clarendon",
-    r"manchester", r"westmoreland", r"hanover", r"trelawny", r"portland", r"half way tree", r"new kingston",
-]
+# Organisation, place and system names to block are kept out of this public file.
+# The scheduled run writes them, one per line, to work/blocklist.txt (never committed).
+BLOCKLIST = os.path.join(ROOT, "work", "blocklist.txt")
+BLOCKED = []
+if os.path.exists(BLOCKLIST):
+    BLOCKED = [r"\b" + re.escape(w.strip()) + r"\b" for w in open(BLOCKLIST) if w.strip() and not w.startswith("#")]
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+")
 PHONE = re.compile(r"(\+?\d[\d\s().-]{6,}\d)")
 URL = re.compile(r"https?://|www\.", re.I)
@@ -90,7 +90,7 @@ def check(plan, pend, library_ids):
             errs.append(f"{field} contains a phone-like number")
         for b in BLOCKED:
             if re.search(b, t, re.I):
-                errs.append(f"{field} contains a blocked word ({b})")
+                errs.append(f"{field} contains a blocked word")
         hit = overlaps(t, private)
         if hit:
             errs.append(f"{field} repeats the person's own words: '{hit}'")
@@ -98,6 +98,9 @@ def check(plan, pend, library_ids):
 
 
 def main(only_check):
+    if not BLOCKED:
+        print("Stopping: work/blocklist.txt is missing or empty. Write the blocked words from the task prompt first.")
+        return 2
     pending = {p["key"]: p for p in json.load(open(PENDING))}
     new = json.load(open(NEW)) if os.path.exists(NEW) else []
     import subprocess
