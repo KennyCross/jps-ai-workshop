@@ -1,0 +1,4 @@
+# Never commit survey responses
+*.xlsx
+*.csv
+responses/

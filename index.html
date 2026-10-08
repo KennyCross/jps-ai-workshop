@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Readiness Insights | Kenista Simpson AI Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --side:#0F1E29; --side2:#16303D; --side-ink:#DCE7EA; --side-mute:#8FA7AE;
+  --bg:#F2F5F4; --card:#FFFFFF; --ink:#12212A; --mute:#5B6C73; --line:#E1E7E6; --soft:#EEF3F2;
+  --teal:#0E7C86; --teal2:#12A0A8; --tealsoft:#DDF0F1; --amber:#E39B2D; --ambersoft:#FCEFD9; --red:#C0563F;
+  --l1:#C0563F; --l2:#E8A08C; --l3:#CBD4D3; --l4:#6FB8BE; --l5:#0E7C86;
+  --shadow:0 1px 2px rgba(15,30,41,.06),0 8px 24px rgba(15,30,41,.06);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B151C; --card:#132430; --ink:#E4EDEF; --mute:#94A9B0; --line:#223844; --soft:#182C38;
+  --tealsoft:#123A40; --ambersoft:#3A2C14; --l3:#33484F; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{--bg:#0B151C;--card:#132430;--ink:#E4EDEF;--mute:#94A9B0;--line:#223844;--soft:#182C38;--tealsoft:#123A40;--ambersoft:#3A2C14;--l3:#33484F}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,.num{font-family:"Bricolage Grotesque",Manrope,system-ui,sans-serif;margin:0;line-height:1.15}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+/* sidebar */
+aside.side{background:linear-gradient(180deg,var(--side),#0B1720);color:var(--side-ink);padding:26px 18px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:12px;align-items:center}
+.brand b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;letter-spacing:-.01em}
+.brand small{color:var(--side-mute);font-size:12.5px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--side2);border-radius:10px;padding:4px;gap:4px}
+.seg button{border:0;background:none;color:var(--side-mute);padding:8px 6px;border-radius:7px;font-weight:600;font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--side-ink);color:var(--side)}
+.side .lbl{font-size:12px;color:var(--side-mute);margin:0 0 8px 4px}
+nav.nav{display:flex;flex-direction:column;gap:2px}
+nav.nav button{display:flex;gap:12px;align-items:center;border:0;background:none;color:var(--side-ink);padding:10px 12px;border-radius:9px;font-weight:600;text-align:left;opacity:.78}
+nav.nav button svg{width:18px;height:18px;flex:none}
+nav.nav button[aria-current="page"]{background:var(--side2);opacity:1;box-shadow:inset 3px 0 0 var(--amber)}
+nav.nav button:hover{opacity:1}
+.side-foot{margin-top:auto;font-size:12.5px;color:var(--side-mute);border-top:1px solid var(--side2);padding-top:16px}
+/* main */
+main{padding:28px 36px 60px;min-width:0}
+.topbar{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.topbar h1{font-size:32px;font-weight:800;letter-spacing:-.02em}
+.topbar p{margin:4px 0 0;color:var(--mute)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;background:var(--teal);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(14,124,134,.25)}
+.btn svg{width:16px;height:16px}
+.btn.sec{background:var(--card);color:var(--ink);border-color:var(--line);box-shadow:none}
+.btn:disabled{opacity:.55;cursor:default}
+.notice{display:flex;gap:12px;align-items:center;background:var(--ambersoft);border:1px solid #F0D3A2;padding:12px 16px;border-radius:12px;margin-bottom:20px;font-size:14px}
+.notice svg{width:20px;height:20px;flex:none;color:var(--amber)}
+.status{font-size:14px;color:var(--mute);min-height:1.3em;margin:-10px 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.card .sub{color:var(--mute);font-size:13px;margin:0 0 16px}
+.grid{display:grid;gap:18px}
+.g-hero{grid-template-columns:minmax(260px,340px) 1fr}
+.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.span2{grid-column:1/-1}
+/* hero */
+.hero{background:radial-gradient(120% 120% at 0% 0%,#16414B 0%,var(--side) 60%);color:#EAF2F3;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.hero h3{color:#EAF2F3}
+.ring{position:relative;width:180px;height:180px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .v{position:absolute;inset:0;display:grid;place-items:center;align-content:center}
+.ring .v b{font-family:"Bricolage Grotesque",sans-serif;font-size:48px;line-height:1}
+.ring .v small{color:#9FB9BF;font-size:13px}
+.hero p{margin:0;color:#A9C1C6;font-size:13.5px;max-width:30ch}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.kpi{display:flex;flex-direction:column;gap:10px}
+.kpi .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--tealsoft);color:var(--teal)}
+.kpi .ic.a{background:var(--ambersoft);color:var(--amber)}
+.kpi .ic svg{width:21px;height:21px}
+.kpi .num{font-size:38px;font-weight:800;letter-spacing:-.02em}
+.kpi .num.sm{font-size:21px;line-height:1.25}
+.kpi p{margin:0;color:var(--mute);font-size:13.5px}
+.mini{height:6px;border-radius:6px;background:var(--soft);overflow:hidden}
+.mini i{display:block;height:100%;background:var(--teal);border-radius:6px}
+/* bars */
+.hbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;margin:12px 0}
+.hbar .t{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.hbar .p{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;text-align:right}
+.hbar .tr{grid-column:1/-1;height:10px;background:var(--soft);border-radius:6px;overflow:hidden}
+.hbar .tr i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--teal2))}
+.hbar.top .tr i{background:linear-gradient(90deg,#D48A1C,var(--amber))}
+.lik{margin:14px 0}
+.lik .q{display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600;margin-bottom:6px}
+.lik .q span.s{font-family:"Bricolage Grotesque",sans-serif;color:var(--teal);font-size:16px}
+.stack{display:flex;height:22px;border-radius:7px;overflow:hidden;gap:2px}
+.stack div{display:grid;place-items:center;font-size:11.5px;font-weight:700;color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--mute);margin-top:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.donut{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.donut .d{width:150px;height:150px;border-radius:50%;position:relative;flex:none}
+.donut .d::after{content:"";position:absolute;inset:26px;border-radius:50%;background:var(--card)}
+.donut .d b{position:absolute;inset:0;display:grid;place-items:center;z-index:1;font-family:"Bricolage Grotesque",sans-serif;font-size:28px}
+.donut ul{list-style:none;padding:0;margin:0;font-size:13.5px;display:grid;gap:8px}
+.donut li{display:flex;gap:8px;align-items:center}
+.donut li i{width:11px;height:11px;border-radius:3px;flex:none}
+.cols{display:flex;align-items:flex-end;gap:14px;height:190px;padding-top:24px}
+.cols .c{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.cols .c i{display:block;width:100%;max-width:64px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--teal2),var(--teal));position:relative}
+.cols .c i.hot{background:linear-gradient(180deg,var(--amber),#C9801A)}
+.cols .c em{font-style:normal;font-weight:700;font-size:13px}
+.cols .c span{font-size:12px;color:var(--mute);text-align:center;line-height:1.3}
+/* answers */
+.ans-layout{display:grid;grid-template-columns:320px 1fr;gap:18px}
+.qlist{display:flex;flex-direction:column;gap:6px;max-height:70vh;overflow:auto}
+.qlist button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:11px 13px;text-align:left;font-size:13.5px;font-weight:600;display:flex;justify-content:space-between;gap:10px}
+.qlist button[aria-pressed="true"]{border-color:var(--teal);background:var(--tealsoft)}
+.qlist button em{font-style:normal;color:var(--mute);font-weight:500}
+.search{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:14px}
+.ans{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+.ans p{margin:0 0 8px;font-size:15px}
+.ans small{color:var(--mute);font-size:12.5px;display:flex;gap:6px;align-items:center}
+.ans small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal)}
+mark{background:var(--ambersoft);color:inherit;border-radius:3px;padding:0 2px}
+/* ai */
+.ai-hero{display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:radial-gradient(120% 140% at 100% 0%,#1B4A54,var(--side) 65%);color:#EAF2F3;border:0}
+.ai-hero h3{font-size:22px;color:#fff;margin-bottom:6px}
+.ai-hero p{margin:0;color:#A9C1C6;max-width:62ch}
+.stream{white-space:pre-wrap;font:12.5px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);max-height:160px;overflow:auto;background:var(--soft);padding:12px;border-radius:10px;margin-top:14px}
+.summary{font-size:18px;line-height:1.55;border-left:4px solid var(--amber);padding:4px 0 4px 18px;margin:0}
+.themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.theme{background:var(--soft);border-radius:12px;padding:16px}
+.theme b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;margin-bottom:6px}
+.theme p{margin:0;font-size:14px}
+.theme q{display:block;margin-top:8px;color:var(--mute);font-size:13px;font-style:italic}
+.matrix{position:relative;aspect-ratio:1.6;background:var(--soft);border-radius:12px;overflow:hidden}
+.matrix .qd{position:absolute;width:50%;height:50%;padding:12px 14px;font-size:12.5px;font-weight:700;color:var(--mute)}
+.matrix .qd.win{background:rgba(14,124,134,.10);color:var(--teal)}
+.matrix .dot{position:absolute;transform:translate(-50%,-50%);background:var(--card);border:2px solid var(--teal);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis;box-shadow:var(--shadow)}
+.matrix .ax{position:absolute;font-size:11.5px;color:var(--mute);font-weight:600}
+table.opp{width:100%;border-collapse:collapse;font-size:14px}
+.tw{overflow-x:auto}
+table.opp th{text-align:left;font-size:12.5px;color:var(--mute);font-weight:700;padding:10px;border-bottom:2px solid var(--line)}
+table.opp td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.High{background:var(--teal);color:#fff}.Medium{background:var(--tealsoft);color:var(--teal)}.Low{background:var(--soft);color:var(--mute)}
+.list{margin:0;padding-left:20px}.list li{margin:7px 0}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.tl:first-child{border-top:0}
+.tl .m{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;color:var(--teal)}
+.tl b{display:block}
+.tl span{color:var(--mute);font-size:14px}
+/* setup */
+.flowdiag{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:6px 0 24px}
+.fn{flex:1 1 150px;background:var(--soft);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;position:relative}
+.fn .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--teal);color:#fff}
+.fn .ic svg{width:18px;height:18px}
+.fn b{font-size:14px}.fn span{font-size:12.5px;color:var(--mute)}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
+ol.steps li::before{content:counter(s);width:36px;height:36px;border-radius:10px;background:var(--side);color:#fff;display:grid;place-items:center;font-weight:800;font-family:"Bricolage Grotesque",sans-serif}
+ol.steps b{display:block;font-size:15.5px;margin-bottom:3px}
+ol.steps p{margin:0;color:var(--mute);font-size:14px}
+code{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:12.5px;color:var(--ink)}
+.empty{text-align:center;padding:60px 20px;color:var(--mute)}
+.empty h2{color:var(--ink);font-size:22px;margin-bottom:8px}
+.hidden{display:none!important}
+.drop-over main{outline:3px dashed var(--teal);outline-offset:-12px}
+@media (max-width:1000px){.g-hero{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:1fr 1fr 1fr}}
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  aside.side{position:static;height:auto;padding:18px;gap:16px}
+  nav.nav{flex-direction:row;overflow-x:auto}
+  nav.nav button{white-space:nowrap}
+  .side-foot,.side .lbl{display:none}
+  main{padding:20px 16px 50px}
+  .g-2,.kpis,.ans-layout{grid-template-columns:minmax(0,1fr)}
+  .qlist{max-height:none}
+}
+@media (prefers-reduced-motion:no-preference){.hbar .tr i,.mini i,.stack div,.cols .c i{transition:all .6s cubic-bezier(.2,.7,.2,1)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
+ <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+ <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></symbol>
+ <symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 6H15a3 3 0 0 1 3 3v6.5M5 8.5V15a3 3 0 0 0 3 3h8.5"/></symbol>
+ <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
+ <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+ <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
+ <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+ <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+ <symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></symbol>
+ <symbol id="i-form" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+ <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+ <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></symbol>
+ <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+</svg>
+<div class="app" id="app">
+ <aside class="side">
+  <div class="brand">
+   <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#E39B2D"/><circle cx="13" cy="14" r="3.2" fill="#0F1E29"/><circle cx="27" cy="13" r="3.2" fill="#0F1E29"/><circle cx="20" cy="27" r="3.6" fill="#0F1E29"/><path d="M13 14L20 27L27 13M13 14L27 13" stroke="#0F1E29" stroke-width="2"/></svg>
+   <div><b>AI Readiness Insights</b><small>Kenista Simpson AI Training</small></div>
+  </div>
+  <div><p class="lbl">Department</p>
+   <div class="seg" role="group" aria-label="Department"><button type="button" data-dept="HR" aria-pressed="true">HR</button><button type="button" data-dept="Customer Experience" aria-pressed="false">Customer Exp.</button></div></div>
+  <div><p class="lbl">Views</p>
+  <nav class="nav">
+   <button data-tab="overview" aria-current="page"><svg><use href="#i-grid"/></svg>Overview</button>
+   <button data-tab="answers"><svg><use href="#i-chat"/></svg>Staff voices</button>
+   <button data-tab="ai"><svg><use href="#i-spark"/></svg>AI workshop plan</button>
+   <button data-tab="setup"><svg><use href="#i-flow"/></svg>Automation setup</button>
+  </nav></div>
+  <div class="side-foot">Responses load into your browser only. Names are removed before any AI analysis.</div>
+ </aside>
+ <main>
+  <div class="topbar">
+   <div><h1 id="title">HR overview</h1><p id="subtitle">Discovery survey results ahead of the AI workshop</p></div>
+   <div class="actions">
+    <label class="btn" tabindex="0" id="upl"><svg><use href="#i-up"/></svg>Upload Forms export<input type="file" id="file" accept=".xlsx,.xls,.csv" class="hidden"></label>
+    <button class="btn sec" id="demo" type="button">Reset to sample data</button>
+   </div>
+  </div>
+  <div class="notice hidden" id="demoNote"><svg><use href="#i-info"/></svg><span>You're viewing <b>sample data</b> so you can see how the dashboard works. Upload the Microsoft Forms export (Responses, then Open in Excel) to replace it with real answers.</span></div>
+  <div class="status" id="status" role="status"></div>
+
+  <section id="tab-overview"></section>
+  <section id="tab-answers" class="hidden"></section>
+  <section id="tab-ai" class="hidden">
+   <div class="card ai-hero">
+    <div><h3>Generate the workshop plan</h3><p>Claude reads every response and returns the team's themes, automation opportunities ranked by impact and effort, data-privacy risks, quick wins and a half-day agenda.</p></div>
+    <div class="actions"><button class="btn" id="runAi" type="button"><svg><use href="#i-spark"/></svg>Analyse responses</button><button class="btn sec hidden" id="saveAi" type="button"><svg><use href="#i-dl"/></svg>Download report</button></div>
+   </div>
+   <div class="status" id="aiStatus" role="status" style="margin:12px 0"></div>
+   <div class="stream hidden" id="aiStream"></div>
+   <div id="aiOut" class="grid" style="margin-top:18px"></div>
+  </section>
+  <section id="tab-setup" class="hidden"></section>
+ </main>
+</div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ico=id=>`<svg><use href="#${id}"/></svg>`;
+const META=/^(id|start time|completion time|email|name|last modified time|total points|quiz feedback|points -|feedback -)/i;
+const PII=/^(your name|name)$/i;
+let state={dept:"HR",rows:[],cols:[],demo:false,ai:null,tab:"overview",q:0};
+
+function save(){try{localStorage.setItem("air2:"+state.dept,JSON.stringify({rows:state.rows,demo:state.demo,ai:state.ai}))}catch(e){}}
+function load(){try{const v=JSON.parse(localStorage.getItem("air2:"+state.dept)||"null");if(v&&Array.isArray(v.rows)&&v.rows.length){state.rows=v.rows;state.demo=!!v.demo;state.ai=v.ai||null;return true}}catch(e){}return false}
+
+function classify(rows){
+  if(!rows.length)return[];
+  const keys=Object.keys(rows[0]).filter(k=>!META.test(k.trim())&&!PII.test(k.trim()));
+  return keys.map(k=>{
+    const vals=rows.map(r=>String(r[k]??"").trim()).filter(Boolean);
+    const multi=vals.some(v=>/;\s*$/.test(v));
+    const parts=multi?vals.flatMap(v=>v.split(";").map(x=>x.trim()).filter(Boolean)):vals;
+    const uniq=new Set(parts);const avg=parts.reduce((a,v)=>a+v.length,0)/(parts.length||1);
+    let type="text";
+    if(parts.length&&parts.every(v=>/^[1-5]\s*-\s*/.test(v)))type="likert";
+    else if(multi||(uniq.size<=10&&avg<40&&vals.length>=Math.min(3,rows.length)))type="choice";
+    if(/your job title|your role/i.test(k))type="role";
+    return{key:k,type,multi};
+  });
+}
+function tally(k,multi){const m=new Map();state.rows.forEach(r=>{const v=String(r[k]??"").trim();if(!v)return;(multi?v.split(";").map(x=>x.trim()).filter(Boolean):[v]).forEach(x=>m.set(x,(m.get(x)||0)+1))});return[...m.entries()].sort((a,b)=>b[1]-a[1])}
+const short=q=>q.replace(/\s*\(select all that apply\)/i,"").replace(/^\d+\.\s*/,"");
+const find=re=>state.cols.find(c=>re.test(c.key));
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+
+/* ---------- overview ---------- */
+function hbars(t,total,limit){const max=t[0]?t[0][1]:1;return t.slice(0,limit||99).map(([k,v],i)=>`<div class="hbar${i===0?" top":""}"><span class="t" title="${esc(k)}">${esc(k)}</span><span class="p">${v} <span style="opacity:.7">(${pct(v,total)}%)</span></span><div class="tr"><i style="width:${v/max*100}%"></i></div></div>`).join("")}
+function renderOverview(){
+  const el=$("#tab-overview");const n=state.rows.length;
+  if(!n){el.innerHTML=`<div class="empty card"><h2>No responses yet</h2><p>Upload the Forms export to begin.</p></div>`;return}
+  const lik=state.cols.filter(c=>c.type==="likert");
+  const vals=lik.flatMap(c=>state.rows.map(r=>parseInt(String(r[c.key]??""))).filter(x=>x>=1&&x<=5));
+  const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;
+  const score=Math.round((avg-1)/4*100);
+  const band=score>=70?["Ready to scale","#6FD3A0"]:score>=45?["Ready to start","#F2C46D"]:["Needs foundations","#F09A83"];
+  const taskCol=find(/tasks would you like ai help/i);
+  const tasks=taskCol?tally(taskCol.key,true).filter(([k])=>k!=="Other"):[];
+  const retype=find(/copying or re-typing/i);let heavy=null;
+  if(retype){const t=tally(retype.key,false);const tot=t.reduce((a,[,v])=>a+v,0);heavy=pct(t.filter(([k])=>/2 to 5|more than 5/i.test(k)).reduce((a,[,v])=>a+v,0),tot)}
+  const C=2*Math.PI*78;
+  let h=`<div class="grid g-hero">
+   <div class="card hero"><h3>AI readiness index</h3>
+    <div class="ring"><svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="78" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="14"/><circle cx="90" cy="90" r="78" fill="none" stroke="url(#rg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-score/100)}"/><defs><linearGradient id="rg"><stop offset="0" stop-color="#12A0A8"/><stop offset="1" stop-color="#E39B2D"/></linearGradient></defs></svg>
+     <div class="v"><b>${vals.length?score:"–"}</b><small>out of 100</small></div></div>
+    <span class="tag" style="background:${band[1]};color:#0F1E29">${band[0]}</span>
+    <p>Combined score from ${lik.length} comfort statements across ${n} staff.</p></div>
+   <div class="grid" style="align-content:start">
+    <div class="kpis">
+     <div class="card kpi"><div class="ic">${ico("i-users")}</div><div class="num">${n}</div><p>staff responded${state.demo?" (sample)":""}</p></div>
+     <div class="card kpi"><div class="ic a">${ico("i-clock")}</div><div class="num">${heavy!=null?heavy+"%":"–"}</div><p>lose 2+ hours a week re-typing data</p><div class="mini"><i style="width:${heavy||0}%"></i></div></div>
+     <div class="card kpi"><div class="ic">${ico("i-target")}</div><div class="num sm">${tasks[0]?esc(tasks[0][0]):"–"}</div><p>most requested AI task${tasks[0]?`, chosen by ${pct(tasks[0][1],n)}%`:""}</p></div>
+    </div>
+    ${lik.length?`<div class="card"><h3>Confidence with AI</h3><p class="sub">Share of staff at each level of agreement. Average score on the right.</p>${lik.map(c=>{
+      const cnt=[0,0,0,0,0];state.rows.forEach(r=>{const x=parseInt(String(r[c.key]??""));if(x>=1&&x<=5)cnt[x-1]++});
+      const tot=cnt.reduce((a,b)=>a+b,0)||1;const m=cnt.reduce((a,v,i)=>a+v*(i+1),0)/tot;
+      return `<div class="lik"><div class="q"><span>${esc(short(c.key))}</span><span class="s">${m.toFixed(1)}</span></div><div class="stack" role="img" aria-label="${esc(short(c.key))}">${cnt.map((v,i)=>v?`<div style="flex:${v};background:var(--l${i+1})">${pct(v,tot)>=12?pct(v,tot)+"%":""}</div>`:"").join("")}</div></div>`}).join("")}
+      <div class="legend">${["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"].map((l,i)=>`<span><i style="background:var(--l${i+1})"></i>${l}</span>`).join("")}</div></div>`:""}
+   </div></div>
+  <div class="grid g-2" style="margin-top:18px">`;
+  if(taskCol)h+=`<div class="card"><h3>Where staff want AI help</h3><p class="sub">Tasks selected, with share of respondents</p>${hbars(tasks,n,8)}</div>`;
+  const cop=find(/copilot/i);
+  if(cop){const t=tally(cop.key,false);const tot=t.reduce((a,[,v])=>a+v,0);const cols=["#0E7C86","#12A0A8","#E39B2D","#C0563F","#9AA9AE"];let acc=0;
+    const grad=t.map(([,v],i)=>{const s=acc;acc+=v/tot*360;return`${cols[i%5]} ${s}deg ${acc}deg`}).join(",");
+    const no=t.filter(([k])=>/^no$|not sure|free ai/i.test(k)).reduce((a,[,v])=>a+v,0);
+    h+=`<div class="card"><h3>Access to AI tools today</h3><p class="sub">Company-provided licences versus none</p><div class="donut"><div class="d" style="background:conic-gradient(${grad})"><b>${pct(no,tot)}%</b></div><ul>${t.map(([k,v],i)=>`<li><i style="background:${cols[i%5]}"></i>${esc(k)} <span style="color:var(--mute)">${v}</span></li>`).join("")}</ul></div><p class="sub" style="margin:14px 0 0">${pct(no,tot)}% have no company-provided AI tool, so the workshop should cover approved tools and safe setup.</p></div>`}
+  if(retype){const order=["Almost none","Up to 2 hours","2 to 5 hours","More than 5 hours"];const t=new Map(tally(retype.key,false));const max=Math.max(...order.map(o=>t.get(o)||0),1);
+    h+=`<div class="card"><h3>Weekly time lost to re-typing</h3><p class="sub">Hours spent copying information between systems</p><div class="cols">${order.map(o=>{const v=t.get(o)||0;return`<div class="c"><em>${v}</em><i class="${/2 to 5|More/.test(o)?"hot":""}" style="height:${Math.max(4,v/max*120)}px"></i><span>${o}</span></div>`}).join("")}</div></div>`}
+  state.cols.filter(c=>c.type==="choice"&&c!==taskCol&&c!==cop&&c!==retype).forEach(c=>{h+=`<div class="card"><h3>${esc(short(c.key))}</h3><p class="sub">${c.multi?"Multiple answers allowed":"Single answer"}</p>${hbars(tally(c.key,c.multi),n,7)}</div>`});
+  h+=`</div>`;el.innerHTML=h;
+}
+
+/* ---------- answers ---------- */
+function renderAnswers(){
+  const el=$("#tab-answers");const texts=state.cols.filter(c=>c.type==="text");
+  if(!state.rows.length||!texts.length){el.innerHTML=`<div class="empty card"><h2>No written answers yet</h2><p>Upload a Forms export to read what staff wrote.</p></div>`;return}
+  if(state.q>=texts.length)state.q=0;
+  const role=find(/job title|role/i);
+  const cnt=c=>state.rows.filter(r=>String(r[c.key]??"").trim()).length;
+  el.innerHTML=`<div class="ans-layout"><div class="qlist" role="group" aria-label="Questions">${texts.map((c,i)=>`<button data-i="${i}" aria-pressed="${i===state.q}"><span>${esc(short(c.key))}</span><em>${cnt(c)}</em></button>`).join("")}</div><div><input class="search" id="qFind" type="search" placeholder="Search answers, e.g. Excel, WhatsApp, approval" aria-label="Search answers"><div id="qList"></div></div></div>`;
+  const draw=()=>{const c=texts[state.q];const f=$("#qFind").value.trim().toLowerCase();
+    const list=state.rows.map(r=>({a:String(r[c.key]??"").trim(),r:role?String(r[role.key]??""):""})).filter(x=>x.a&&(!f||x.a.toLowerCase().includes(f)));
+    const hl=s=>{let e=esc(s);if(f){const re=new RegExp(f.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");e=e.replace(re,m=>`<mark>${m}</mark>`)}return e};
+    $("#qList").innerHTML=`<h3 style="font-size:20px;margin-bottom:14px">${esc(short(c.key))}</h3>`+(list.length?list.map(x=>`<div class="ans"><p>${hl(x.a)}</p>${x.r?`<small>${esc(x.r)}</small>`:""}</div>`).join(""):`<p class="empty">No answers match that search.</p>`)};
+  el.querySelectorAll(".qlist button").forEach(b=>b.onclick=()=>{state.q=+b.dataset.i;el.querySelectorAll(".qlist button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()});
+  $("#qFind").oninput=draw;draw();
+}
+
+/* ---------- AI ---------- */
+function buildPrompt(){
+  const parts=[];let budget=24000;
+  state.cols.forEach(c=>{if(c.type==="choice"||c.type==="likert")parts.push(`Q: ${short(c.key)}\n`+tally(c.key,c.multi).map(([k,v])=>`  - ${k}: ${v}`).join("\n"))});
+  state.cols.filter(c=>c.type==="text").forEach(c=>{let b=`Q (written): ${short(c.key)}\n`;state.rows.forEach(r=>{const a=String(r[c.key]??"").replace(/\s+/g," ").trim();if(a&&budget>0){const s=a.slice(0,400);b+=`  - ${s}\n`;budget-=s.length}});parts.push(b)});
+  return `You are helping an AI trainer plan a workshop on AI usage for the ${state.dept} department of an organisation in Jamaica. Staff completed a discovery survey (${state.rows.length} responses).
+
+SURVEY DATA
+${parts.join("\n\n")}
+
+Respond with ONLY a JSON object, no markdown fences:
+{"summary":"3-4 sentences on where this team stands",
+"themes":[{"title":"short","detail":"1-2 sentences","evidence":"short paraphrase of what staff said"}],
+"opportunities":[{"process":"task","trigger":"what starts it","approach":"1 sentence","tool":"Microsoft 365 Copilot | Power Automate | Copilot Studio agent | AI chat assistant | Forms + Excel","impact":"High|Medium|Low","effort":"Low|Medium|High"}],
+"risks":["privacy or adoption risk; cite the Jamaica Data Protection Act 2020 where relevant"],
+"quickWins":["something staff can do in week one"],
+"agenda":[{"block":"session title","minutes":30,"focus":"what is covered and which real example to use"}]}
+4-6 themes, 5-8 opportunities (highest impact first), 3-5 risks, 3-5 quick wins, 5-7 agenda blocks for a half-day. Base everything on the data; invent no statistics; no names.`;
+}
+function renderAi(){
+  const o=state.ai,el=$("#aiOut");$("#saveAi").classList.toggle("hidden",!o);
+  if(!o){el.innerHTML=state.rows.length?"":`<div class="empty card"><h2>Nothing to analyse yet</h2><p>Upload responses first.</p></div>`;return}
+  const L=a=>Array.isArray(a)?a:[];
+  const pos={Low:.2,Medium:.5,High:.8};const opps=L(o.opportunities);
+  const seen={};
+  const dots=opps.map(x=>{const ex=pos[x.effort]??.5,im=pos[x.impact]??.5;const key=ex+"_"+im;seen[key]=(seen[key]||0)+1;const off=(seen[key]-1)*9;
+    return`<span class="dot" style="left:${ex*100}%;top:${(1-im)*100-8+off}%;${x.impact==="High"&&x.effort!=="High"?"border-color:var(--amber)":""}" title="${esc(x.process)}">${esc(x.process)}</span>`}).join("");
+  el.innerHTML=`<div class="card span2"><h3 style="margin-bottom:12px">Where the team stands</h3><p class="summary">${esc(o.summary)}</p></div>
+  <div class="card span2"><h3>Themes from staff</h3><p class="sub">What came up again and again</p><div class="themes">${L(o.themes).map(t=>`<div class="theme"><b>${esc(t.title)}</b><p>${esc(t.detail)}</p>${t.evidence?`<q>${esc(t.evidence)}</q>`:""}</div>`).join("")}</div></div>
+  <div class="grid g-2">
+   <div class="card"><h3>Impact versus effort</h3><p class="sub">Top-left are the pilots to build first</p><div class="matrix"><div class="qd win" style="left:0;top:0">Quick wins</div><div class="qd" style="left:50%;top:0">Major projects</div><div class="qd" style="left:0;top:50%">Nice to have</div><div class="qd" style="left:50%;top:50%">Deprioritise</div>${dots}</div><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:6px"><span>Low effort</span><span>High effort</span></div></div>
+   <div class="card"><h3>Quick wins for week one</h3><ul class="list">${L(o.quickWins).map(x=>`<li>${esc(x)}</li>`).join("")}</ul><h3 style="margin-top:20px">Risks to manage</h3><ul class="list">${L(o.risks).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+  </div>
+  <div class="card span2"><h3>Automation opportunities</h3><p class="sub">Ranked by impact</p><div class="tw"><table class="opp"><thead><tr><th>Process</th><th>Trigger</th><th>How AI helps</th><th>Tool</th><th>Impact</th><th>Effort</th></tr></thead><tbody>${opps.map(x=>`<tr><td><b>${esc(x.process)}</b></td><td>${esc(x.trigger)}</td><td>${esc(x.approach)}</td><td>${esc(x.tool)}</td><td><span class="pill ${esc(x.impact)}">${esc(x.impact)}</span></td><td>${esc(x.effort)}</td></tr>`).join("")}</tbody></table></div></div>
+  <div class="card span2"><h3>Suggested half-day agenda</h3><p class="sub">Built around what this team told us</p><div class="timeline">${(()=>{let t=0;return L(o.agenda).map(a=>{const s=t;t+=+a.minutes||0;return`<div class="tl"><span class="m">${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}</span><div><b>${esc(a.block)} <span style="font-weight:500">(${esc(a.minutes)} min)</span></b><span>${esc(a.focus)}</span></div></div>`}).join("")})()}</div></div>`;
+}
+function reportMd(){const o=state.ai;if(!o)return"";const L=a=>Array.isArray(a)?a:[];
+  return `# AI readiness report: ${state.dept}\nPrepared for the Kenista Simpson AI workshop. Responses analysed: ${state.rows.length}${state.demo?" (sample data)":""}\n\n## Where the team stands\n${o.summary}\n\n## Themes\n${L(o.themes).map(t=>`- **${t.title}**: ${t.detail}${t.evidence?` _(${t.evidence})_`:""}`).join("\n")}\n\n## Automation opportunities\n| Process | Trigger | How AI helps | Tool | Impact | Effort |\n|---|---|---|---|---|---|\n${L(o.opportunities).map(x=>`| ${x.process} | ${x.trigger} | ${x.approach} | ${x.tool} | ${x.impact} | ${x.effort} |`).join("\n")}\n\n## Quick wins\n${L(o.quickWins).map(x=>`- ${x}`).join("\n")}\n\n## Risks\n${L(o.risks).map(x=>`- ${x}`).join("\n")}\n\n## Agenda\n${L(o.agenda).map((a,i)=>`${i+1}. **${a.block}** (${a.minutes} min): ${a.focus}`).join("\n")}\n`}
+let sP=null,dP=null;
+const getS=()=>sP||(sP=window.claude?window.claude.use("sample"):Promise.resolve(null));
+const getD=()=>dP||(dP=window.claude?window.claude.use("downloads"):Promise.resolve(null));
+$("#runAi").onclick=async()=>{
+  const st=$("#aiStatus"),sm=$("#aiStream");
+  if(!state.rows.length){st.textContent="Upload responses first, then run the analysis.";return}
+  const sample=await getS();
+  if(!sample){st.textContent="AI analysis isn't available in this view. Open the dashboard in Claude to use it.";return}
+  $("#runAi").disabled=true;st.textContent="Reading every response. This usually takes 20 to 60 seconds.";sm.classList.remove("hidden");sm.textContent="";
+  try{const res=await sample(buildPrompt(),{modelTier:"default",onText:({text})=>{sm.textContent=text;sm.scrollTop=sm.scrollHeight}});
+    const c=res.text.replace(/```json|```/g,"").trim();state.ai=JSON.parse(c.slice(c.indexOf("{"),c.lastIndexOf("}")+1));save();renderAi();st.textContent="Workshop plan ready.";sm.classList.add("hidden")}
+  catch(e){st.textContent=e&&e.code==="not_granted"?"AI analysis needs your permission. Run it again and allow access.":e&&e.code==="rate_limited"?"Too many requests right now. Wait a minute and try again.":"The analysis didn't finish. Run it again."}
+  finally{$("#runAi").disabled=false}
+};
+$("#saveAi").onclick=async()=>{const d=await getD();if(!d){$("#aiStatus").textContent="Downloads aren't available in this view.";return}
+  try{await d.save({filename:`AI_Readiness_${state.dept.replace(/\s+/g,"_")}.md`,data:reportMd()});$("#aiStatus").textContent="Report saved."}catch(e){$("#aiStatus").textContent=e&&e.code==="declined"?"Download cancelled.":"The report couldn't be saved."}};
+
+/* ---------- setup ---------- */
+$("#tab-setup").innerHTML=`<div class="card"><h3>Automatic collection with Power Automate</h3><p class="sub">Each submission is saved, summarised by AI and announced in Teams while the survey is open.</p>
+<div class="flowdiag">${[["i-form","Form submitted","Microsoft Forms"],["i-bolt","Flow runs","Power Automate"],["i-spark","AI summary","AI Builder prompt"],["i-table","Row saved","Excel on SharePoint"],["i-bell","Team notified","Microsoft Teams"]].map(([i,b,s])=>`<div class="fn"><div class="ic">${ico(i)}</div><b>${b}</b><span>${s}</span></div>`).join("")}</div>
+<ol class="steps">
+<li><div><b>Create the forms</b><p>Use Quick Import in Microsoft Forms with the HR and Customer Experience v2 files, apply the branded theme image, and turn on Multiple answers for the "Select all that apply" questions.</p></div></li>
+<li><div><b>Prepare the Excel table</b><p>In SharePoint or OneDrive, create <code>AI_Discovery_Responses.xlsx</code> with a table named <code>Responses</code>: Department, Submitted, Role, Top tasks, Comfort score, Retyping hours, AI summary, Automation ideas.</p></div></li>
+<li><div><b>Add the trigger</b><p>New Automated cloud flow with <code>When a new response is submitted</code> (Microsoft Forms), pointed at the HR form.</p></div></li>
+<li><div><b>Read the answers</b><p><code>Get response details</code> using the Response Id from the trigger.</p></div></li>
+<li><div><b>Summarise with AI</b><p>AI Builder <code>Run a prompt</code>: "Summarise this staff survey response in 3 bullet points, then list up to 3 tasks that could be automated. Do not include names." Requires AI Builder credits or a Copilot Studio licence.</p></div></li>
+<li><div><b>Save to Excel</b><p><code>Add a row into a table</code> (Excel Online Business), mapping answers and the AI output.</p></div></li>
+<li><div><b>Notify the team</b><p><code>Post message in a chat or channel</code> (Teams) with the role and AI summary.</p></div></li>
+<li><div><b>Repeat for Customer Experience</b><p>Save As, switch the trigger and details steps to the CX form, set Department accordingly.</p></div></li>
+<li><div><b>Analyse here</b><p>When the survey closes, upload the Forms export and open AI workshop plan.</p></div></li>
+</ol></div>`;
+
+/* ---------- sample data ---------- */
+function demo(dept){
+  let seed=dept==="HR"?7:13;const rnd=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646};
+  const pick=a=>a[Math.floor(rnd()*a.length)];const some=(a,k)=>[...a].sort(()=>rnd()-.5).slice(0,k).join(";")+";";
+  const lk=b=>["1 - Strongly disagree","2 - Disagree","3 - Neutral","4 - Agree","5 - Strongly agree"][Math.max(1,Math.min(5,Math.round(b+rnd()*2-1)))-1];
+  const hr=dept==="HR";
+  const roles=hr?["HR Officer","HR Assistant","Recruitment Coordinator","Payroll Administrator","HR Manager","Training Officer"]:["Customer Service Rep","CX Team Lead","Call Centre Agent","Social Media Support","Complaints Officer","CX Supervisor"];
+  const tasks=hr?["Writing job descriptions","Screening / summarising CVs","Drafting interview questions","Offer & onboarding letters","Answering staff FAQs","Drafting HR policies","Performance review write-ups","Training materials","Meeting notes & minutes","HR reports & summaries"]:["Drafting email replies","Social media / WhatsApp replies","Handling complaints (tone)","Building FAQ answers","Summarising call notes","Analysing feedback & reviews","Weekly / monthly reports","Updating scripts & templates","Escalation summaries","Follow-up messages"];
+  const day=hr?["Mostly answering leave and payroll questions by email, then updating the leave tracker in Excel.","Screening CVs that come in by email. Each role gets 60+ applications and I read every one.","Preparing letters and contracts from old Word templates and fixing names and dates by hand.","Chasing managers for performance review forms and compiling them into one report.","Booking interviews across three managers' calendars, which takes far longer than the interviews.","Updating the staff database after every change of address, title or bank details.","Writing the same onboarding emails and checklists for every new hire.","Answering policy questions on Teams that are already covered in the handbook."]:["Replying to WhatsApp and email complaints, then logging each one in a spreadsheet.","Answering the same delivery and billing questions on calls all day.","Checking the billing system, then writing up the case for my supervisor.","Pulling the weekly complaints numbers from three different places into one report.","Handling angry customers on the phone, then writing up what happened for the file.","Rewriting replies so they sound professional, especially for complaints.","Searching old emails to find what we told a customer last time.","Translating technical answers from the operations team into plain language."];
+  const stuck=hr?["Approvals wait on managers who don't reply to email.","Information sits in different spreadsheets that don't match.","New hire paperwork gets lost between HR and IT.","Nobody owns the job description templates, so every one starts from scratch.","Training records are in paper files, so reports take days.","Payroll changes arrive late because the forms are emailed around."]:["Escalations sit in someone's inbox with no owner.","There's no single place to see a customer's history.","The FAQ document is out of date, so answers differ between agents.","Social media messages get missed over the weekend.","Refund approvals take days because they go through two managers by email.","We can't easily see which complaint types are increasing."];
+  const trig=hr?["When a leave request email arrives I check the balance, reply, and update the tracker.","When someone is hired I send the same six onboarding emails.","At month end I compile overtime from timesheets into payroll.","When a probation period ends I remind the manager and prepare the review form.","When a resignation arrives I start the same exit checklist every time."]:["When a complaint arrives on WhatsApp I copy it into the log and assign a category.","When a case is closed I send the same follow-up message.","Every Monday I build the weekly complaints report.","When a refund is approved I send the customer the same three messages.","When a bad review appears online I draft a response for the supervisor."];
+  return Array.from({length:14},(_,i)=>({"ID":i+1,"Your name":"","Your job title / role":pick(roles),
+   "How long have you been in your current role?":pick(["Less than 1 year","1 to 3 years","1 to 3 years","4 to 6 years","More than 6 years"]),
+   "Walk us through a typical day. Which tasks take up the most time?":pick(day),
+   "Where do things get stuck, delayed, or fall through the cracks?":pick(stuck),
+   "Which systems do you use in your daily work? (Select all that apply)":some(["Microsoft 365 (Outlook, Teams, Excel, Word)","WhatsApp or WhatsApp Business","SharePoint or OneDrive",hr?"A dedicated department system (HRIS, CRM or helpdesk)":"Paper forms and physical files","Accounting or ERP system"],2+Math.floor(rnd()*2)),
+   "Where is most of the information you work with stored?":pick(["Excel spreadsheets","Excel spreadsheets","Email inboxes","Spread across several places","SharePoint, OneDrive or shared drives"]),
+   "How much of your week is spent copying or re-typing information between systems?":pick(["Up to 2 hours","2 to 5 hours","2 to 5 hours","More than 5 hours","Almost none"]),
+   "Do you currently have access to Microsoft 365 Copilot or any other licensed AI tool at work?":pick(["No","No","I use free AI tools on my own","Not sure","I use free AI tools on my own","Yes, Microsoft 365 Copilot"]),
+   "Which of your tasks start with a trigger (e.g. an email arrives, a form is submitted, a date is reached) and then always follow the same steps?":pick(trig),
+   "Where would you prefer to use AI day to day?":pick(["Inside tools we already use (Outlook, Teams, Word, Excel)","Inside tools we already use (Outlook, Teams, Word, Excel)","On my phone","A separate AI chat tool"]),
+   "Which of these tasks would you like AI help with? (Select all that apply)":some(tasks,3+Math.floor(rnd()*3)),
+   "I understand what AI tools can do":lk(2.8),"I feel comfortable trying AI tools at work":lk(3.4),"I know what information is safe to share with AI":lk(2.2),"I believe AI could save me time each week":lk(4.1),"I would like hands-on training, not just a demo":lk(4.5)}));
+}
+
+/* ---------- wiring ---------- */
+function setRows(rows,isDemo,msg){state.rows=rows.filter(r=>Object.values(r).some(v=>String(v??"").trim()));state.demo=isDemo;state.ai=null;state.cols=classify(state.rows);save();renderAll();$("#status").textContent=msg||""}
+function readFile(f){
+  if(!window.XLSX){$("#status").textContent="The spreadsheet reader didn't load. Check the connection and reload.";return}
+  const rd=new FileReader();rd.onload=e=>{try{const wb=XLSX.read(new Uint8Array(e.target.result),{type:"array"});const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:"",raw:false});
+    if(!rows.length){$("#status").textContent="That file has no responses. Export again from Forms and retry.";return}
+    setRows(rows,false,`Loaded ${rows.length} responses from ${f.name}.`)}catch(err){$("#status").textContent="That file couldn't be read. Use the .xlsx from Forms' Open in Excel, or a .csv."}};rd.readAsArrayBuffer(f)}
+$("#file").onchange=e=>{if(e.target.files[0])readFile(e.target.files[0]);e.target.value=""};
+$("#upl").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("#file").click()}};
+const app=$("#app");
+["dragenter","dragover"].forEach(t=>app.addEventListener(t,e=>{e.preventDefault();app.classList.add("drop-over")}));
+["dragleave","drop"].forEach(t=>app.addEventListener(t,e=>{e.preventDefault();if(t==="drop"||e.target===app)app.classList.remove("drop-over")}));
+app.addEventListener("drop",e=>{app.classList.remove("drop-over");const f=e.dataTransfer.files[0];if(f)readFile(f)});
+$("#demo").onclick=()=>setRows(demo(state.dept),true,"");
+const titles={overview:"overview",answers:"staff voices",ai:"AI workshop plan",setup:"automation setup"};
+function header(){$("#title").textContent=(state.dept==="HR"?"HR ":"Customer Experience ")+titles[state.tab];$("#demoNote").classList.toggle("hidden",!state.demo);$("#demo").classList.toggle("hidden",state.demo)}
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));state.dept=b.dataset.dept;state.q=0;$("#status").textContent="";if(!load()){state.rows=demo(state.dept);state.demo=true;state.ai=null}state.cols=classify(state.rows);renderAll()});
+document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav.nav button").forEach(x=>x.toggleAttribute("aria-current",x===b));document.querySelectorAll("nav.nav button[aria-current]").forEach(x=>x.setAttribute("aria-current","page"));state.tab=b.dataset.tab;["overview","answers","ai","setup"].forEach(t=>$("#tab-"+t).classList.toggle("hidden",t!==state.tab));header()});
+function renderAll(){header();renderOverview();renderAnswers();renderAi()}
+if(!load()){state.rows=demo(state.dept);state.demo=true}
+state.cols=classify(state.rows);renderAll();
+})();
+</script>
+</body>
+</html>
