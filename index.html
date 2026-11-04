@@ -6,6 +6,7 @@
 <title>AI Workshop Hub | Your training plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="activities.js"></script>
+<script src="workshop.js"></script>
 <style>
 :root{
   --side:#0F1E29;--side2:#16303D;--side-ink:#DCE7EA;--side-mute:#8FA7AE;
@@ -95,6 +96,20 @@ main{padding:30px 36px 60px;min-width:0;max-width:1180px}
 .fn b{display:block;margin-bottom:4px}.fn span{font-size:13px;color:var(--mute)}
 .yes li::marker{color:var(--teal)}.no li::marker{color:var(--red)}
 .empty{text-align:center;padding:50px 20px;color:var(--mute)}.empty h2{color:var(--ink);font-size:21px;margin-bottom:8px}
+/* workshop day */
+.wk{display:flex;flex-direction:column;gap:12px}
+.wk details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow)}
+.wk summary{cursor:pointer;list-style:none;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}.wk summary::-webkit-details-marker{display:none}
+.wk summary .t{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:17px}
+.wk summary .tm{font-variant-numeric:tabular-nums;font-weight:800;color:var(--teal);min-width:3.2em}
+.wk summary .m{color:var(--mute);font-size:12.5px}
+.wk .intro{margin:12px 0 4px;max-width:75ch}
+.wk h4{font-size:14px;margin:14px 0 4px}
+.wk .mat{white-space:pre-wrap;background:var(--soft);border-radius:8px;padding:10px 12px;margin:4px 0 8px;font-size:14px}
+.wk .alt{border-top:1px dashed var(--line);margin-top:12px;padding-top:4px}
+.note{background:var(--ambersoft);border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:14px;white-space:pre-wrap}
+.note b{display:block;margin-bottom:4px}
+body.on-workshop #sampleNote{display:none!important}
 .hidden{display:none!important}
 @media (max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:860px){
@@ -130,6 +145,7 @@ main{padding:30px 36px 60px;min-width:0;max-width:1180px}
   </div>
   <nav class="nav" aria-label="Views">
    <button data-view="plan" aria-current="page"><svg><use href="#i-user"/></svg>My training plan</button>
+   <button data-view="workshop"><svg><use href="#i-clock"/></svg>Workshop day</button>
    <button data-view="insights"><svg><use href="#i-chart"/></svg>Group insights</button>
    <button data-view="groups"><svg><use href="#i-users"/></svg>Workshop groups</button>
    <button data-view="library"><svg><use href="#i-book"/></svg>Activity library</button>
@@ -140,6 +156,7 @@ main{padding:30px 36px 60px;min-width:0;max-width:1180px}
  <main>
   <div class="notice hidden" id="sampleNote"><span><b>Sample data.</b> No live plans yet, so you're seeing plans made from fictional answers. Real plans appear here automatically as people respond. <button type="button" id="leaveSample">Show live data</button></span></div>
   <section id="v-plan"></section>
+  <section id="v-workshop" class="hidden"></section>
   <section id="v-insights" class="hidden"></section>
   <section id="v-groups" class="hidden"></section>
   <section id="v-library" class="hidden"></section>
@@ -296,10 +313,31 @@ function renderHow(){
   </div>`;
 }
 
+/* ---------- workshop day ---------- */
+const WK=window.WORKSHOPS||{};
+let wkDept=/^#workshop-cx$/i.test(location.hash)?"CX":"HR";
+function wkPrompt(p){return `<div class="prompt" data-p="${esc(p)}"><button class="copy" type="button">Copy</button>${esc(p)}</div>`}
+function wkPart(x){return `${x.h?`<h4>${esc(x.h)}</h4>`:""}${x.text?`<div class="mat">${esc(x.text)}</div>`:""}${x.prompt?wkPrompt(x.prompt):""}`}
+function renderWorkshop(){
+  const el=$("#v-workshop"),w=WK[wkDept];
+  if(!w){el.innerHTML=`<div class="empty"><h2>Workshop content not loaded</h2><p>Check that workshop.js is published next to this page.</p></div>`;return}
+  el.innerHTML=`<div class="top"><h1>Workshop day: ${esc(w.title)}</h1><p>${esc(w.scenario)} Work in pairs: one types, one checks. Start a new chat for each exercise. Every prompt works in Claude, ChatGPT, Copilot or Gemini.</p></div>
+  <div class="filters">${["HR","CX"].map(d=>`<button type="button" data-wd="${d}" aria-pressed="${d===wkDept}">${DEPT[d]}</button>`).join("")}</div>
+  ${w.note?`<div class="note"><b>The outage note: the only source of facts this week</b>${esc(w.note)}</div>`:""}
+  <div class="wk">${w.blocks.map((b,i)=>`<details id="${esc(b.id)}"${i===0?" open":""}><summary><span class="tm">${esc(b.time)}</span><span class="t">${esc(b.title)}</span><span class="m">${b.minutes} min · Cisco ${esc(b.cisco)}</span></summary>
+   <p class="intro">${esc(b.intro)}</p>${b.parts.map(wkPart).join("")}
+   ${b.alt?`<div class="alt">${wkPart(b.alt)}</div>`:""}</details>`).join("")}</div>`;
+  el.querySelectorAll("[data-wd]").forEach(b=>b.onclick=()=>{wkDept=b.dataset.wd;try{history.replaceState(null,"","#workshop-"+wkDept.toLowerCase())}catch(e){}renderWorkshop()});
+  el.querySelectorAll(".copy").forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.parentElement.dataset.p);b.textContent="Copied"}catch(e){b.textContent="Select and copy"}setTimeout(()=>b.textContent="Copy",1600)});
+}
+
+const VIEWS=["plan","workshop","insights","groups","library","how"];
+function show(v){view=v;document.querySelectorAll("nav.nav button").forEach(x=>{if(x.dataset.view===v)x.setAttribute("aria-current","page");else x.removeAttribute("aria-current")});VIEWS.forEach(n=>$("#v-"+n).classList.toggle("hidden",n!==v));document.body.classList.toggle("on-workshop",v==="workshop")}
 function renderAll(){renderLive();renderPlan();renderInsights();renderGroups();renderLibrary()}
-document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav.nav button").forEach(x=>x.removeAttribute("aria-current"));b.setAttribute("aria-current","page");view=b.dataset.view;["plan","insights","groups","library","how"].forEach(v=>$("#v-"+v).classList.toggle("hidden",v!==view));window.scrollTo(0,0)});
+document.querySelectorAll("nav.nav button").forEach(b=>b.onclick=()=>{show(b.dataset.view);window.scrollTo(0,0)});
 $("#leaveSample").onclick=()=>{useSample=false;lastCode="";renderAll()};
-renderHow();refresh(true);setInterval(()=>refresh(false),120000);
+renderHow();renderWorkshop();if(/^#workshop/i.test(location.hash))show("workshop");
+refresh(true);setInterval(()=>refresh(false),120000);
 })();
 </script>
 </body>
