@@ -7,3 +7,6 @@ responses/
 !practice/*.xlsx
 work/
 __pycache__/
+
+# Beelink deploy secrets
+deploy/.env
