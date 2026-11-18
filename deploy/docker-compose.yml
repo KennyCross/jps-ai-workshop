@@ -1,0 +1,49 @@
+# AI Workshop Hub on the Beelink
+# Three small containers, kept apart from Nexora by their own project name and network:
+#   sync   - keeps a copy of this GitHub repository up to date (pulls every 5 minutes)
+#   web    - serves that copy as a website (nginx)
+#   tunnel - Cloudflare Tunnel: public HTTPS address, no router port forwarding
+# Start:  docker compose --env-file .env up -d      (run inside this deploy/ folder)
+# Stop:   docker compose down
+name: ai-workshop
+
+services:
+  sync:
+    image: alpine:3.20
+    restart: unless-stopped
+    environment:
+      REPO_URL: ${REPO_URL:-https://github.com/KennyCross/jps-ai-workshop.git}
+      BRANCH: ${BRANCH:-main}
+    volumes:
+      - site:/site
+    command: >
+      sh -c "apk add --no-cache git >/dev/null &&
+             git config --global --add safe.directory /site &&
+             while true; do
+               if [ -d /site/.git ]; then
+                 git -C /site fetch --depth 1 origin $$BRANCH && git -C /site reset --hard origin/$$BRANCH;
+               else
+                 git clone --depth 1 --branch $$BRANCH $$REPO_URL /site;
+               fi;
+               sleep 300;
+             done"
+
+  web:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on: [sync]
+    volumes:
+      - site:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      # For testing on your home network only: http://<beelink-ip>:8090
+      - "8090:80"
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    depends_on: [web]
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+
+volumes:
+  site:
