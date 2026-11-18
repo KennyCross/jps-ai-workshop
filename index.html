@@ -107,6 +107,8 @@ main{padding:30px 36px 60px;min-width:0;max-width:1180px}
 .wk h4{font-size:14px;margin:14px 0 4px}
 .wk .mat{white-space:pre-wrap;background:var(--soft);border-radius:8px;padding:10px 12px;margin:4px 0 8px;font-size:14px}
 .wk .alt{border-top:1px dashed var(--line);margin-top:12px;padding-top:4px}
+.wk .dl{display:inline-block;margin:4px 8px 8px 0;padding:8px 14px;border-radius:999px;background:var(--teal);color:#fff;font-weight:700;text-decoration:none;font-size:14px}
+.wk details.pause{background:var(--soft);box-shadow:none;padding:8px 18px}
 .note{background:var(--ambersoft);border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:14px;white-space:pre-wrap}
 .note b{display:block;margin-bottom:4px}
 body.on-workshop #sampleNote{display:none!important}
@@ -317,14 +319,14 @@ function renderHow(){
 const WK=window.WORKSHOPS||{};
 let wkDept=/^#workshop-cx$/i.test(location.hash)?"CX":"HR";
 function wkPrompt(p){return `<div class="prompt" data-p="${esc(p)}"><button class="copy" type="button">Copy</button>${esc(p)}</div>`}
-function wkPart(x){return `${x.h?`<h4>${esc(x.h)}</h4>`:""}${x.text?`<div class="mat">${esc(x.text)}</div>`:""}${x.prompt?wkPrompt(x.prompt):""}`}
+function wkPart(x){return `${x.h?`<h4>${esc(x.h)}</h4>`:""}${x.text?`<div class="mat">${esc(x.text)}</div>`:""}${x.prompt?wkPrompt(x.prompt):""}${(x.files||[]).map(f=>`<a class="dl" href="${esc(f.href)}"${/\.zip$/i.test(f.href)?" download":` target="_blank" rel="noopener"`}>${esc(f.label)}</a>`).join("")}`}
 function renderWorkshop(){
   const el=$("#v-workshop"),w=WK[wkDept];
   if(!w){el.innerHTML=`<div class="empty"><h2>Workshop content not loaded</h2><p>Check that workshop.js is published next to this page.</p></div>`;return}
-  el.innerHTML=`<div class="top"><h1>Workshop day: ${esc(w.title)}</h1><p>${esc(w.scenario)} Work in pairs: one types, one checks. Start a new chat for each exercise. Every prompt works in Claude, ChatGPT, Copilot or Gemini.</p></div>
+  el.innerHTML=`<div class="top"><h1>Workshop day: ${esc(w.title)}</h1><p>${esc(w.scenario)} A full day in Claude, 8:30 a.m. to 4:30 p.m.: chats in the morning, your own Project at midday, skills in the afternoon. Work in pairs: one types, one checks. Use your company Claude account and made-up data only.</p></div>
   <div class="filters">${["HR","CX"].map(d=>`<button type="button" data-wd="${d}" aria-pressed="${d===wkDept}">${DEPT[d]}</button>`).join("")}</div>
   ${w.note?`<div class="note"><b>The outage note: the only source of facts this week</b>${esc(w.note)}</div>`:""}
-  <div class="wk">${w.blocks.map((b,i)=>`<details id="${esc(b.id)}"${i===0?" open":""}><summary><span class="tm">${esc(b.time)}</span><span class="t">${esc(b.title)}</span><span class="m">${b.minutes} min · Cisco ${esc(b.cisco)}</span></summary>
+  <div class="wk">${w.blocks.map((b,i)=>`<details id="${esc(b.id)}"${i===0?" open":""}${b.parts.length?"":` class="pause"`}><summary><span class="tm">${esc(b.time)}</span><span class="t">${esc(b.title)}</span><span class="m">${b.minutes} min${b.step?` · Claude: ${esc(b.step)}`:""}</span></summary>
    <p class="intro">${esc(b.intro)}</p>${b.parts.map(wkPart).join("")}
    ${b.alt?`<div class="alt">${wkPart(b.alt)}</div>`:""}</details>`).join("")}</div>`;
   el.querySelectorAll("[data-wd]").forEach(b=>b.onclick=()=>{wkDept=b.dataset.wd;try{history.replaceState(null,"","#workshop-"+wkDept.toLowerCase())}catch(e){}renderWorkshop()});

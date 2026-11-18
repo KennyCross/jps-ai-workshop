@@ -22,10 +22,13 @@ ever published.
 
 ## Workshop day
 
-The **Workshop day** page (`index.html#workshop-hr` or `#workshop-cx`) holds everything
-participants need during the two half-day workshops: the scenario, every exercise in running
-order, the made-up practice material and ready-to-copy prompts. It is built around Claude, and
-every prompt is plain text, so it also works in ChatGPT, Copilot or Gemini.
+The **Workshop day** page (`index.html#workshop-hr` or `#workshop-cx`) runs each full-day
+workshop, 8:30 a.m. to 4:30 p.m., in Claude. It holds every block in running order: the
+scenario, the made-up practice material, ready-to-copy prompts and the downloads.
+
+The day climbs three steps: a **chat** for one-off work (Claude Quest), a **Project** for work
+you come back to (the HR Policy Desk or CX Outage Desk, and the case exercises), and a
+**skill** that makes Claude do a task the same way every time (Skills Lab and Pilot Lab).
 
 - **HR: filling a vacancy.** Job description, then screening, interviews, first week and policy
   questions. There is an alternate task at each step for HR staff who don't recruit.
@@ -33,9 +36,21 @@ every prompt is plain text, so it also works in ChatGPT, Copilot or Gemini.
   difficult-call practice and the Friday report.
 
 The page has **no answers**: several exercises contain planted mistakes for participants to find.
-The answers, debrief notes and timings are in the facilitator activity cards and the facilitator
-guide, which are kept outside this public repository. Participants come to the workshop after
-completing Cisco's *Introduction to Modern AI*, and the exercises say which lessons they build on.
+The answers, debrief notes and timings are in the facilitator guide and activity cards, which are
+kept outside this public repository.
+
+### Workshop skills
+
+`skills/` holds the two skills used in the Skills Lab, each as a folder and as a ZIP file ready
+to upload in Claude (Customize, Skills, +, Create skill, Upload a skill), or for an owner to add
+for the whole organisation (Organization settings, Plugins & skills, Add):
+
+- `outage-update-writer`: customer outage messages from the internal note only, with the
+  fallen-line safety message and a fact check.
+- `hr-letter-writer`: standard HR letters with placeholders, the house tone and a list of what
+  HR must confirm.
+
+After editing a `SKILL.md`, rebuild its ZIP from inside `skills/`: `zip -r <name>.zip <name>`.
 
 ## Hosting
 
@@ -49,7 +64,8 @@ as the backup.
 |---|---|
 | `index.html` | The public hub |
 | `activities.js` | The activity library the AI chooses from (edit to add or change activities) |
-| `workshop.js` | Workshop-day content for HR and CX: blocks, practice material and prompts (no answers) |
+| `workshop.js` | Workshop-day content for HR and CX: the full-day running order, practice material and prompts (no answers) |
+| `skills/` | The two workshop skills, as folders and as ZIP files to upload in Claude |
 | `deploy/` | Docker Compose, nginx and Cloudflare Tunnel setup for hosting on the Beelink |
 | `PROCESSING.md` | Instructions the scheduled AI run follows |
 | `scripts/prepare.py`, `scripts/publish.py` | Rule-based steps and the privacy check |
