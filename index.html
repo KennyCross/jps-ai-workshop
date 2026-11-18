@@ -323,7 +323,7 @@ function wkPart(x){return `${x.h?`<h4>${esc(x.h)}</h4>`:""}${x.text?`<div class=
 function renderWorkshop(){
   const el=$("#v-workshop"),w=WK[wkDept];
   if(!w){el.innerHTML=`<div class="empty"><h2>Workshop content not loaded</h2><p>Check that workshop.js is published next to this page.</p></div>`;return}
-  el.innerHTML=`<div class="top"><h1>Workshop day: ${esc(w.title)}</h1><p>${esc(w.scenario)} A full day in Claude, 8:30 a.m. to 4:30 p.m.: chats in the morning, your own Project at midday, skills in the afternoon. Work in pairs: one types, one checks. Use your company Claude account and made-up data only.</p></div>
+  el.innerHTML=`<div class="top"><h1>Workshop day: ${esc(w.title)}</h1><p>${esc(w.scenario)} A full day in Claude, 8:30 a.m. to 4:30 p.m.: chats in the morning, your own Project at midday, skills in the afternoon, with three short taught segments along the way. Work in pairs: one types, one checks. Use your company Claude account and made-up data only.</p></div>
   <div class="filters">${["HR","CX"].map(d=>`<button type="button" data-wd="${d}" aria-pressed="${d===wkDept}">${DEPT[d]}</button>`).join("")}</div>
   ${w.note?`<div class="note"><b>The outage note: the only source of facts this week</b>${esc(w.note)}</div>`:""}
   <div class="wk">${w.blocks.map((b,i)=>`<details id="${esc(b.id)}"${i===0?" open":""}${b.parts.length?"":` class="pause"`}><summary><span class="tm">${esc(b.time)}</span><span class="t">${esc(b.title)}</span><span class="m">${b.minutes} min${b.step?` · Claude: ${esc(b.step)}`:""}</span></summary>
