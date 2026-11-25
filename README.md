@@ -26,9 +26,13 @@ The **Workshop day** page (`index.html#workshop-hr` or `#workshop-cx`) runs each
 workshop, 8:30 a.m. to 4:30 p.m., in Claude. It holds every block in running order: the
 scenario, the made-up practice material, ready-to-copy prompts and the downloads.
 
-The day climbs three steps: a **chat** for one-off work (Claude Quest), a **Project** for work
-you come back to (the HR Policy Desk or CX Outage Desk, and the case exercises), and a
-**skill** that makes Claude do a task the same way every time (Skills Lab and Pilot Lab).
+The day runs as eight modules based on Anthropic's Claude Academy courses
+[Claude 101](https://academy.claude.com/courses/claude-101) and
+[AI Fluency](https://academy.claude.com/courses/ai-fluency-framework-foundations): Meet Claude,
+Description, Discernment, Projects, Artifacts and files, Skills, Connectors and Research, and
+Delegation and Diligence (the Pilot Lab). Each module has a short taught part, links to the
+matching Academy lesson, and a hands-on activity. Case exercises not used on the day are listed
+as extras.
 
 - **HR: filling a vacancy.** Job description, then screening, interviews, first week and policy
   questions. There is an alternate task at each step for HR staff who don't recruit.
