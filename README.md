@@ -26,18 +26,20 @@ The **Workshop day** page (`index.html#workshop-hr` or `#workshop-cx`) runs each
 workshop, 8:30 a.m. to 4:30 p.m., in Claude. It holds every block in running order: the
 scenario, the made-up practice material, ready-to-copy prompts and the downloads.
 
-The day runs as eight modules based on Anthropic's Claude Academy courses
-[Claude 101](https://academy.claude.com/courses/claude-101) and
-[AI Fluency](https://academy.claude.com/courses/ai-fluency-framework-foundations): Meet Claude,
-Description, Discernment, Projects, Artifacts and files, Skills, Connectors and Research, and
-Delegation and Diligence (the Pilot Lab). Each module has a short taught part, links to the
-matching Academy lesson, and a hands-on activity. Case exercises not used on the day are listed
-as extras.
+The day runs as a **Claude Workflow Studio**. Each pair redesigns one real workflow (their own,
+anonymised, or one of three made-up workflow packs per group) through six stages: map, split,
+brief, build, test and deploy. These follow Anthropic's AI Fluency framework (Delegation,
+Description, Discernment, Diligence). Five short masterclasses, drawn from
+[Claude 101](https://academy.claude.com/courses/claude-101),
+[AI Fluency](https://academy.claude.com/courses/ai-fluency-framework-foundations) and
+[AI capabilities and limitations](https://academy.claude.com/courses/ai-capabilities-and-limitations),
+teach the techniques when they are needed. Each pair finishes with a tested Claude Project and
+skill, a five-case test set with a pass rate, and a one-page Workflow Playbook, presented to a
+management panel at 4:00.
 
-- **HR: filling a vacancy.** Job description, then screening, interviews, first week and policy
-  questions. There is an alternate task at each step for HR staff who don't recruit.
-- **CX: the week after a major outage.** Service updates, then the contact surge, an escalation,
-  difficult-call practice and the Friday report.
+- **HR workflow packs:** A. Recruitment, B. Policy questions desk, C. Monthly absence report.
+- **CX workflow packs:** A. Outage communications, B. Complaints and escalations, C. Weekly
+  customer insight report.
 
 The page has **no answers**: several exercises contain planted mistakes for participants to find.
 The answers, debrief notes and timings are in the facilitator guide and activity cards, which are
